@@ -17,18 +17,33 @@
       - brew-cask
       - node
   -
+    name: Install gems
+    gem: name={{ item }} state=latest user_install=no
+    sudo: yes
+    with_items:
+      - haml-lint
+      - ruby-lint
+      - sqlint
+      - rubocop
+  -
     name: install npm packages
     npm: name={{ item }} state=present global=yes
     with_items:
       - eslint
       - babel-eslint
       - eslint-plugin-react
+      - json-lint
+      - bower
+      - grunt-cli
   -
     name: install casks
     homebrew_cask: name={{ item }} state=present
     with_items:
       - font-fira-mono
       - font-fira-mono-for-powerline
+      - iterm2
+      - slack
+      - skype
   -
     name: install latest VIM
     homebrew: name=vim state=latest update_homebrew=yes install_options=override-system-vi
@@ -49,7 +64,12 @@
       - gitconfig
       - gitignore_global
       - eslintrc
-
   -
     name: install vim plugins
     shell: "vim +PluginInstall +qal"
+  -
+    name: install Fira Mono into iTerm2
+    shell: /usr/libexec/PlistBuddy -c 'Set :"New Bookmarks":0:"{{ item.name }}" "{{ item.value }}"' ~/Library/Preferences/com.googlecode.iterm2.plist
+    with_items:
+      - { name: "Normal Font", value: "Fira Mono 10" }
+      - { name: "Non Ascii Font", value: "Fira Mono 10" }
