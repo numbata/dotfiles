@@ -1,0 +1,29 @@
+[user]
+  name = Andrey Subbota
+  email = subbota@gmail.com
+[push]
+	default = current
+[alias]
+  co = checkout
+  ci = commit -v
+  st = status
+  br = branch
+  up = pull --rebase
+  put = push origin HEAD
+  ds = diff --staged
+  undo = reset --soft HEAD^
+  ls = log --pretty=format':%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short
+  graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
+  ltag =! bash -c 'git tag -l | sort -V | tail -1'
+  lp = log -p
+[core]
+  excludesfile = ~/.gitignore_global
+  editor = vim
+[github]
+  user = numbata
+[color]
+  ui = true
+[include]
+  path = .gitconfig.local
+[apply]
+  whitespace = nowarn
