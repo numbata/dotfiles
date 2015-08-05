@@ -53,6 +53,7 @@ set tags+=.git/tags
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_  " Show “invisible” characters
 set nojoinspaces                      " Don't add 2 spaces when using J
 set title                             " Change the terminal's title
+set backspace=indent,eol,start
 
 " keyboard shortcuts
 let mapleader = ','
