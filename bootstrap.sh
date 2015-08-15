@@ -12,4 +12,4 @@ if ! [ -x "$(command -v ansible-playbook)" ]; then
 fi
 
 echo "Play ansible playbook"
-ansible-playbook -i "localhost," -c local --ask-become-pass playbook.yml
+ansible-playbook -i "localhost," -c local --ask-become-pass playbook.yml -vvvv

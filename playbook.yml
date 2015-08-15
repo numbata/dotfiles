@@ -21,7 +21,7 @@
       - docker-compose
       - wget
       - kubernetes-cli
-
+      - the_silver_searcher
   -
     name: Install gems
     gem: name={{ item }} state=latest user_install=no
@@ -51,6 +51,7 @@
       - iterm2
       - slack
       - skype
+      - lunchy
   -
     name: install latest VIM
     homebrew: name=vim state=latest update_homebrew=yes install_options=override-system-vi
@@ -79,8 +80,15 @@
     name: setup boot2docker
     shell: boot2docker init
   -
-    name: boot2docker up
-    shell: boot2docker up
+    name: setup services
+    template: src=services/{{ item }}.j2 dest=~/Library/LaunchAgents/{{ item }} force=yes mode=770
+    with_items:
+      - com.user.boot2docker.plist
+  -
+    name: Up services
+    shell: lunchy start {{ item }}
+    with_items:
+      - boot2docker
   -
     name: boot2docker DNS setup
     shell: boot2docker ssh "echo 'EXTRA_ARGS=\"--dns 10.40.40.1 --dns 8.8.8.8 --insecure-registry registry.default.kube.ul.home\"' | sudo tee /var/lib/boot2docker/profile"
