@@ -17,11 +17,13 @@
       - brew-cask
       - node
       - docker
-      - boot2docker
+      - docker-machine
       - docker-compose
+      - boot2docker
       - wget
       - kubernetes-cli
       - the_silver_searcher
+      - jsonpp
   -
     name: Install gems
     gem: name={{ item }} state=latest user_install=no
