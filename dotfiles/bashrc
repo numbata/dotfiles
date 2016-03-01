@@ -1,3 +1,5 @@
 export PATH="~/bin:$PATH"
+export GOPATH="$HOME/.go"
+export GO15VENDOREXPERIMENT=1
 
-eval $(boot2docker shellinit)
+source ~/.aliases

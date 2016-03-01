@@ -10,6 +10,7 @@
       - thoughtbot/formulae
       - caskroom/cask
       - caskroom/fonts
+
   -
     name: install brew packages
     homebrew: name={{ item }}  state=latest update_homebrew=yes
@@ -17,13 +18,13 @@
       - brew-cask
       - node
       - docker
-      - docker-machine
       - docker-compose
-      - boot2docker
+      - xhyve
+      - go
       - wget
-      - kubernetes-cli
       - the_silver_searcher
       - jsonpp
+
   -
     name: Install gems
     gem: name={{ item }} state=latest user_install=no
@@ -33,6 +34,7 @@
       - ruby-lint
       - sqlint
       - rubocop
+
   -
     name: install npm packages
     npm: name={{ item }} state=present global=yes
@@ -43,6 +45,7 @@
       - json-lint
       - bower
       - grunt-cli
+
   -
     name: install casks
     homebrew_cask: name={{ item }} state=present
@@ -54,46 +57,81 @@
       - slack
       - skype
       - lunchy
+
   -
     name: install latest VIM
     homebrew: name=vim state=latest update_homebrew=yes install_options=override-system-vi
+
   -
     name: install vundle
     git: repo=https://github.com/gmarik/Vundle.vim.git dest=~/.vim/bundle/Vundle.vim update=no
+
   -
     name: touch local.dotfiles
     file: path=~/.{{ item }} state=touch
     with_items:
       - vimrc.bundles.local
+      - profile
+
   -
     name: setup dotfiles
     template: src=dotfiles/{{ item }} dest=~/.{{ item }} force=yes
     with_items:
+      - aliases
       - vimrc
       - vimrc.bundles
       - bashrc
       - gitconfig
       - gitignore_global
       - eslintrc
+
+  -
+    name: setup ~/.bashrc
+    lineinfile: dest=~/.profile line="source ~/.bashrc" regexp="bashrc"
+
   -
     name: install vim plugins
     shell: "vim +PluginInstall +qal"
+
   -
-    name: setup boot2docker
-    shell: boot2docker init
+    name: setup go path
+    file: path="~/.go" state="directory"
+
   -
-    name: setup services
-    template: src=services/{{ item }}.j2 dest=~/Library/LaunchAgents/{{ item }} force=yes mode=770
-    with_items:
-      - com.user.boot2docker.plist
+    name: load dotfiles
+    shell: source ~/.bashrc
+
   -
-    name: Up services
-    shell: lunchy start {{ item }}
-    with_items:
-      - boot2docker
+    name: get user path
+    stat: path="~"
+    register: homepath
+
   -
-    name: boot2docker DNS setup
-    shell: boot2docker ssh "echo 'EXTRA_ARGS=\"--dns 10.40.40.1 --dns 8.8.8.8 --insecure-registry registry.default.kube.ul.home\"' | sudo tee /var/lib/boot2docker/profile"
+    name: build docker-machine
+    shell: go get github.com/docker/machine && cd ~/.go/src/github.com/docker/machine && make build
+
+  -
+    name: install docker-machine
+    sudo: true
+    shell: cd "{{ homepath.stat.path }}/.go/src/github.com/docker/machine" && make install
+
+  -
+    name: build docker-machine-driver-xhyve
+    shell: go get -u github.com/zchee/docker-machine-driver-xhyve && cd "{{ homepath.stat.path }}/.go/src/github.com/zchee/docker-machine-driver-xhyve" && make build
+
+  -
+    name: install docker-machine-driver-xhyve
+    shell: cd "{{ homepath.stat.path }}/.go/src/github.com/zchee/docker-machine-driver-xhyve" && make install
+
+  -
+    name: set docker-machive-dirver-xhyve mode
+    sudo: true
+    file: path="{{ homepath.stat.path }}/.go/bin/docker-machine-driver-xhyve" mode="u+s" owner="root" group="wheel"
+
+  -
+    name: create dev machine
+    shell: docker-machine create dev --driver xhyve --xhyve-experimental-nfs-share --xhyve-disk-size "50000" --xhyve-cpu-count "2" --xhyve-memory-size "3072"
+
   -
     name: setup iTerm2
     shell: /usr/libexec/PlistBuddy -c 'Set :"New Bookmarks":0:"{{ item.name }}" "{{ item.value }}"' ~/Library/Preferences/com.googlecode.iterm2.plist
@@ -105,3 +143,5 @@
       - { name: 'Flashing Bell', value: 'false' }
       - { name: 'BM Growl', value: 'false' }
       - { name: 'Scrollback Lines', value: '15000' }
+
+

@@ -1,0 +1,4 @@
+# Git
+alias gco='git checkout'
+alias gus='git reset HEAD'
+alias gsu='git submodule update --init --recursive'
