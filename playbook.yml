@@ -1,7 +1,7 @@
 ---
 -
   hosts: all
-  sudo: false
+  become: false
   tasks:
   -
     name: Taps homebrew repos
@@ -17,9 +17,6 @@
     with_items:
       - brew-cask
       - node
-      - docker
-      - docker-compose
-      - xhyve
       - go
       - wget
       - the_silver_searcher
@@ -28,7 +25,7 @@
   -
     name: Install gems
     gem: name={{ item }} state=latest user_install=no
-    sudo: yes
+    become: yes
     with_items:
       - haml-lint
       - ruby-lint
@@ -57,6 +54,7 @@
       - slack
       - skype
       - lunchy
+      - dockertoolbox
 
   -
     name: install latest VIM
@@ -105,32 +103,6 @@
     name: get user path
     stat: path="~"
     register: homepath
-
-  -
-    name: build docker-machine
-    shell: go get github.com/docker/machine && cd ~/.go/src/github.com/docker/machine && make build
-
-  -
-    name: install docker-machine
-    sudo: true
-    shell: cd "{{ homepath.stat.path }}/.go/src/github.com/docker/machine" && make install
-
-  -
-    name: build docker-machine-driver-xhyve
-    shell: go get -u github.com/zchee/docker-machine-driver-xhyve && cd "{{ homepath.stat.path }}/.go/src/github.com/zchee/docker-machine-driver-xhyve" && make build
-
-  -
-    name: install docker-machine-driver-xhyve
-    shell: cd "{{ homepath.stat.path }}/.go/src/github.com/zchee/docker-machine-driver-xhyve" && make install
-
-  -
-    name: set docker-machive-dirver-xhyve mode
-    sudo: true
-    file: path="{{ homepath.stat.path }}/.go/bin/docker-machine-driver-xhyve" mode="u+s" owner="root" group="wheel"
-
-  -
-    name: create dev machine
-    shell: docker-machine create dev --driver xhyve --xhyve-experimental-nfs-share --xhyve-disk-size "50000" --xhyve-cpu-count "2" --xhyve-memory-size "3072"
 
   -
     name: setup iTerm2

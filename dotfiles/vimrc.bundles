@@ -16,6 +16,7 @@ Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'jgdavey/tslime.vim'
 " Plugin 'altercation/vim-colors-solarized'
 
 " Ruby

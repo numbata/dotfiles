@@ -6,9 +6,11 @@ if ! [ -x "$(command -v brew)" ]; then
   brew update
 fi
 
+echo "Install latest ansible release"
 if ! [ -x "$(command -v ansible-playbook)" ]; then
-  echo "Install ansible"
   brew install ansible
+else
+  brew upgrade ansbile
 fi
 
 echo "Play ansible playbook"
