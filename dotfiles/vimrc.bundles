@@ -17,6 +17,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'jgdavey/tslime.vim'
+Plugin 'tpope/vim-fugitive'
 " Plugin 'altercation/vim-colors-solarized'
 
 " Ruby
@@ -24,6 +25,9 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-bundler'
 Plugin 'slim-template/vim-slim'
+
+" Nim
+Plugin 'zah/nim.vim'
 
 " JS/JSX/Node/React
 Plugin 'pangloss/vim-javascript'

@@ -10,7 +10,7 @@ echo "Install latest ansible release"
 if ! [ -x "$(command -v ansible-playbook)" ]; then
   brew install ansible
 else
-  brew upgrade ansbile
+  brew upgrade ansible
 fi
 
 echo "Play ansible playbook"
