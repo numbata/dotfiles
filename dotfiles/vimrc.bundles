@@ -18,7 +18,9 @@ Plugin 'tpope/vim-surround'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'editorconfig/editorconfig-vim'
 " Plugin 'altercation/vim-colors-solarized'
+Plugin 'w0rp/ale'
 
 " Ruby
 Plugin 'tpope/vim-rails'
@@ -33,3 +35,6 @@ Plugin 'zah/nim.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'mtscout6/vim-cjsx'
+
+" Elixir
+Plugin 'elixir-lang/vim-elixir'
