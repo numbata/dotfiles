@@ -120,6 +120,8 @@
       - gitconfig
       - gitignore_global
       - eslintrc
+      - hgrc
+      - hgignore
 
   -
     name: setup ~/.bashrc

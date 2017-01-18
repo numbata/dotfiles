@@ -23,6 +23,9 @@ Plugin 'shime/vim-livedown'
 Plugin 'vim-airline/vim-airline'
 Plugin 'ekalinin/Dockerfile.vim'
 
+" Confluence wiki
+Plugin 'confluencewiki.vim'
+
 " Plugin 'altercation/vim-colors-solarized'
 Plugin 'w0rp/ale'
 
