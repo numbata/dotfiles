@@ -1,1 +1,3 @@
-playbook.retry
+*.retry
+*.swp
+*.swo
