@@ -21,6 +21,8 @@
       - the_silver_searcher
       - jsonpp
       - elixir
+      - hub
+      - mercurial
 
   -
     name: Install gems
