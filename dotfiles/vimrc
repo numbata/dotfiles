@@ -68,9 +68,10 @@ let g:NERDSpaceDelims=1
 
 " Syntastic
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-let g:syntastic_javascript_checkers = ['eslint', 'jsxhint']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_haml_checkers = ['haml_lint']
 let g:syntastic_ruby_checkers = ['rubocop', 'mri']
+let g:syntastic_auto_loc_list = 0
 
 " Vim-Json
 let g:vim_json_syntax_conceal = 0
@@ -84,12 +85,17 @@ if executable('ag')
   let g:agprg = 'ag --nogroup --nocolor --column --smart-case'
 endif
 
+" Livedown
+nmap gm :LivedownToggle<CR>
 
 " fdoc is yaml
 autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
 " md is markdown
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile *.md set spell
+" cap is capistrano ruby
+autocmd BufRead,BufNewFile *.cap set filetype=ruby
+autocmd BufRead,BufNewFile Capfile set filetype=ruby
 " extra rails.vim help
 autocmd User Rails silent! Rnavcommand decorator      app/decorators            -glob=**/* -suffix=_decorator.rb
 autocmd User Rails silent! Rnavcommand observer       app/observers             -glob=**/* -suffix=_observer.rb

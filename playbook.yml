@@ -27,6 +27,7 @@
     gem: name={{ item }} state=latest user_install=no
     become: yes
     with_items:
+      - mdl
       - haml-lint
       - ruby-lint
       - sqlint
@@ -38,11 +39,18 @@
     npm: name={{ item }} state=present global=yes
     with_items:
       - eslint
+      - livedown
       - babel-eslint
       - eslint-plugin-react
+      - eslint-plugin-flowtype
+      - eslint-plugin-import
+      - eslint-import-resolver-webpack
+      - eslint-plugin-jsx-a11y
+      - eslint-config-airbnb
       - json-lint
       - bower
       - grunt-cli
+      - stylelint
 
   -
     name: install casks

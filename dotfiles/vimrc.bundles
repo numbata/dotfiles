@@ -19,6 +19,10 @@ Plugin 'nanotech/jellybeans.vim'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'shime/vim-livedown'
+Plugin 'vim-airline/vim-airline'
+Plugin 'ekalinin/Dockerfile.vim'
+
 " Plugin 'altercation/vim-colors-solarized'
 Plugin 'w0rp/ale'
 
@@ -34,7 +38,11 @@ Plugin 'zah/nim.vim'
 " JS/JSX/Node/React
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+" Plugin 'flowtype/vim-flow'
 Plugin 'mtscout6/vim-cjsx'
 
 " Elixir
 Plugin 'elixir-lang/vim-elixir'
+
+" Go
+Plugin 'fatih/vim-go'
