@@ -36,7 +36,6 @@ set lazyredraw                        " Don't redraw vim in all situations
 set encoding=utf-8                    " Set the default encodings just in case $LANG isn't set
 set nowrap                            " Don't wrap lines
 set number                            " Enable line numbers
-set relativenumber
 set nowritebackup                     " Don't create a backup when overwriting a file
 set noswapfile                        " Don't write swap files
 set nobackup                          " Don't keep backup files
@@ -88,6 +87,10 @@ endif
 " Livedown
 nmap gm :LivedownToggle<CR>
 
+" php is php
+autocmd BufRead,BufNewFile *.php set filetype=php
+au BufWritePre *.php :set binary | set noeol
+au BufWritePost *.php :set nobinary | set eol
 " fdoc is yaml
 autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
 " md is markdown
@@ -111,6 +114,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 au FileType ruby setl sw=2 sts=2 et
 au FileType javascript setl sw=2 sts=2 et
 au FileType yaml setl sw=2 sts=2 et
+au FileType php setl binary noeol ts=4 sts=4 sw=4 et
 
 if has("clipboard")                   " If the feature is available
   set clipboard=unnamed               " copy to the system clipboard
