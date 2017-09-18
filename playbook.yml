@@ -23,6 +23,7 @@
       - elixir
       - hub
       - mercurial
+      - nim
 
   -
     name: Install gems
@@ -53,6 +54,7 @@
       - bower
       - grunt-cli
       - stylelint
+      - get-graphql-schema
 
   -
     name: install casks

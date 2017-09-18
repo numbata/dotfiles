@@ -114,7 +114,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 au FileType ruby setl sw=2 sts=2 et
 au FileType javascript setl sw=2 sts=2 et
 au FileType yaml setl sw=2 sts=2 et
-au FileType php setl binary noeol ts=4 sts=4 sw=4 et
+au FileType php setl eol ts=4 sts=4 sw=4 et fixendofline
 
 if has("clipboard")                   " If the feature is available
   set clipboard=unnamed               " copy to the system clipboard
