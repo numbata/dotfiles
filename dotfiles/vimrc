@@ -89,8 +89,8 @@ nmap gm :LivedownToggle<CR>
 
 " php is php
 autocmd BufRead,BufNewFile *.php set filetype=php
-au BufWritePre *.php :set binary | set noeol
-au BufWritePost *.php :set nobinary | set eol
+au BufWritePre *.php :set binary | set eol
+au BufWritePost *.php :set nobinary | set noeol
 " fdoc is yaml
 autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
 " md is markdown
