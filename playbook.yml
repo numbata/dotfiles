@@ -24,6 +24,7 @@
       - hub
       - mercurial
       - nim
+      - fzf
 
   -
     name: Install gems
@@ -101,14 +102,17 @@
     homebrew: name=vim state=latest update_homebrew=yes install_options=override-system-vi
 
   -
-    name: install vundle
-    git: repo=https://github.com/gmarik/Vundle.vim.git dest=~/.vim/bundle/Vundle.vim update=no
+    name: install plug for vim
+    get_url:
+      force: yes
+      url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+      dest: ~/.vim/autoload/plug.vim
 
   -
     name: touch local.dotfiles
     file: path=~/.{{ item }} state=touch
     with_items:
-      - vimrc.bundles.local
+      - vimrc.plugged.local
       - profile
 
   -
@@ -117,7 +121,7 @@
     with_items:
       - aliases
       - vimrc
-      - vimrc.bundles
+      - vimrc.plugged
       - bashrc
       - gitconfig
       - gitignore_global
@@ -131,7 +135,7 @@
 
   -
     name: install vim plugins
-    shell: "vim +PluginInstall +qal"
+    shell: "vim +PlugInstall +qal"
 
   -
     name: setup go path

@@ -1,0 +1,54 @@
+" Common
+Plug 'tpope/vim-sensible'
+Plug 'gmarik/vundle.vim'
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'airblade/vim-gitgutter'
+Plug 'bogado/file-line'
+Plug 'elzr/vim-json'
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'nanotech/jellybeans.vim'
+Plug 'jgdavey/tslime.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'shime/vim-livedown'
+Plug 'vim-airline/vim-airline'
+Plug 'ekalinin/Dockerfile.vim'
+
+" Confluence wiki
+Plug 'vim-scripts/confluencewiki.vim'
+
+Plug 'altercation/vim-colors-solarized'
+Plug 'w0rp/ale'
+
+" Ruby
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
+Plug 'tpope/vim-endwise', { 'for': 'ruby' }
+Plug 'tpope/vim-bundler', { 'for': 'ruby' }
+Plug 'slim-template/vim-slim', { 'for': 'ruby' }
+
+" Nim
+Plug 'zah/nim.vim', { 'for': 'nim' }
+
+" JS/JSX/Node/React
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+" Plug 'flowtype/vim-flow'
+Plug 'mtscout6/vim-cjsx', { 'for': 'javascript' }
+Plug 'posva/vim-vue', { 'for': 'javascript' }
+
+" Elixir
+Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
+Plug 'c-brenn/phoenix.vim', { 'for': 'elixir' }
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
+
+" Go
+Plug 'fatih/vim-go', { 'for': 'go' }
