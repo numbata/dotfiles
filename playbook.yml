@@ -5,7 +5,9 @@
   tasks:
   -
     name: Taps homebrew repos
-    homebrew_tap: tap={{ item }} state=present
+    homebrew_tap:
+      tap: "{{ item }}"
+      state: present
     with_items:
       - thoughtbot/formulae
       - caskroom/cask
@@ -13,7 +15,10 @@
 
   -
     name: install brew packages
-    homebrew: name={{ item }}  state=latest update_homebrew=yes
+    homebrew:
+      name: "{{ item }}"
+      state: latest
+      update_homebrew: yes
     with_items:
       - node
       - go
@@ -28,7 +33,10 @@
 
   -
     name: Install gems
-    gem: name={{ item }} state=latest user_install=no
+    gem:
+      name: "{{ item }}"
+      state: latest
+      user_install: no
     become: yes
     with_items:
       - mdl
@@ -41,7 +49,10 @@
 
   -
     name: install npm packages
-    npm: name={{ item }} state=present global=yes
+    npm:
+      name: "{{ item }}"
+      state: present
+      global: yes
     with_items:
       - eslint
       - livedown
@@ -62,7 +73,9 @@
 
   -
     name: install casks
-    homebrew_cask: name={{ item }} state=present
+    homebrew_cask:
+      name: "{{ item }}"
+      state: present
     with_items:
       - font-fira-mono
       - font-roboto-mono
@@ -78,7 +91,8 @@
       - sourcetree
       - lunchy
       - insomnia
-      - dockertoolbox
+      - spotify
+      - docker
 
   -
     name: Install Hex and Rebar
@@ -91,7 +105,11 @@
 
   -
     name: checkout Elixir packages
-    git: repo={{ item.repo }} dest=~/.elixir/packages/{{ item.name }} force=yes update=no
+    git:
+      repo: "{{ item.repo }}"
+      dest: "~/.elixir/packages/{{ item.name }}"
+      force: yes
+      update: no
     with_items:
       - { name: "credo", repo: "git@github.com:rrrene/credo.git" }
       - { name: "bunt",  repo: "https://github.com/rrrene/bunt" }
@@ -107,7 +125,17 @@
 
   -
     name: install latest VIM
-    homebrew: name=vim state=latest update_homebrew=yes install_options=override-system-vi
+    homebrew:
+      name: vim
+      state: latest
+      update_homebrew: yes
+      install_options: override-system-vi
+
+  -
+    name: setup plug autoload dir
+    file:
+      path: ~/.vim/autoload
+      state: directory
 
   -
     name: install plug for vim
@@ -118,14 +146,19 @@
 
   -
     name: touch local.dotfiles
-    file: path=~/.{{ item }} state=touch
+    file:
+      path: "~/.{{ item }}"
+      state: touch
     with_items:
       - vimrc.plugged.local
       - profile
 
   -
     name: setup dotfiles
-    template: src=dotfiles/{{ item }} dest=~/.{{ item }} force=yes
+    template:
+      src: "dotfiles/{{ item }}"
+      dest: "~/.{{ item }}"
+      force: yes
     with_items:
       - aliases
       - vimrc
@@ -139,7 +172,10 @@
 
   -
     name: setup ~/.bashrc
-    lineinfile: dest=~/.profile line="source ~/.bashrc" regexp="bashrc"
+    lineinfile:
+      dest: ~/.profile
+      line: "source ~/.bashrc"
+      regexp: "bashrc"
 
   -
     name: install vim plugins
@@ -147,7 +183,9 @@
 
   -
     name: setup go path
-    file: path="~/.go" state="directory"
+    file:
+      path: ~/.go
+      state: directory
 
   -
     name: load dotfiles
@@ -155,9 +193,11 @@
 
   -
     name: get user path
-    stat: path="~"
+    stat:
+      path: "~"
     register: homepath
 
+  # TODO use `defaults`
   -
     name: setup iTerm2
     shell: /usr/libexec/PlistBuddy -c 'Set :"New Bookmarks":0:"{{ item.name }}" "{{ item.value }}"' ~/Library/Preferences/com.googlecode.iterm2.plist
@@ -169,5 +209,3 @@
       - { name: 'Flashing Bell', value: 'false' }
       - { name: 'BM Growl', value: 'false' }
       - { name: 'Scrollback Lines', value: '15000' }
-
-
