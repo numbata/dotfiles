@@ -14,4 +14,4 @@ else
 fi
 
 echo "Play ansible playbook"
-ansible-playbook -i "localhost," -c local --ask-become-pass playbook.yml -vvvv
+ansible-playbook -i "localhost," -D -c local --ask-become-pass playbook.yml -vvvv

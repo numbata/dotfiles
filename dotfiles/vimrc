@@ -20,6 +20,7 @@ filetype plugin indent on    " required
 set t_Co=256
 silent! colorscheme jellybeans
 
+set re=1
 set nocursorline
 set nofoldenable
 set expandtab                         " Insert spaces instead of actually tabs

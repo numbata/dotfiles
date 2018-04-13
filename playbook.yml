@@ -93,6 +93,7 @@
       - insomnia
       - spotify
       - docker
+      - 1password
 
   -
     name: Install Hex and Rebar

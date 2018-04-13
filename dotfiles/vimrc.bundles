@@ -22,6 +22,7 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'shime/vim-livedown'
 Plugin 'vim-airline/vim-airline'
 Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'AndrewRadev/linediff.vim'
 
 " Confluence wiki
 Plugin 'confluencewiki.vim'
