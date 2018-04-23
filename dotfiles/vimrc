@@ -18,9 +18,10 @@ filetype plugin indent on    " required
 " set background=light
 " colorscheme solarized
 set t_Co=256
-silent! colorscheme jellybeans
+" silent! colorscheme jellybeans
+colorscheme nord
 
-set re=1
+set re=1                              " faster ruby parser
 set nocursorline
 set nofoldenable
 set expandtab                         " Insert spaces instead of actually tabs

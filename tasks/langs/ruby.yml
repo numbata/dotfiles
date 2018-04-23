@@ -1,0 +1,14 @@
+---
+- name: Install gems
+  gem:
+    name: "{{ item }}"
+    state: latest
+    user_install: no
+  become: yes
+  with_items:
+    - mdl
+    - haml-lint
+    - ruby-lint
+    - sqlint
+    - rubocop
+    - overcommit

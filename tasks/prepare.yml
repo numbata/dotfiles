@@ -1,0 +1,10 @@
+---
+- name: Taps homebrew repos
+  homebrew_tap:
+    tap: "{{ item }}"
+    state: present
+  with_items:
+    - thoughtbot/formulae
+    - caskroom/cask
+    - caskroom/fonts
+

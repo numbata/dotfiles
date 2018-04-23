@@ -3,210 +3,51 @@
   hosts: all
   become: false
   tasks:
-  -
-    name: Taps homebrew repos
-    homebrew_tap:
-      tap: "{{ item }}"
-      state: present
-    with_items:
-      - thoughtbot/formulae
-      - caskroom/cask
-      - caskroom/fonts
+    - name: Prepare
+      include: tasks/prepare.yml
 
-  -
-    name: install brew packages
-    homebrew:
-      name: "{{ item }}"
-      state: latest
-      update_homebrew: yes
-    with_items:
-      - node
-      - go
-      - wget
-      - the_silver_searcher
-      - jsonpp
-      - elixir
-      - hub
-      - mercurial
-      - nim
-      - fzf
+    - name: Setup apps
+      include: tasks/apps.yml
+      tags:
+        - apps
 
-  -
-    name: Install gems
-    gem:
-      name: "{{ item }}"
-      state: latest
-      user_install: no
-    become: yes
-    with_items:
-      - mdl
-      - haml-lint
-      - ruby-lint
-      - sqlint
-      - rubocop
-      - overcommit
-      - mdl
+    - name: Install ruby
+      include: tasks/langs/ruby.yml
+      tags:
+         - langs
+         - ruby
 
-  -
-    name: install npm packages
-    npm:
-      name: "{{ item }}"
-      state: present
-      global: yes
-    with_items:
-      - eslint
-      - livedown
-      - babel-eslint
-      - eslint-plugin-react
-      - eslint-plugin-flowtype
-      - eslint-plugin-import
-      - eslint-import-resolver-webpack
-      - eslint-plugin-jsx-a11y
-      - eslint-config-airbnb
-      - eslint-plugin-vue
-      - lint-staged
-      - json-lint
-      - bower
-      - grunt-cli
-      - stylelint
-      - get-graphql-schema
+    - name: Install node
+      include: tasks/langs/node.yml
+      tags:
+         - langs
+         - node
 
-  -
-    name: install casks
-    homebrew_cask:
-      name: "{{ item }}"
-      state: present
-    with_items:
-      - font-fira-mono
-      - font-roboto-mono
-      - font-hack
-      - font-fira-mono-for-powerline
-      - iterm2
-      - slack
-      - skype
-      - telegram-desktop
-      - hipchat
-      - firefox
-      - tunnelblick
-      - sourcetree
-      - lunchy
-      - insomnia
-      - spotify
-      - docker
-      - 1password
+    - name: Install go
+      include: tasks/langs/go.yml
+      tags:
+         - langs
+         - go
 
-  -
-    name: Install Hex and Rebar
-    command: "mix {{ item.name }} --force"
-    args:
-      creates: "~/.mix/{{ item.file }}"
-    with_items:
-      - { name: "local.hex",   file: "archives/hex.ez" }
-      - { name: "local.rebar", file: "rebar" }
+    - name: Install nim
+      include: tasks/langs/nim.yml
+      tags:
+         - langs
+         - nim
 
-  -
-    name: checkout Elixir packages
-    git:
-      repo: "{{ item.repo }}"
-      dest: "~/.elixir/packages/{{ item.name }}"
-      force: yes
-      update: no
-    with_items:
-      - { name: "credo", repo: "git@github.com:rrrene/credo.git" }
-      - { name: "bunt",  repo: "https://github.com/rrrene/bunt" }
+    - name: Install elixir
+      include: tasks/langs/elixir.yml
+      tags:
+         - langs
+         - elixir
 
-  -
-    name: install Elixir packages
-    shell: mix deps.get && mix archive.build && mix archive.install --force
-    args:
-      chdir: ~/.elixir/packages/{{ item.name }}
-    with_items:
-      - { name: "bunt",  repo: "https://github.com/rrrene/bunt" }
-      - { name: "credo", repo: "git@github.com:rrrene/credo.git" }
+    - name: Install VIM
+      include: tasks/vim.yml
+      tags:
+        - apps
+        - vim
 
-  -
-    name: install latest VIM
-    homebrew:
-      name: vim
-      state: latest
-      update_homebrew: yes
-      install_options: override-system-vi
-
-  -
-    name: setup plug autoload dir
-    file:
-      path: ~/.vim/autoload
-      state: directory
-
-  -
-    name: install plug for vim
-    get_url:
-      force: yes
-      url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-      dest: ~/.vim/autoload/plug.vim
-
-  -
-    name: touch local.dotfiles
-    file:
-      path: "~/.{{ item }}"
-      state: touch
-    with_items:
-      - vimrc.plugged.local
-      - profile
-
-  -
-    name: setup dotfiles
-    template:
-      src: "dotfiles/{{ item }}"
-      dest: "~/.{{ item }}"
-      force: yes
-    with_items:
-      - aliases
-      - vimrc
-      - vimrc.plugged
-      - bashrc
-      - gitconfig
-      - gitignore_global
-      - eslintrc
-      - hgrc
-      - hgignore
-
-  -
-    name: setup ~/.bashrc
-    lineinfile:
-      dest: ~/.profile
-      line: "source ~/.bashrc"
-      regexp: "bashrc"
-
-  -
-    name: install vim plugins
-    shell: "vim +PlugInstall +qal"
-
-  -
-    name: setup go path
-    file:
-      path: ~/.go
-      state: directory
-
-  -
-    name: load dotfiles
-    shell: source ~/.bashrc
-
-  -
-    name: get user path
-    stat:
-      path: "~"
-    register: homepath
-
-  # TODO use `defaults`
-  -
-    name: setup iTerm2
-    shell: /usr/libexec/PlistBuddy -c 'Set :"New Bookmarks":0:"{{ item.name }}" "{{ item.value }}"' ~/Library/Preferences/com.googlecode.iterm2.plist
-    with_items:
-      - { name: 'Normal Font', value: 'FiraMono-Regular 9' }
-      - { name: 'Non Ascii Font', value: 'FiraMono-Regular 9' }
-      - { name: 'Use Italic Font', value: 'false' }
-      - { name: 'Silence Bell', value: 'true' }
-      - { name: 'Flashing Bell', value: 'false' }
-      - { name: 'BM Growl', value: 'false' }
-      - { name: 'Scrollback Lines', value: '15000' }
+    - name: Setup dotfiles
+      include: tasks/dotfiles.yml
+      tags:
+        - dotfiles

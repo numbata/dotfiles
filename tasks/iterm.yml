@@ -1,0 +1,15 @@
+---
+
+
+  # TODO use `defaults`
+  -
+    name: setup iTerm2
+    shell: /usr/libexec/PlistBuddy -c 'Set :"New Bookmarks":0:"{{ item.name }}" "{{ item.value }}"' ~/Library/Preferences/com.googlecode.iterm2.plist
+    with_items:
+      - { name: 'Normal Font', value: 'FiraMono-Regular 9' }
+      - { name: 'Non Ascii Font', value: 'FiraMono-Regular 9' }
+      - { name: 'Use Italic Font', value: 'false' }
+      - { name: 'Silence Bell', value: 'true' }
+      - { name: 'Flashing Bell', value: 'false' }
+      - { name: 'BM Growl', value: 'false' }
+      - { name: 'Scrollback Lines', value: '15000' }

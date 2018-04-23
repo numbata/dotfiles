@@ -1,0 +1,13 @@
+---
+- name: Install brew packages
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+    update_homebrew: yes
+  with_items:
+    - go
+
+- name: setup go path
+  file:
+    path: ~/.go
+    state: directory

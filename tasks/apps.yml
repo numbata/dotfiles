@@ -1,0 +1,38 @@
+---
+- name: Install brew packages
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+    update_homebrew: yes
+  with_items:
+    - wget
+    - the_silver_searcher
+    - jsonpp
+    - hub
+    - mercurial
+    - fzf
+    - ipcalc
+
+- name: Install casks
+  homebrew_cask:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - font-fira-mono
+    - font-roboto-mono
+    - font-hack
+    - font-sorce-code-pro
+    - font-fira-mono-for-powerline
+    - iterm2
+    - slack
+    - skype
+    - telegram-desktop
+    - hipchat
+    - firefox
+    - tunnelblick
+    - sourcetree
+    - lunchy
+    - insomnia
+    - spotify
+    - docker
+    - 1password

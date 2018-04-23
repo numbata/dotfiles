@@ -1,0 +1,37 @@
+---
+- name: Install latest VIM
+  homebrew:
+    name: vim
+    state: latest
+    update_homebrew: yes
+    install_options: override-system-vi
+
+- name: Setup plug autoload dir
+  file:
+    path: ~/.vim/autoload
+    state: directory
+
+- name: Install plug for vim
+  get_url:
+    force: yes
+    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    dest: ~/.vim/autoload/plug.vim
+
+- name: Touch vim local.dotfiles
+  file:
+    path: "~/.{{ item }}"
+    state: touch
+  with_items:
+    - vimrc.plugged.local
+
+- name: Setup vim dotfiles
+  template:
+    src: "dotfiles/{{ item }}"
+    dest: "~/.{{ item }}"
+    force: yes
+  with_items:
+    - vimrc
+    - vimrc.plugged
+
+- name: Install vim plugins
+  shell: "vim +PlugInstall +qal"

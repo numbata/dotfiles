@@ -15,14 +15,19 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'nanotech/jellybeans.vim'
 Plug 'jgdavey/tslime.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'shime/vim-livedown'
-Plug 'vim-airline/vim-airline'
 Plug 'ekalinin/Dockerfile.vim'
+
+" Utils
 Plug 'AndrewRadev/linediff.vim'
+Plug 'vim-airline/vim-airline'
+
+" Color scheme
+Plug 'arcticicestudio/nord-vim'
+" Plug 'nanotech/jellybeans.vim'
 
 " Confluence wiki
 Plug 'vim-scripts/confluencewiki.vim'
