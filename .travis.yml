@@ -1,14 +1,12 @@
 ---
 sudo: required
 language: objective-c
-# 10.11 (see https://docs.travis-ci.com/user/osx-ci-environment/#OS-X-Version)
 os: osx
-osx_image: xcode9.2
 
 before_install:
-  # Uninstall existing brew installation.
-  # - 'ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" -- -f'
 
-script:
-  # Test the playbook.
-  - ./bootstrap.sh
+jobs:
+  include:
+    - script: ./bootstrap.sh
+    - script: pip install ansible && ansible-playbook -i "localhost," -D -c local playbook.yml --syntax-check
+    - script: pip install ansible-lint && ansible-lint playbook.yml
