@@ -1,9 +1,7 @@
----
 - name: Install brew packages
   homebrew:
     name: "{{ item }}"
     state: latest
-    update_homebrew: yes
   with_items:
     - wget
     - the_silver_searcher
@@ -21,7 +19,7 @@
     - font-fira-mono
     - font-roboto-mono
     - font-hack
-    - font-sorce-code-pro
+    - font-source-code-pro
     - font-fira-mono-for-powerline
     - iterm2
     - slack

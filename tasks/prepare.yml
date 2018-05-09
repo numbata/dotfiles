@@ -1,4 +1,7 @@
----
+- name: Update brew
+  homebrew:
+    update_homebrew: yes
+
 - name: Taps homebrew repos
   homebrew_tap:
     tap: "{{ item }}"

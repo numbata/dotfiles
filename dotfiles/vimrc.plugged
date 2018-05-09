@@ -1,32 +1,30 @@
 " Common
-Plug 'tpope/vim-sensible'
-Plug 'gmarik/vundle.vim'
-Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'Lokaltog/vim-easymotion'
-Plug 'airblade/vim-gitgutter'
-Plug 'bogado/file-line'
-Plug 'elzr/vim-json'
-Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'tpope/vim-sensible'                                         " Defaults everyone can agree on
+Plug 'ConradIrwin/vim-bracketed-paste'                            " Enables transparent pasting into vim.
+Plug 'easymotion/vim-easymotion'                                  " Vim motion on speed!
+Plug 'airblade/vim-gitgutter'                                     " Shows a git diff in the gutter (sign column) and stages/undoes hunks
+Plug 'bogado/file-line'                                           " Plugin for vim to enabling opening a file in a given line
+" Plug 'itchyny/lightline.vim'                                      " A light and configurable statusline/tabline plugin for Vim
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " A command-line fuzzy finder
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'majutsushi/tagbar'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }            " A tree explorer plugin for vim.
+Plug 'majutsushi/tagbar'                                          " Displays tags in a window, ordered by scope
+Plug 'tpope/vim-commentary'                                       " Comment stuff out
+Plug 'tpope/vim-obsession'                                        " Continuously updated session files
+Plug 'tpope/vim-repeat'                                           " Enable repeating supported plugin maps with '.'
+Plug 'tpope/vim-surround'                                         " Quoting/parenthesizing made simple
 Plug 'jgdavey/tslime.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'shime/vim-livedown'
-Plug 'ekalinin/Dockerfile.vim'
+Plug 'tpope/vim-fugitive'                                         " A Git wrapper so awesome, it should be illegal
+Plug 'editorconfig/editorconfig-vim'                              " EditorConfig plugin for Vim
+" Plug 'shime/vim-livedown'
+Plug 'ekalinin/Dockerfile.vim'                                    " Vim syntax file & snippets for Docker's Dockerfile
 
 " Utils
-Plug 'AndrewRadev/linediff.vim'
-Plug 'vim-airline/vim-airline'
+Plug 'AndrewRadev/linediff.vim'                                   " A vim plugin to perform diffs on blocks of code
+Plug 'vim-airline/vim-airline'                                    " Lean & mean status/tabline for vim that's light as air
 
 " Color scheme
-Plug 'arcticicestudio/nord-vim'
+Plug 'arcticicestudio/nord-vim'                                   " An arctic, north-bluish clean and elegant Vim theme
 " Plug 'nanotech/jellybeans.vim'
 
 " Confluence wiki
@@ -45,6 +43,7 @@ Plug 'slim-template/vim-slim', { 'for': 'ruby' }
 Plug 'zah/nim.vim', { 'for': 'nim' }
 
 " JS/JSX/Node/React
+Plug 'elzr/vim-json'                                              " A better JSON for Vim
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 " Plug 'flowtype/vim-flow'
