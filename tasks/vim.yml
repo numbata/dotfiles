@@ -1,13 +1,14 @@
 - name: Install latest VIM
   homebrew:
     name: vim
-    state: latest
+    state: present
     install_options: override-system-vi
 
 - name: Install ctags
   homebrew:
     name: universal-ctags/universal-ctags/universal-ctags
-    state: head
+    install_options: --HEAD
+    state: present
 
 - name: Setup plug autoload dir
   file:
@@ -35,6 +36,12 @@
   with_items:
     - vimrc
     - vimrc.plugged
+  register: vim_dotfiles
+
+- name: debug
+  debug:
+    var: vim_dotfiles
 
 - name: Install vim plugins
-  shell: "vim +PlugInstall +qal"
+  command: "vim +PlugInstall +qal"
+  when: vim_dotfiles.changed

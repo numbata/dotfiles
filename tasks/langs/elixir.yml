@@ -1,9 +1,7 @@
 - name: Install brew packages
   homebrew:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - elixir
+    name: elixir
+    state: head
 
 - name: Install Hex and Rebar
   command: "mix {{ item.name }} --force"
@@ -15,25 +13,18 @@
     - name: "local.rebar"
       file: "rebar"
 
-- name: Checkout Elixir packages
+- name: Checkout Elixir package
   git:
-    repo: "{{ item.repo }}"
-    dest: "~/.elixir/packages/{{ item.name }}"
+    repo: "https://github.com/rrrene/credo"
+    dest: "~/.elixir/packages/credo"
+    version: "v0.9.2"
     force: yes
     update: no
-  with_items:
-    - name: "credo"
-      repo: "https://github.com/rrrene/credo"
-    - name: "bunt"
-      repo: "https://github.com/rrrene/bunt"
+  register: credo_repo
 
-- name: Install Elixir packages
-  shell: mix deps.get && mix archive.build && mix archive.install
+- name: Install Elixir package
+  command: mix deps.get && mix archive.build && mix archive.install
   args:
-    chdir: ~/.elixir/packages/{{ item.name }}
-  with_items:
-    - name: "credo"
-      repo: "git@github.com:rrrene/credo.git"
-    - name: "bunt"
-      repo: "git@github.com:rrrene/bunt.git"
+    chdir: ~/.elixir/packages/credo
+  when: credo_repo.changed
 

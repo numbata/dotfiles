@@ -1,36 +1,42 @@
+- name: Register brew apps list
+  set_fact:
+    brew_apps:
+      - wget
+      - the_silver_searcher
+      - jsonpp
+      - hub
+      - mercurial
+      - fzf
+      - ipcalc
+
 - name: Install brew packages
   homebrew:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - wget
-    - the_silver_searcher
-    - jsonpp
-    - hub
-    - mercurial
-    - fzf
-    - ipcalc
-
-- name: Install casks
-  homebrew_cask:
-    name: "{{ item }}"
+    name: "{{ brew_apps | join(',') }}"
     state: present
-  with_items:
-    - font-fira-mono
-    - font-roboto-mono
-    - font-hack
-    - font-source-code-pro
-    - font-fira-mono-for-powerline
-    - iterm2
-    - slack
-    - skype
-    - telegram-desktop
-    - hipchat
-    - firefox
-    - tunnelblick
-    - sourcetree
-    - lunchy
-    - insomnia
-    - spotify
-    - docker
-    - 1password
+
+- name: Register cask apps list
+  set_fact:
+    cask_apps:
+      - font-fira-mono
+      - font-roboto-mono
+      - font-hack
+      - font-source-code-pro
+      - font-fira-mono-for-powerline
+      - iterm2
+      - slack
+      - skype
+      - telegram-desktop
+      - hipchat
+      - firefox
+      - tunnelblick
+      - sourcetree
+      - lunchy
+      - insomnia
+      - spotify
+      - docker
+      - 1password
+
+- name: Install apps from casks
+  homebrew_cask:
+    name: "{{ cask_apps | join(',') }}"
+    state: present

@@ -2,8 +2,9 @@
 
 # Check if console tools installed
 if ! xcode-select -p>/dev/null; then
-	xcode-select --install
-	read -p "Press [Enter] when install finished..."
+  echo "Install xcode"
+  xcode-select --install
+  read -p "Press [Enter] when install finished..."
 fi
 
 # Install brew
