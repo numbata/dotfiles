@@ -2,6 +2,7 @@
 sudo: required
 language: objective-c
 # 10.11 (see https://docs.travis-ci.com/user/osx-ci-environment/#OS-X-Version)
+os: osx
 osx_image: xcode9.2
 
 before_install:
