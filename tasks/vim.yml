@@ -8,7 +8,7 @@
   homebrew:
     name: universal-ctags/universal-ctags/universal-ctags
     install_options: --HEAD
-    state: present
+    state: head
 
 - name: Setup plug autoload dir
   file:

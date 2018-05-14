@@ -8,6 +8,7 @@
       - mercurial
       - fzf
       - ipcalc
+      - git-flow-avh
 
 - name: Install brew packages
   homebrew:
@@ -35,6 +36,7 @@
       - spotify
       - docker
       - 1password
+      - dash
 
 - name: Install apps from casks
   homebrew_cask:
