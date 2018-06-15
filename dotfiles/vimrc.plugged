@@ -16,6 +16,7 @@ Plug 'tpope/vim-surround'                                         " Quoting/pare
 Plug 'jgdavey/tslime.vim'
 Plug 'tpope/vim-fugitive'                                         " A Git wrapper so awesome, it should be illegal
 Plug 'editorconfig/editorconfig-vim'                              " EditorConfig plugin for Vim
+Plug 'terryma/vim-multiple-cursors'                               " True Sublime Text style multiple selections for Vim
 " Plug 'shime/vim-livedown'
 Plug 'ekalinin/Dockerfile.vim'                                    " Vim syntax file & snippets for Docker's Dockerfile
 
@@ -40,7 +41,7 @@ Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'slim-template/vim-slim', { 'for': 'ruby' }
 
 " Nim
-Plug 'zah/nim.vim', { 'for': 'nim' }
+Plug 'zah/nim.vim', { 'for': 'nim' }                              " Nim language plugin for vim
 
 " JS/JSX/Node/React
 Plug 'elzr/vim-json'                                              " A better JSON for Vim
