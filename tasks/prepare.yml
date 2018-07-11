@@ -8,6 +8,6 @@
     state: present
   with_items:
     - thoughtbot/formulae
-    - caskroom/cask
-    - caskroom/fonts
+    - homebrew/cask
+    - homebrew/cask-fonts
 
