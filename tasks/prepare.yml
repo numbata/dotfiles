@@ -10,4 +10,4 @@
     - thoughtbot/formulae
     - homebrew/cask
     - homebrew/cask-fonts
-
+    - homebrew/cask-versions

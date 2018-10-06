@@ -1,0 +1,9 @@
+# vim /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/security/java.security
+
+
+# policy.ignoreIdentityScope=false
+# jdk.certpath.disabledAlgorithms=MD2, MD5, SHA1 jdkCA & usage TLSServer, \
+#     RSA keySize < 1024, DSA keySize < 1024, EC keySize < 224
+# jdk.jar.disabledAlgorithms=MD2, MD5, RSA keySize < 1024, DSA keySize < 1024
+# jdk.tls.disabledAlgorithms=SSLv3, RC4, MD5withRSA, DH keySize < 1024, \
+#     EC keySize < 224, DES40_CBC, RC4_40, 3DES_EDE_CBC

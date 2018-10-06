@@ -9,11 +9,7 @@
       - fzf
       - ipcalc
       - git-flow-avh
-
-- name: Install brew packages
-  homebrew:
-    name: "{{ brew_apps | join(',') }}"
-    state: present
+      - universal-ctags
 
 - name: Register cask apps list
   set_fact:
@@ -28,7 +24,7 @@
       - skype
       - telegram-desktop
       - hipchat
-      - firefox
+      - firefox-beta
       - tunnelblick
       - sourcetree
       - lunchy
@@ -37,6 +33,11 @@
       - docker
       - 1password
       - dash
+
+- name: Install brew packages
+  homebrew:
+    name: "{{ brew_apps | join(',') }}"
+    state: present
 
 - name: Install apps from casks
   homebrew_cask:

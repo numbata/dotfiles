@@ -7,6 +7,16 @@ if ! xcode-select -p>/dev/null; then
   read -p "Press [Enter] when install finished..."
 fi
 
+if [ -x "$(command -v git)" ]; then
+  git status | grep 'invalid active developer path' &> /dev/null
+  echo "$?"
+  if [ $? == 0 ]; then
+    echo "Reinstall xcode"
+    xcode-select --install
+    wait
+  fi
+fi
+
 # Install brew
 if ! [ -x "$(command -v brew)" ]; then
   echo "Install brew"

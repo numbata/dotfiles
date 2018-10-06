@@ -88,6 +88,9 @@ let g:ale_sign_error = '💣'
 let g:ale_sign_warning = '🚩'
 let g:ale_statusline_format = ['💣 %d', '🚩 %d', '']
 
+let g:vim_tags_use_vim_dispatch = 1
+
+
 " JavaScript
 let g:vue_disable_pre_processors=1
 
@@ -136,6 +139,9 @@ au FileType yaml setl sw=2 sts=2 et
 au FileType php setl eol ts=4 sts=4 sw=4 et fixendofline
 autocmd FileType vue syntax sync fromstart
 
+" if argc() == 1 && argv(0) == '.'
+"  autocmd vimenter * NERDTree
+" endif
 autocmd VimEnter * NERDTree
 autocmd VimEnter * if argc() | wincmd p | endif
 

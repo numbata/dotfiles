@@ -12,6 +12,7 @@ Plug 'majutsushi/tagbar'                                          " Displays tag
 Plug 'tpope/vim-commentary'                                       " Comment stuff out
 Plug 'tpope/vim-obsession'                                        " Continuously updated session files
 Plug 'tpope/vim-repeat'                                           " Enable repeating supported plugin maps with '.'
+Plug 'tpope/vim-dispatch'                                         " Asynchronous build and test dispatcher
 Plug 'tpope/vim-surround'                                         " Quoting/parenthesizing made simple
 Plug 'jgdavey/tslime.vim'
 Plug 'tpope/vim-fugitive'                                         " A Git wrapper so awesome, it should be illegal
@@ -19,6 +20,9 @@ Plug 'editorconfig/editorconfig-vim'                              " EditorConfig
 Plug 'terryma/vim-multiple-cursors'                               " True Sublime Text style multiple selections for Vim
 " Plug 'shime/vim-livedown'
 Plug 'ekalinin/Dockerfile.vim'                                    " Vim syntax file & snippets for Docker's Dockerfile
+Plug 'ludovicchabant/vim-gutentags'                               " A Vim plugin that manages your tag files
+Plug 'szw/vim-tags'                                               " The Ctags generator for Vim
+Plug 'universal-ctags/ctags'                                      " A maintained ctags implementation
 
 " Utils
 Plug 'AndrewRadev/linediff.vim'                                   " A vim plugin to perform diffs on blocks of code
