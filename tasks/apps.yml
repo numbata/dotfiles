@@ -9,7 +9,6 @@
       - fzf
       - ipcalc
       - git-flow-avh
-      - universal-ctags
 
 - name: Register cask apps list
   set_fact:
@@ -32,6 +31,7 @@
       - spotify
       - docker
       - 1password
+      - spotify
       - dash
 
 - name: Install brew packages

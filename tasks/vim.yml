@@ -44,4 +44,3 @@
 
 - name: Install vim plugins
   command: "vim +PlugInstall +qal"
-  when: vim_dotfiles.changed

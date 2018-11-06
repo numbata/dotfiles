@@ -1,9 +1,23 @@
-# vim /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/security/java.security
+- name: install Java
+  homebrew_cask:
+    name: java
+    state: present
+
+- name: Clean list of disabled algorithm
+  become: true
+  replace:
+    path: '/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/security/java.security'
+    regexp: "^{{ item }}=(?:\\s*[^\\\\\\n]*?, \\\\$)*(?:\\s*[^\\\\\\\n]*?$)"
+    replace: "{{ item }}="
+  with_items:
+    - jdk.certpath.disabledAlgorithms
+    - jdk.jar.disabledAlgorithms
+    - jdk.tls.disabledAlgorithms
 
 
-# policy.ignoreIdentityScope=false
-# jdk.certpath.disabledAlgorithms=MD2, MD5, SHA1 jdkCA & usage TLSServer, \
-#     RSA keySize < 1024, DSA keySize < 1024, EC keySize < 224
-# jdk.jar.disabledAlgorithms=MD2, MD5, RSA keySize < 1024, DSA keySize < 1024
-# jdk.tls.disabledAlgorithms=SSLv3, RC4, MD5withRSA, DH keySize < 1024, \
-#     EC keySize < 224, DES40_CBC, RC4_40, 3DES_EDE_CBC
+- name: Disable some policy
+  become: true
+  replace:
+    path: '/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/security/java.security'
+    regexp: 'policy.ignoreIdentityScope=false'
+    replace: 'policy.ignoreIdentityScope=true'

@@ -2,7 +2,7 @@
   gem:
     name: "{{ item }}"
     state: present
-    user_install: no
+    user_install: yes
   with_items:
     - mdl
     - haml-lint
