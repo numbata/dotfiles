@@ -19,7 +19,9 @@ filetype plugin indent on    " required
 " colorscheme solarized
 set t_Co=256
 " silent! colorscheme jellybeans
-colorscheme nord
+set cursorline
+colorscheme onehalflight
+let g:airline_theme='onehalfdark'
 
 set re=1                              " faster ruby parser
 set nocursorline

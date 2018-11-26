@@ -27,9 +27,8 @@
 - name: setup ~/.bashrc
   lineinfile:
     dest: ~/.profile
-    line: "source ~/.bashrc"
+    line: "source {{ ansible_env.HOME }}/.bashrc"
     regexp: "bashrc"
 
 - name: load dotfiles
-  command: source ~/.bashrc
-  when: dotfiles.changed
+  command: "source {{ ansible_env.HOME }}/.bashrc"

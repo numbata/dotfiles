@@ -9,6 +9,7 @@
       - fzf
       - ipcalc
       - git-flow-avh
+      - gpg
 
 - name: Register cask apps list
   set_fact:
