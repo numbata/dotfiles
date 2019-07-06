@@ -1,0 +1,5 @@
+- name: Install brew packages
+  homebrew:
+    name: elixir
+    state: head
+

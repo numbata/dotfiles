@@ -1,7 +1,5 @@
-- name: Install brew packages
-  homebrew:
-    name: elixir
-    state: head
+- name: Include OS specifix install task
+  include: "install.{{ os_family }}.yml"
 
 - name: Install Hex and Rebar
   command: "mix {{ item.name }} --force"

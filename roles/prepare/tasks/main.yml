@@ -1,0 +1,9 @@
+- name: Check OS specifix task exists
+  stat:
+    path: "{{ role_path }}/tasks/{{ os_family }}.yml"
+  register: os_task
+  become: no
+
+- name: Include OS specifix task
+  include: "{{ os_family }}.yml"
+  when: os_task.stat.exists

@@ -1,0 +1,23 @@
+- name: update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+  become: true
+  changed_when: false
+
+- name: install build depends
+  apt:
+    name:
+      - build-essential
+      - curl
+      - git
+      - libcurl4-openssl-dev
+      - libffi-dev
+      - libreadline-dev
+      - libssl-dev
+      - libxml2-dev
+      - libxslt1-dev
+      - zlib1g-dev
+    state: present
+    install_recommends: no
+  become: true

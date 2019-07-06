@@ -1,0 +1,7 @@
+- name: Include OS specifix setup task
+  include: "install.{{ os_family }}.yml"
+
+- name: setup go path
+  file:
+    path: ~/.go
+    state: directory

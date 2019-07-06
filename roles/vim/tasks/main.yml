@@ -1,14 +1,5 @@
-- name: Install latest VIM
-  homebrew:
-    name: vim
-    state: present
-    install_options: override-system-vi
-
-- name: Install ctags
-  homebrew:
-    name: universal-ctags/universal-ctags/universal-ctags
-    install_options: --HEAD
-    state: head
+- name: Include OS specifix task
+  include: "install.{{ os_family }}.yml"
 
 - name: Setup plug autoload dir
   file:

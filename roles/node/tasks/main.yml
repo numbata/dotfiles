@@ -1,9 +1,12 @@
-- name: Install brew packages
-  homebrew:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - node
+- name: Check OS specifix setup task exists
+  stat:
+    path: "{{ role_path }}/tasks/{{ os_family }}.yml"
+  register: os_task
+  become: no
+
+- name: Include OS specifix setup task
+  include: "setup.{{ os_family }}.yml"
+  when: os_task.stat.exists
 
 - name: Install npm packages
   npm:

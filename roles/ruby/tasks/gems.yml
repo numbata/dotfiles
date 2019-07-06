@@ -1,8 +1,8 @@
-- name: Install gems
+- name: Install gems (linters, checkers, etc)
   gem:
     name: "{{ item }}"
     state: present
-    user_install: yes
+    user_install: no
   with_items:
     - mdl
     - haml-lint

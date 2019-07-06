@@ -3,9 +3,4 @@
     name: "{{ item }}"
     state: latest
   with_items:
-    - go
-
-- name: setup go path
-  file:
-    path: ~/.go
-    state: directory
+    - node

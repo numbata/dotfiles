@@ -1,0 +1,6 @@
+- name: Update packages
+  become: yes
+  become_method: sudo
+  apt:
+    upgrade: dist
+    update_cache: yes

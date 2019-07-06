@@ -1,0 +1,15 @@
+- name: Check OS specifix deps task exists
+  stat:
+    path: "{{ role_path }}/tasks/deps.{{ os_family }}.yml"
+  register: os_task
+  become: no
+
+- name: Include OS specifix task
+  include: "deps.{{ os_family }}.yml"
+  when: os_task.stat.exists
+
+- name: Install ruby
+  include: setup.yml
+
+- name: Install gems (linters, checkers, etc)
+  include: gems.yml
