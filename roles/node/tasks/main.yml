@@ -34,7 +34,7 @@
 
 - name: Setup dotfiles
   template:
-    src: "dotfiles/{{ item }}"
+    src: "{{ item }}"
     dest: "~/.{{ item }}"
     force: yes
   with_items:
