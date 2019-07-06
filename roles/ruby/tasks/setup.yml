@@ -4,7 +4,6 @@
 
 - name: checkout rbenv_repo for system
   become: yes
-  become_user: '{{ ansible_env.USER }}'
   git:
     repo: '{{ rbenv_repo }}'
     dest: '{{ rbenv_root }}'
@@ -14,14 +13,12 @@
 
 - name: create plugins directory for system
   become: yes
-  become_user: '{{ ansible_env.USER }}'
   file:
     state: directory
     path: '{{ rbenv_root }}/plugins'
 
 - name: install plugins for system
   become: yes
-  become_user: '{{ ansible_env.USER }}'
   git:
     repo: '{{ item.repo }}'
     dest: '{{ rbenv_root }}/plugins/{{ item.name }}'
