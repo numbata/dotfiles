@@ -1,4 +1,4 @@
-- name: Install deps
+- name: Docker | Install deps
   apt:
     name:
       - apt-transport-https
@@ -8,27 +8,27 @@
       - software-properties-common
   become: True
 
-- name: Installing apt-key
+- name: Docker | Installing apt-key
   apt_key:
     id: "9DC858229FC7DD38854AE2D88D81803C0EBFCD88"
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
   become: True
 
-- name: Add deb repository
+- name: Docker | Add deb repository
   apt_repository:
     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
     state: present
   become: TrueS
 
-- name: update apt cache
+- name: Docker | Update apt cache
   apt:
     update_cache: yes
     cache_valid_time: 86400
   become: True
   changed_when: false
 
-- name: Install
+- name: Docker | Install docker
   apt:
     name:
       - docker-ce
@@ -37,16 +37,16 @@
     state: latest
   become: True
 
-- name: Add current user to Docker group
+- name: Docker | Add current user to Docker group
   user:
     name: "{{ ansible_env.USER }}"
     groups: docker
     append: yes
   become: True
 
-- name: "Ensure Docker is {{ docker.start | ternary('started','stopped') }}"
+- name: "Ensure Docker is started"
   service:
     name: docker
-    state: "{{ docker.start | ternary('restarted','stopped') }}"
-    enabled: "{{ docker.service_enabled }}"
+    state: started
+    enabled: True
   become: True
