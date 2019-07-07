@@ -4,3 +4,12 @@
   apt:
     upgrade: dist
     update_cache: yes
+
+- name: Install homebrew wrapper
+  apt:
+    name:
+      - linuxbrew-wrapper
+
+- name: Update brew
+  homebrew:
+    update_homebrew: yes
