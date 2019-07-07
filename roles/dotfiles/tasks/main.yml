@@ -31,4 +31,4 @@
     regexp: "bashrc"
 
 - name: load dotfiles
-  command: "source {{ ansible_env.HOME }}/.bashrc"
+  shell: "source {{ ansible_env.HOME }}/.bashrc"
