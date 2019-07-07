@@ -20,8 +20,12 @@ filetype plugin indent on    " required
 set t_Co=256
 " silent! colorscheme jellybeans
 set cursorline
-colorscheme onehalflight
-let g:airline_theme='onehalfdark'
+try
+  colorscheme onehalflight
+  let g:airline_theme='onehalfdark'
+catch /^Vim\%((\a\+)\)\=:E185/
+  " deal with it
+endtry
 
 set re=1                              " faster ruby parser
 set nocursorline

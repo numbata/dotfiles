@@ -34,7 +34,7 @@
 
 echo "Play ansible playbook"
 if [ -z $1 ]; then
-  ansible-playbook -i "localhost," -D -c local playbook.yml --ask-become-pass -vvvv
+  ansible-playbook -K -i "localhost," -D -c local playbook.yml -vvvv
 else
-  ansible-playbook -i "localhost," -D -c local playbook.yml --ask-become-pass -vvvv --tags $1
+  ansible-playbook -K -i "localhost," -D -c local playbook.yml -vvvv --tags $1
 fi

@@ -13,7 +13,7 @@
     - homebrew/cask-versions
 
 - name: Setup system-wide profile.d directory
-  become: yes
+  become: True
   file:
     path: /etc/profile.d
     state: directory
