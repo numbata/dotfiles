@@ -1,39 +1,45 @@
+- name: Install deps
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+  become: True
+
 - name: Installing apt-key
   apt_key:
-    id: "F76221572C52609D"
-    url: https://apt.dockerproject.org/gpg
+    id: "9DC858229FC7DD38854AE2D88D81803C0EBFCD88"
+    url: https://download.docker.com/linux/ubuntu/gpg
     state: present
+  become: True
 
 - name: Add deb repository
   apt_repository:
-    repo: "deb https://apt.dockerproject.org/repo ubuntu-{{ ansible_distribution_release }} main"
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu ubuntu-{{ ansible_distribution_release }} stable"
     state: present
+  become: True
 
 - name: Install
   apt:
     name:
-      - linux-image-extra-virtual
-      - docker-engine
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
     state: latest
-
-- name: Create Docker group
-  group: name=docker state=present
+  become: True
 
 - name: Add current user to Docker group
   user:
     name: "{{ ansible_env.USER }}"
     groups: docker
     append: yes
+  become: True
 
 - name: "Ensure Docker is {{ docker.start | ternary('started','stopped') }}"
   service:
     name: docker
     state: "{{ docker.start | ternary('restarted','stopped') }}"
     enabled: "{{ docker.service_enabled }}"
-
-- name: Install docker-compose
-  get_url:
-    url: "https://github.com/docker/compose/releases/download/1.9.0/docker-compose-Linux-x86_64"
-    dest: "/usr/local/bin/docker-compose"
-    force: no
-    mode: 0755
+  become: True
