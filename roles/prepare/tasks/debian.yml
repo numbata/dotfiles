@@ -9,7 +9,11 @@
   apt:
     name:
       - linuxbrew-wrapper
+  become: yes
+  become_method: sudo
 
 - name: Update brew
   homebrew:
     update_homebrew: yes
+  become: yes
+  become_method: sudo

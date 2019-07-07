@@ -9,6 +9,7 @@
       - silversearcher-ag
       - gpg
       - ipcalc
+      - linuxbrew-wrapper
 
 - name: Install docker
   include: debian.docker.yml
