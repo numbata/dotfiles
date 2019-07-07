@@ -19,7 +19,14 @@
   apt_repository:
     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu ubuntu-{{ ansible_distribution_release }} stable"
     state: present
+  become: TrueS
+
+- name: update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
   become: True
+  changed_when: false
 
 - name: Install
   apt:
