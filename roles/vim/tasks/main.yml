@@ -22,7 +22,7 @@
 - name: Setup vim dotfiles
   template:
     src: "{{ item }}"
-    dest: "~/.{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.{{ item }}"
     force: yes
   with_items:
     - vimrc

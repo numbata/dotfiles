@@ -1,6 +1,5 @@
 - name: install brew packages
   homebrew:
-    name: "{{ item }}"
+    name:
+      - nim
     state: latest
-  with_items:
-    - nim

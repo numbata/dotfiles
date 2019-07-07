@@ -1,6 +1,6 @@
-- name: Register brew apps list
-  set_fact:
-    brew_apps:
+- name: Install brew packages
+  homebrew:
+    name:
       - wget
       - the_silver_searcher
       - jsonpp
@@ -10,10 +10,11 @@
       - ipcalc
       - git-flow-avh
       - gpg
+    state: present
 
-- name: Register cask apps list
-  set_fact:
-    cask_apps:
+- name: Install apps from casks
+  homebrew_cask:
+    name:
       - font-fira-mono
       - font-roboto-mono
       - font-hack
@@ -34,13 +35,4 @@
       - 1password
       - spotify
       - dash
-
-- name: Install brew packages
-  homebrew:
-    name: "{{ brew_apps | join(',') }}"
-    state: present
-
-- name: Install apps from casks
-  homebrew_cask:
-    name: "{{ cask_apps | join(',') }}"
     state: present

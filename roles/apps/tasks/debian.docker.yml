@@ -1,4 +1,3 @@
----
 - name: Installing apt-key
   apt_key:
     id: "F76221572C52609D"

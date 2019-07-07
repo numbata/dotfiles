@@ -11,3 +11,20 @@
     - homebrew/cask
     - homebrew/cask-fonts
     - homebrew/cask-versions
+
+- name: Setup system-wide profile.d directory
+  become: yes
+  file:
+    path: /etc/profile.d
+    state: directory
+
+- name: Include profile.d scripts
+  become: yes
+  blockinfile:
+    path: /etc/profile
+    insertafter: EOF
+    block: |
+      for sh in /etc/profile.d/*.sh ; do
+              [ -r "$sh" ] && . "$sh"
+      done
+      unset sh

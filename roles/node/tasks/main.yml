@@ -1,6 +1,6 @@
 - name: Check OS specifix setup task exists
   stat:
-    path: "{{ role_path }}/tasks/{{ os_family }}.yml"
+    path: "{{ role_path }}/tasks/setup.{{ os_family }}.yml"
   register: os_task
   become: no
 
@@ -10,27 +10,26 @@
 
 - name: Install npm packages
   npm:
-    name: "{{ item }}"
+    name:
+      - eslint
+      - livedown
+      - babel-eslint
+      - babel-preset-stage-0
+      - eslint-plugin-react
+      - eslint-plugin-flowtype
+      - eslint-plugin-import
+      - eslint-import-resolver-webpack
+      - eslint-plugin-jsx-a11y
+      - eslint-config-airbnb
+      - eslint-plugin-vue
+      - lint-staged
+      - json-lint
+      - bower
+      - grunt-cli
+      - stylelint
+      - get-graphql-schema
     state: present
     global: yes
-  with_items:
-    - eslint
-    - livedown
-    - babel-eslint
-    - babel-preset-stage-0
-    - eslint-plugin-react
-    - eslint-plugin-flowtype
-    - eslint-plugin-import
-    - eslint-import-resolver-webpack
-    - eslint-plugin-jsx-a11y
-    - eslint-config-airbnb
-    - eslint-plugin-vue
-    - lint-staged
-    - json-lint
-    - bower
-    - grunt-cli
-    - stylelint
-    - get-graphql-schema
 
 - name: Setup dotfiles
   template:
