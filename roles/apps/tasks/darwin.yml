@@ -3,6 +3,7 @@
     name:
       - wget
       - the_silver_searcher
+      - tmux
       - jsonpp
       - hub
       - mercurial

@@ -8,6 +8,7 @@
       - git
       - silversearcher-ag
       - gpg
+      - tmux
       - ipcalc
       - linuxbrew-wrapper
 
