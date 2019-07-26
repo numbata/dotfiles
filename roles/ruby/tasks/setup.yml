@@ -1,6 +1,10 @@
 ###
 # Based on https://github.com/zzet/ansible-rbenv-role
 #
+- name: set tmp directory path
+  set_fact:
+    rbenv_tmpdir: "{{ ansible_env.TMPDIR | default('/tmp') }}"
+  when: rbenv_tmpdir is undefined
 
 - name: checkout rbenv_repo
   git:
@@ -9,9 +13,7 @@
     version: '{{ rbenv.version }}'
     accept_hostkey: yes
     force: yes
-  with_items: "{{ rbenv_users }}"
   become: yes
-  ignore_errors: yes
 
 - name: create plugins directory
   file:
@@ -51,6 +53,18 @@
   when:
     - ansible_os_family == 'Darwin' and rbenv_user_profile
 
+- name: set shell prefix for system-wide
+  set_fact:
+    rbenv_shell: ". /etc/profile/ && "
+  when:
+    - ansible_os_family == 'Darwin' and rbenv_user_profile
+
+- name: set shell prefix for system-wide
+  set_fact:
+    rbenv_shell: ". /etc/profile.d/rbenv.sh && "
+  when:
+    - (ansible_os_family != 'OpenBSD' and ansible_os_family != 'Darwin') and rbenv_user_profile
+
 - name: set vars
   copy:
     src: vars
@@ -61,7 +75,7 @@
   ignore_errors: yes
 
 - name: check ruby versions installed
-  shell: $SHELL -lc "{{ rbenv_root }}/bin/rbenv versions --bare"
+  shell: $SHELL -lc "{{ rbenv_shell }} {{ rbenv_root }}/bin/rbenv versions --bare"
   become: yes
   register: rbenv_versions
   changed_when: false
@@ -70,7 +84,7 @@
   check_mode: no
 
 - name: install ruby {{ item.version }}
-  shell: $SHELL -lc "{{ rbenv_root }}/bin/rbenv install --skip-existing {{ item.version }}"
+  shell: $SHELL -lc "{{ rbenv_shell }} {{ rbenv_root }}/bin/rbenv install --skip-existing {{ item.version }}"
   become: yes
   args:
     creates: "~/.rbenv/versions/{{ item.version }}"
@@ -103,7 +117,7 @@
   ignore_errors: yes
 
 - name: check if user ruby version is {{ rbenv.default_ruby }}
-  shell: $SHELL -lc "{{ rbenv_root }}/bin/rbenv version | cut -d ' ' -f 1 | grep -Fx '{{ rbenv.default_ruby }}'"
+  shell: $SHELL -lc "{{ rbenv_shell }} {{ rbenv_root }}/bin/rbenv version | cut -d ' ' -f 1 | grep -Fx '{{ rbenv.default_ruby }}'"
   become: yes
   register: ruby_selected
   changed_when: false
@@ -112,7 +126,7 @@
   check_mode: no
 
 - name: set ruby {{ rbenv.default_ruby }}
-  shell: $SHELL -lc "{{ rbenv_root }}/bin/rbenv global {{ rbenv.default_ruby }} && rbenv rehash"
+  shell: $SHELL -lc "{{ rbenv_shell }} {{ rbenv_root }}/bin/rbenv global {{ rbenv.default_ruby }} && rbenv rehash"
   become: yes
   when:
     - ruby_selected.rc != 0

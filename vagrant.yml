@@ -1,12 +1,6 @@
-- hosts: 127.0.0.1
-  connection: local
-  become: false
+- hosts: all
   vars:
     os_family: "{{ ansible_facts['os_family'] | lower }}"
-    rbenv:
-      env: system
-      version: v1.0.0
-      default_ruby: 2.6
   roles:
     - name: Preapre
       role: prepare
@@ -19,7 +13,7 @@
       tags: ['langs', 'node']
 
     - role: go
-      tags: ['langs', 'node']
+      tags: ['langs', 'go']
 
     - role: nim
       tags: ['langs', 'nim']

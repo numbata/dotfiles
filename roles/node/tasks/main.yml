@@ -1,6 +1,5 @@
-- name: Check OS specifix setup task exists
-  stat:
-    path: "{{ role_path }}/tasks/setup.{{ os_family }}.yml"
+- name: Check OS specifix deps task exists
+  local_action: stat path="{{ role_path }}/tasks/setup.{{ os_family }}.yml"
   register: os_task
   become: no
 

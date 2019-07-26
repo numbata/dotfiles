@@ -1,8 +1,19 @@
 - name: Check OS specifix deps task exists
-  stat:
-    path: "{{ role_path }}/tasks/deps.{{ os_family }}.yml"
+  local_action: stat path="{{ role_path }}/tasks/deps.{{ os_family }}.yml"
   register: os_task
   become: no
+
+- name: set shell prefix for system-wide
+  set_fact:
+    rbenv_shell: ". /etc/profile/ && "
+  when:
+    - ansible_os_family == 'Darwin' and rbenv_user_profile
+
+- name: set shell prefix for system-wide
+  set_fact:
+    rbenv_shell: ". /etc/profile.d/rbenv.sh && "
+  when:
+    - (ansible_os_family != 'OpenBSD' and ansible_os_family != 'Darwin') and rbenv_user_profile
 
 - name: Include OS specifix task
   include: "deps.{{ os_family }}.yml"

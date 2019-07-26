@@ -10,13 +10,15 @@
     name:
       - build-essential
       - curl
-      - git
+      - git-core
       - libcurl4-openssl-dev
       - libffi-dev
       - libreadline-dev
       - libssl-dev
       - libxml2-dev
       - libxslt1-dev
+      - libyaml-dev
+      - zlib1g
       - zlib1g-dev
     state: present
     install_recommends: no

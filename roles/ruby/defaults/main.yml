@@ -5,6 +5,7 @@ rbenv:
   default_ruby: 2.4.2
   rubies:
     - version: 2.4.2
+    - version: 2.6.3
 
 rbenv_clean_up: false
 

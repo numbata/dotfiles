@@ -1,0 +1,5 @@
+- name: Build Vagrantfile
+  template:
+    src: Vagrantfile.j2
+    dest: ~/Vagrantfile
+

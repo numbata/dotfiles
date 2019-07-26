@@ -1,15 +1,18 @@
 - name: Ensure apt-transport-https is installed.
+  become: yes
   apt:
     name: apt-transport-https
     state: present
 
 - name: Add Nodesource apt key.
+  become: yes
   apt_key:
     url: https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x1655A0AB68576280
     id: "68576280"
     state: present
 
 - name: Add NodeSource repositories for Node.js.
+  become: yes
   apt_repository:
     repo: "{{ item }}"
     state: present
@@ -19,9 +22,25 @@
   register: node_repo
 
 - name: Update apt cache if repo was added.
+  become: yes
   apt: update_cache=yes
   when: node_repo.changed
   tags: ['skip_ansible_lint']
 
 - name: Ensure Node.js and npm are installed.
+  become: yes
   apt: "name=nodejs=12.* state=present"
+
+- name: Prepare global dir
+  file:
+    path: $HOME/.npm-global
+    state: directory
+
+- name: Set global Node dir
+  shell: $SHELL -lc "npm config set prefix $HOME/.npm-global"
+
+- name: Add global Node directory to profile
+  lineinfile:
+    line: "export PATH=~/.npm-global/bin:$PATH"
+    path: $HOME/.profile
+    state: present

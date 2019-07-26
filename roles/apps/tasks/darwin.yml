@@ -21,11 +21,11 @@
       - font-hack
       - font-source-code-pro
       - font-fira-mono-for-powerline
+      - font-monoid
       - iterm2
       - slack
       - skype
       - telegram-desktop
-      - hipchat
       - firefox-beta
       - tunnelblick
       - sourcetree
@@ -36,4 +36,6 @@
       - 1password
       - spotify
       - dash
+      - vagrant
+      - virtualbox
     state: present

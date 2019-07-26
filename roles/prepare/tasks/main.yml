@@ -1,6 +1,5 @@
 - name: Check OS specifix task exists
-  stat:
-    path: "{{ role_path }}/tasks/{{ os_family }}.yml"
+  local_action: stat path="{{ role_path }}/tasks/{{ os_family }}.yml"
   register: os_task
   become: no
 

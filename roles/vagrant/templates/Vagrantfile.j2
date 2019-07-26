@@ -1,0 +1,20 @@
+ENV["LC_ALL"] = "en_US.UTF-8"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/bionic64"
+  config.ssh.insert_key = false
+  config.vm.hostname = "subbota-vm"
+  config.vm.define "subbota-vm" 
+
+  config.vm.provider "virtualbox" do |v|
+    v.gui = false
+    v.name = "subbota-vm"
+    # v.memory = {{ ansible_memtotal_mb|int / 2 | round }}
+    # v.cpus = {{ (ansible_processor_vcpus|int / 2) | round }}
+  end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.verbose = "v"
+    ansible.playbook = "{{ playbook_dir }}/vagrant.yml"
+  end
+end
