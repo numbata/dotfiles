@@ -3,3 +3,7 @@
     src: Vagrantfile.j2
     dest: ~/Vagrantfile
 
+# - name: Run vagrant machine
+#   local_action: vagrant up
+  
+  

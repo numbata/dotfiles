@@ -39,3 +39,6 @@
       - vagrant
       - virtualbox
     state: present
+
+- name: Setup iTerm
+  include: iterm.yml

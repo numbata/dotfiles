@@ -21,22 +21,23 @@ Plug 'terryma/vim-multiple-cursors'                               " True Sublime
 " Plug 'shime/vim-livedown'
 Plug 'ekalinin/Dockerfile.vim'                                    " Vim syntax file & snippets for Docker's Dockerfile
 Plug 'ludovicchabant/vim-gutentags'                               " A Vim plugin that manages your tag files
-Plug 'szw/vim-tags'                                               " The Ctags generator for Vim
-" Plug 'universal-ctags/ctags'                                      " A maintained ctags implementation
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
 
 " Utils
 Plug 'AndrewRadev/linediff.vim'                                   " A vim plugin to perform diffs on blocks of code
 Plug 'vim-airline/vim-airline-themes'                             " Lean & mean status/tabline for vim that's light as air
 
 " Color scheme
-Plug 'sonph/onehalf'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'altercation/vim-colors-solarized'
+Plug 'flazz/vim-colorschemes'
 " Plug 'arcticicestudio/nord-vim'                                 " An arctic, north-bluish clean and elegant Vim theme
 " Plug 'nanotech/jellybeans.vim'
 
 " Confluence wiki
 Plug 'vim-scripts/confluencewiki.vim'
 
-Plug 'altercation/vim-colors-solarized'
 Plug 'w0rp/ale'
 
 " Ruby

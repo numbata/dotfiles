@@ -2,11 +2,3 @@
   homebrew:
     name: vim
     state: present
-    install_options: override-system-vi
-
-- name: Install ctags
-  homebrew:
-    name: universal-ctags/universal-ctags/universal-ctags
-    install_options: --HEAD
-    state: head
-

@@ -1,14 +1,17 @@
 - name: add an apt ubuntu/erlang_solutions signing key
+  become: yes
   apt_key:
     url: https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc
     state: present
 
 - name: add erlang-solutions repository into sources list
+  become: yes
   apt_repository:
     repo: deb https://packages.erlang-solutions.com/ubuntu xenial contrib
     state: present
 
 - name: install packages
+  become: yes
   apt:
     name:
       - erlang

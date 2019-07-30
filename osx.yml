@@ -14,5 +14,8 @@
     - role: dotfiles
       tags: ['dotfiles']
 
-    - name: Vagrant
-      role: vagrant
+    - role: vim
+      tags: ['apps', 'vim']
+
+    - role: vagrant
+      tags: ['vagrant']

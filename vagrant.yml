@@ -6,6 +6,15 @@
       role: prepare
       tags: ['always']
 
+    - role: apps
+      tags: ['apps']
+
+    - role: vim
+      tags: ['apps', 'vim']
+
+    - role: dotfiles
+      tags: ['dotfiles']
+
     - role: ruby
       tags: ['langs', 'ruby']
 
@@ -21,14 +30,3 @@
     - role: elixir
       tags: ['langs', 'elixir']
 
-    - role: java-sdk
-      tags: ['langs', 'java']
-
-    - role: apps
-      tags: ['apps']
-
-    - role: vim
-      tags: ['apps', 'vim']
-
-    - role: dotfiles
-      tags: ['dotfiles']

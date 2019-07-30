@@ -2,6 +2,8 @@
   homebrew_cask:
     name: java
     state: present
+  when:
+    - ansible_os_family == 'Darwin'
 
 - name: Clean list of disabled algorithm
   become: true
@@ -13,7 +15,8 @@
     - jdk.certpath.disabledAlgorithms
     - jdk.jar.disabledAlgorithms
     - jdk.tls.disabledAlgorithms
-
+  when:
+    - ansible_os_family == 'Darwin'
 
 - name: Disable some policy
   become: true
@@ -21,3 +24,5 @@
     path: '/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/security/java.security'
     regexp: 'policy.ignoreIdentityScope=false'
     replace: 'policy.ignoreIdentityScope=true'
+  when:
+    - ansible_os_family == 'Darwin'

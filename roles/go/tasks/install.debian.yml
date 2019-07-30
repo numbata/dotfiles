@@ -1,4 +1,5 @@
 - name: install packages
+  become: yes
   apt:
     name:
       - golang-go
