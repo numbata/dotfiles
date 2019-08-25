@@ -54,6 +54,7 @@ set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_  " Show “invisible” characters
 set nojoinspaces                      " Don't add 2 spaces when using J
 set title                             " Change the terminal's title
 set backspace=indent,eol,start
+set splitbelow
 
 " keyboard shortcuts
 let mapleader = ','
@@ -92,12 +93,14 @@ let g:ale_statusline_format = ['💣 %d', '🚩 %d', '']
 
 let g:vim_tags_use_vim_dispatch = 1
 
-
 " JavaScript
 let g:vue_disable_pre_processors=1
 
 " Vim-Json
 let g:vim_json_syntax_conceal = 0
+
+" Golang
+let g:go_fmt_command = "goimports"
 
 " EasyMotion
 let g:EasyMotion_leader_key = ';'
