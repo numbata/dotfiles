@@ -2,7 +2,7 @@
 
 # Check if console tools installed
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  OS_NAME=osx
+  PLAYBOOk_NAME=osx
   if ! xcode-select -p>/dev/null; then
     echo "Install xcode"
     xcode-select --install
@@ -23,7 +23,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     brew upgrade ansible
   fi
 elif [[ "$OSTYPE" == "linux-gnu" ]]; then
-  OS_NAME=linux
+  PLAYBOOK_NAME=linux
   if ! grep -q "ansible/ansible" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
     sudo apt-add-repository ppa:ansible/ansible -y
   fi
@@ -32,8 +32,7 @@ elif [[ "$OSTYPE" == "linux-gnu" ]]; then
     sudo apt-get install -y software-properties-common ansible git python-apt
   fi
 fi
-
-
+PLAYBOOK_NAME=playbook
 echo "Play ansible playbook"
 if [ -z $1 ]; then
   ansible-playbook -K -i "localhost," -D -c local $OS_NAME.yml -vvvv

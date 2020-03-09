@@ -11,6 +11,8 @@
       - ipcalc
       - git-flow-avh
       - gpg
+      - mas
+      - dockutil
     state: present
 
 - name: Install apps from casks
@@ -38,7 +40,29 @@
       - dash
       - vagrant
       - virtualbox
+      - rectangle
+      - visual-studio-code
     state: present
 
 - name: Setup iTerm
   include: iterm.yml
+
+- name: Cleanup Dock
+  command: dockutil --remove '{{ item }}'
+  ignore_errors: true
+  with_items:
+    - Siri
+    - Launchpad
+    - Safari
+    - Contacts
+    - Notes
+    - Reminders
+    - Maps
+    - Photos
+    - Messsages
+    - FaceTime
+    - Music
+    - Podcasts
+    - TV
+    - Books
+    - App Store

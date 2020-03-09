@@ -6,7 +6,7 @@
     rbenv:
       env: system
       version: v1.0.0
-      default_ruby: 2.6
+      default_ruby: 2.7
   roles:
     - name: Preapre
       role: prepare
