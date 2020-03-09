@@ -10,6 +10,9 @@
       - ipcalc
       - git-flow-avh
       - gpg
+      - mas
+      - tmux
+      - dockutil
 
 - name: Register cask apps list
   set_fact:
@@ -34,6 +37,8 @@
       - 1password
       - spotify
       - dash
+      - rectangle
+      - visual-studio-code
 
 - name: Install brew packages
   homebrew:
@@ -44,3 +49,23 @@
   homebrew_cask:
     name: "{{ cask_apps | join(',') }}"
     state: present
+
+- name: Cleanup Dock
+  command: dockutil --remove '{{ item }}'
+  ignore_errors: true
+  with_items:
+    - Siri
+    - Launchpad
+    - Safari
+    - Contacts
+    - Notes
+    - Reminders
+    - Maps
+    - Photos
+    - Messsages
+    - FaceTime
+    - Music
+    - Podcasts
+    - TV
+    - Books
+    - App Store

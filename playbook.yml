@@ -39,10 +39,10 @@
          - langs
          - elixir
 
-    - name: Install Java SDK
-      include: tasks/java_sdk.yml
-      tags:
-        - javasdk
+#     - name: Install Java SDK
+#       include: tasks/java_sdk.yml
+#       tags:
+#         - javasdk
 
     - name: Install VIM
       include: tasks/vim.yml

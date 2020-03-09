@@ -29,6 +29,3 @@
     dest: ~/.profile
     line: "source {{ ansible_env.HOME }}/.bashrc"
     regexp: "bashrc"
-
-- name: load dotfiles
-  command: "source {{ ansible_env.HOME }}/.bashrc"

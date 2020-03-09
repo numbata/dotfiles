@@ -20,7 +20,7 @@ filetype plugin indent on    " required
 set t_Co=256
 " silent! colorscheme jellybeans
 set cursorline
-colorscheme onehalflight
+silent! colorscheme onehalflight
 let g:airline_theme='onehalfdark'
 
 set re=1                              " faster ruby parser
