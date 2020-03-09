@@ -1,0 +1,5 @@
+- name: install brew packages
+  homebrew:
+    name:
+      - nim
+    state: latest

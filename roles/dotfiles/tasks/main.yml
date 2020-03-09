@@ -1,0 +1,58 @@
+- name: get user path
+  stat:
+    path: "~"
+  register: homepath
+
+- name: touch local.dotfiles
+  file:
+    path: "{{ ansible_env.HOME }}/.{{ item }}"
+    state: touch
+  with_items:
+    - profile
+
+- name: setup dotfiles
+  template:
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.{{ item }}"
+    force: yes
+  with_items:
+    - aliases
+    - bashrc
+    - gitconfig
+    - gitignore_global
+    - hgrc
+    - hgignore
+    - tmux.conf
+  register: dotfiles
+
+- name: setup ~/.bashrc
+  lineinfile:
+    dest: "{{ ansible_env.HOME }}/.profile"
+    line: "source {{ ansible_env.HOME }}/.bashrc"
+    regexp: "bashrc"
+
+- name: create .ssh directories
+  file:
+    dest: "{{ ansible_env.HOME }}/{{ item }}"
+    mode:  0700
+    state: directory
+  with_items:
+    - '.ssh'
+    - '.ssh/config.d'
+    - '.ssh/keys'
+
+- name: copy common config
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.ssh/config.d/"
+    mode: 0600
+  with_fileglob:
+    - '_*'
+
+- name: assemble config.d
+  assemble:
+    src: "{{ ansible_env.HOME }}/.ssh/config.d"
+    dest: "{{ ansible_env.HOME }}/.ssh/config"
+    mode: 0600
+    ignore_hidden: yes
+    delimiter: "\n"

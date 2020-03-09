@@ -1,0 +1,95 @@
+- name: Update brew
+  homebrew:
+    update_homebrew: yes
+
+- name: Taps homebrew repos
+  homebrew_tap:
+    tap: "{{ item }}"
+    state: present
+  with_items:
+    - thoughtbot/formulae
+    - homebrew/cask
+    - homebrew/cask-fonts
+    - homebrew/cask-versions
+
+- name: Setup system-wide profile.d directory
+  become: True
+  file:
+    path: /etc/profile.d
+    state: directory
+
+- name: Include profile.d scripts
+  become: yes
+  blockinfile:
+    path: /etc/profile
+    insertafter: EOF
+    block: |
+      for sh in /etc/profile.d/*.sh ; do
+              [ -r "$sh" ] && . "$sh"
+      done
+      unset sh
+
+- name: Remap CAPS to L_control
+  local_action: shell hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0}]}'
+
+- name: Set OS X defaults
+  osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    # Global setings
+    - domain: NSGlobalDomain
+      key: AppleMeasurementUnits
+      type: string
+      value: Centimeters
+    - domain: NSGlobalDomain
+      key: AppleMetricUnits
+      type: bool
+      value: true
+    # 24-Hour Time
+    - domain: NSGlobalDomain
+      key: AppleICUForce12HourTime
+      type: bool
+      value: false
+    # Ask for password after 5 seconds
+    - domain: com.apple.screensaver
+      key: askForPassword
+      type: int
+      value: 1
+    - domain: com.apple.screensaver
+      key: askForPasswordDelay
+      type: int
+      value: 5
+    # Set screensaver corner (bottom left)
+    - domain: com.apple.dock
+      key: wvous-bl-corner
+      type: int
+      value: 5
+    - domain: com.apple.dock
+      key: wvous-bl-modifier
+      type: int
+      value: 0
+    # Always show scrollbars
+    - domain: NSGlobalDomain
+      key: AppleShowScrollBars
+      type: string
+      value: Always
+    # Tap to click
+    - domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+      key: Clicking
+      type: bool
+      value: true
+
+- name: Check if iTunes helper exists
+  stat:
+    path: '/Applications/iTunes.app/Contents/MacOS/iTunesHelper.app'
+  register: itunes_helper_result
+
+- name: Disable iTunes helper
+  become: yes
+  become_method: sudo
+  command: mv /Applications/iTunes.app/Contents/MacOS/iTunesHelper.app /Applications/iTunes.app/Contents/MacOS/iTunesHelper.app-disabled
+  when: itunes_helper_result.stat.exists

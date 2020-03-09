@@ -1,0 +1,8 @@
+- name: install packages
+  become: yes
+  apt:
+    name:
+      - golang-go
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600

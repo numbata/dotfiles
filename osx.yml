@@ -1,0 +1,21 @@
+- hosts: 127.0.0.1
+  connection: local
+  become: false
+  vars:
+    os_family: "{{ ansible_facts['os_family'] | lower }}"
+  roles:
+    - name: Preapre
+      role: prepare
+      tags: ['always']
+
+    - role: apps
+      tags: ['apps']
+
+    - role: dotfiles
+      tags: ['dotfiles']
+
+    - role: vim
+      tags: ['apps', 'vim']
+
+    - role: vagrant
+      tags: ['vagrant']

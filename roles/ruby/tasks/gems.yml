@@ -1,0 +1,10 @@
+- name: Install gems (linters, checkers, etc)
+  shell: $SHELL -lc "RBENV_VERSION={{ item.0 }} {{ rbenv_shell }} gem install --no-user-install --no-document {{ item.1 }}"
+  become: yes
+  with_nested:
+    - "{{ rbenv.rubies|map(attribute='version')|list }}"
+    - - mdl
+      - haml-lint
+      - ruby-lint
+      - rubocop
+      - overcommit

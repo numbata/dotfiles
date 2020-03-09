@@ -1,0 +1,6 @@
+# rbenv setup
+if [ -d "{{ rbenv_root }}" ]; then
+  export RBENV_ROOT={{ rbenv_root }};
+  export PATH=$RBENV_ROOT/bin:$PATH;
+  eval "$(rbenv init -)";
+fi

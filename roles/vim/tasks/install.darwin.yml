@@ -1,0 +1,4 @@
+- name: Install latest VIM
+  homebrew:
+    name: vim
+    state: present

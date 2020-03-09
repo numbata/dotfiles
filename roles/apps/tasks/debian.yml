@@ -1,0 +1,25 @@
+- name: Install common packages
+  become: true
+  apt:
+    name:
+      - wget
+      - build-essential
+      - curl
+      - file
+      - git
+      - silversearcher-ag
+      - gpg
+      - tmux
+      - ipcalc
+      - linuxbrew-wrapper
+
+- name: Install docker
+  include: debian.docker.yml
+
+- name: Install brew packages
+  homebrew:
+    name:
+      - hub
+      - fzf
+      - git-flow-avh
+    state: present

@@ -1,7 +1,5 @@
-- name: Install latest VIM
-  homebrew:
-    name: vim
-    state: present
+- name: Include OS specifix task
+  include: "install.{{ os_family }}.yml"
 
 - name: Setup plug autoload dir
   file:
@@ -23,8 +21,8 @@
 
 - name: Setup vim dotfiles
   template:
-    src: "dotfiles/{{ item }}"
-    dest: "~/.{{ item }}"
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.{{ item }}"
     force: yes
   with_items:
     - vimrc

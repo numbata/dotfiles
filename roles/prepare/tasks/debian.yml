@@ -1,0 +1,18 @@
+- name: Update packages
+  become: yes
+  become_method: sudo
+  apt:
+    upgrade: dist
+    update_cache: yes
+
+- name: Install homebrew wrapper
+  become: yes
+  become_method: sudo
+  apt:
+    name:
+      - build-essential
+      - linuxbrew-wrapper
+
+# - name: Update brew
+#   homebrew:
+#     update_homebrew: yes

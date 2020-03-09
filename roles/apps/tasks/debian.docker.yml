@@ -1,0 +1,53 @@
+- name: Docker | Install deps
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+  become: True
+
+- name: Docker | Installing apt-key
+  apt_key:
+    id: "9DC858229FC7DD38854AE2D88D81803C0EBFCD88"
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+  become: True
+
+- name: Docker | Add deb repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+    state: present
+  become: True
+
+- name: Docker | Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+  become: True
+  changed_when: false
+
+- name: Docker | Install docker
+  apt:
+    name:
+      - docker-ce
+      - docker-compose
+      - docker-ce-cli
+      - containerd.io
+    state: latest
+  become: True
+
+- name: Docker | Add current user to Docker group
+  user:
+    name: "{{ ansible_env.USER }}"
+    groups: docker
+    append: yes
+  become: True
+
+- name: "Ensure Docker is started"
+  service:
+    name: docker
+    state: started
+    enabled: True
+  become: True

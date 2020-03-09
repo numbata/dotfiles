@@ -1,0 +1,15 @@
+- name: update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+  become: true
+  changed_when: false
+
+- name: install build depends
+  apt:
+    name:
+      - vim
+      - vim-runtime
+    state: present
+    install_recommends: no
+  become: true

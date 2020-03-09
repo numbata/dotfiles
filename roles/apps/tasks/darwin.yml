@@ -1,8 +1,9 @@
-- name: Register brew apps list
-  set_fact:
-    brew_apps:
+- name: Install brew packages
+  homebrew:
+    name:
       - wget
       - the_silver_searcher
+      - tmux
       - jsonpp
       - hub
       - mercurial
@@ -13,20 +14,21 @@
       - mas
       - tmux
       - dockutil
+    state: present
 
-- name: Register cask apps list
-  set_fact:
-    cask_apps:
+- name: Install apps from casks
+  homebrew_cask:
+    name:
       - font-fira-mono
       - font-roboto-mono
       - font-hack
       - font-source-code-pro
       - font-fira-mono-for-powerline
+      - font-monoid
       - iterm2
       - slack
       - skype
       - telegram-desktop
-      - hipchat
       - firefox-beta
       - tunnelblick
       - sourcetree
@@ -37,8 +39,11 @@
       - 1password
       - spotify
       - dash
+      - vagrant
+      - virtualbox
       - rectangle
       - visual-studio-code
+    state: present
 
 - name: Install brew packages
   homebrew:
@@ -49,6 +54,11 @@
   homebrew_cask:
     name: "{{ cask_apps | join(',') }}"
     state: present
+      - rectangle
+      - visual-studio-code
+
+- name: Setup iTerm
+  include: iterm.yml
 
 - name: Cleanup Dock
   command: dockutil --remove '{{ item }}'

@@ -1,0 +1,133 @@
+###
+# Based on https://github.com/zzet/ansible-rbenv-role
+#
+- name: set tmp directory path
+  set_fact:
+    rbenv_tmpdir: "{{ ansible_env.TMPDIR | default('/tmp') }}"
+  when: rbenv_tmpdir is undefined
+
+- name: checkout rbenv_repo
+  git:
+    repo: '{{ rbenv_repo }}'
+    dest: '{{ rbenv_root }}'
+    version: '{{ rbenv.version }}'
+    accept_hostkey: yes
+    force: yes
+  become: yes
+
+- name: create plugins directory
+  file:
+    state: directory
+    path: '{{ rbenv_root }}/plugins'
+  become: yes
+  ignore_errors: yes
+
+- name: install plugins
+  git:
+    repo: '{{ item.repo }}'
+    dest: '{{ rbenv_root }}/plugins/{{ item.name }}'
+    version: '{{ item.version }}'
+    accept_hostkey: yes
+    force: yes
+  with_items:
+    - "{{ rbenv_plugins }}"
+  become: yes
+  ignore_errors: yes
+
+- name: add rbenv initialization to profile system-wide
+  template:
+    src: rbenv_user.sh.j2
+    dest: /etc/profile.d/rbenv.sh
+    owner: root
+    group: root
+    mode: 0755
+  become: yes
+  when:
+    - (ansible_os_family != 'OpenBSD' and ansible_os_family != 'Darwin') and rbenv_user_profile
+
+- name: add rbenv initialization to profile system-wide
+  blockinfile:
+    block: "{{ lookup('template', 'rbenv_user.sh.j2') }}"
+    dest: /etc/profile
+  become: yes
+  when:
+    - ansible_os_family == 'Darwin' and rbenv_user_profile
+
+- name: set shell prefix for system-wide
+  set_fact:
+    rbenv_shell: ". /etc/profile/ && "
+  when:
+    - ansible_os_family == 'Darwin' and rbenv_user_profile
+
+- name: set shell prefix for system-wide
+  set_fact:
+    rbenv_shell: ". /etc/profile.d/rbenv.sh && "
+  when:
+    - (ansible_os_family != 'OpenBSD' and ansible_os_family != 'Darwin') and rbenv_user_profile
+
+- name: set vars
+  copy:
+    src: vars
+    dest: '{{ rbenv_root }}/vars'
+  become: yes
+  when:
+    - rbenv_set_vars | bool
+  ignore_errors: yes
+
+- name: check ruby versions installed
+  shell: $SHELL -lc "{{ rbenv_shell }} {{ rbenv_root }}/bin/rbenv versions --bare"
+  become: yes
+  register: rbenv_versions
+  changed_when: false
+  ignore_errors: yes
+  failed_when: false
+  check_mode: no
+
+- name: install ruby {{ item.version }}
+  shell: $SHELL -lc "{{ rbenv_shell }} {{ rbenv_root }}/bin/rbenv install --skip-existing {{ item.version }}"
+  become: yes
+  args:
+    creates: "~/.rbenv/versions/{{ item.version }}"
+  with_items:
+    - "{{ rbenv.rubies }}"
+  ignore_errors: yes
+  environment: "{{ item.env | default({}) | combine({ 'TMPDIR': rbenv_tmpdir }) }}"
+
+- name: check which old rubies to remove
+  set_fact:
+    drop_ruby:
+      - "{{ '{'+item[0].stdout_lines|list|difference(item[1])|join(',')+'}' }}"
+  become: yes
+  with_nested:
+    - "{{ ruby_installed.results }}"
+    - "{{ rbenv.rubies|map(attribute='version')|list }}"
+  when:
+    - rbenv_clean_up | bool
+    - item[0].stdout_lines|list != item[1]
+  register: removable_rubies
+  ignore_errors: yes
+
+- name: remove old rubies
+  shell: $SHELL -lc "rm -rf {{ rbenv_root }}/versions/{{ item.ansible_facts.drop_ruby[1] }}"
+  changed_when: false
+  become: yes
+  become_user: "{{ item.ansible_facts.drop_ruby[0] }}"
+  with_items: "{{ removable_rubies.results }}"
+  when: rbenv_clean_up | bool
+  ignore_errors: yes
+
+- name: check if user ruby version is {{ rbenv.default_ruby }}
+  shell: $SHELL -lc "{{ rbenv_shell }} {{ rbenv_root }}/bin/rbenv version | cut -d ' ' -f 1 | grep -Fx '{{ rbenv.default_ruby }}'"
+  become: yes
+  register: ruby_selected
+  changed_when: false
+  ignore_errors: yes
+  failed_when: false
+  check_mode: no
+
+- name: set ruby {{ rbenv.default_ruby }}
+  shell: $SHELL -lc "{{ rbenv_shell }} {{ rbenv_root }}/bin/rbenv global {{ rbenv.default_ruby }} && rbenv rehash"
+  become: yes
+  when:
+    - ruby_selected.rc != 0
+  ignore_errors: yes
