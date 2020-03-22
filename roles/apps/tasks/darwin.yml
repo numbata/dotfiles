@@ -45,18 +45,6 @@
       - visual-studio-code
     state: present
 
-- name: Install brew packages
-  homebrew:
-    name: "{{ brew_apps | join(',') }}"
-    state: present
-
-- name: Install apps from casks
-  homebrew_cask:
-    name: "{{ cask_apps | join(',') }}"
-    state: present
-      - rectangle
-      - visual-studio-code
-
 - name: Setup iTerm
   include: iterm.yml
 
@@ -72,7 +60,7 @@
     - Reminders
     - Maps
     - Photos
-    - Messsages
+    - Messages
     - FaceTime
     - Music
     - Podcasts

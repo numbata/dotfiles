@@ -33,9 +33,10 @@ elif [[ "$OSTYPE" == "linux-gnu" ]]; then
   fi
 fi
 PLAYBOOK_NAME=playbook
+
 echo "Play ansible playbook"
 if [ -z $1 ]; then
-  ansible-playbook -K -i "localhost," -D -c local $OS_NAME.yml -vvvv
+  ansible-playbook -K -i "localhost," -D -c local $PLAYBOOK_NAME.yml -vvvv
 else
-  ansible-playbook -K -i "localhost," -D -c local $OS_NAME.yml -vvvv --tags $1
+  ansible-playbook -K -i "localhost," -D -c local $PLAYBOOK_NAME.yml -vvvv --tags $1
 fi

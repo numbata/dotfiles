@@ -23,6 +23,7 @@ Plug 'ekalinin/Dockerfile.vim'                                    " Vim syntax f
 Plug 'ludovicchabant/vim-gutentags'                               " A Vim plugin that manages your tag files
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
+Plug 'pechorin/any-jump.vim'
 
 " Utils
 Plug 'AndrewRadev/linediff.vim'                                   " A vim plugin to perform diffs on blocks of code

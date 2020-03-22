@@ -7,6 +7,9 @@
       env: system
       version: v1.0.0
       default_ruby: 2.7
+      rubies:
+        - version: 2.6.3
+        - version: 2.7.0
   roles:
     - name: Preapre
       role: prepare

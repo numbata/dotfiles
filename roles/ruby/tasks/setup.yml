@@ -55,7 +55,7 @@
 
 - name: set shell prefix for system-wide
   set_fact:
-    rbenv_shell: ". /etc/profile/ && "
+    rbenv_shell: ". /etc/profile && "
   when:
     - ansible_os_family == 'Darwin' and rbenv_user_profile
 
@@ -88,8 +88,7 @@
   become: yes
   args:
     creates: "~/.rbenv/versions/{{ item.version }}"
-  with_items:
-    - "{{ rbenv.rubies }}"
+  with_items: "{{ rbenv.rubies }}"
   ignore_errors: yes
   environment: "{{ item.env | default({}) | combine({ 'TMPDIR': rbenv_tmpdir }) }}"
 

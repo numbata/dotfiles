@@ -80,6 +80,58 @@
     # Tap to click
     - domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
       key: Clicking
+      type: int
+      value: 1
+    # Disable opening and closing window animations
+    - domain: NSGlobalDomain
+      key: NSAutomaticWindowAnimationsEnabled
+      type: bool
+      value: false
+    # Disable the “Are you sure you want to open this application?” dialog
+    - domain: com.apple.LaunchServices
+      key: LSQuarantine
+      type: bool
+      value: false
+    # Turn off keyboard illumination when computer is not used for 5 minutes
+    - domain: com.apple.BezelServices
+      key: kDimTime
+      type: int
+      value: 300
+    # Disable auto-correct
+    - domain: NSGlobalDomain
+      key: NSAutomaticSpellingCorrectionEnabled
+      type: bool
+      value: false
+    # Remap CAPS to L_CONTROL
+    - domain: com.apple.keyboard
+      key: modifiermapping
+      type: string
+      value: |
+        ({
+          HIDKeyboardModifierMappingDst: 2;
+          HIDKeyboardModifierMappingSrc: 0;
+        })
+    # Finder: disable window animations and Get Info animations
+    - domain: com.apple.finder
+      key: DisableAllAnimations
+      type: bool
+      value: true
+    # Enable the Develop menu and the Web Inspector in Safari
+    - domain: com.apple.Safari
+      key: IncludeInternalDebugMenu
+      type: bool
+      value: true
+    - domain: com.apple.Safari
+      key: IncludeDevelopMenu
+      type: bool
+      value: true
+    - domain: com.apple.Safari
+      key: WebKitDeveloperExtrasEnabledPreferenceKey
+      type: bool
+      value: true
+    # Add a context menu item for showing the Web Inspector in web views
+    - domain: NSGlobalDomain
+      key: WebKitDeveloperExtras
       type: bool
       value: true
 

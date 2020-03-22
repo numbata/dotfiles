@@ -1,14 +1,21 @@
 - name: install Java
   homebrew_cask:
-    name: java
+    name: oracle-jdk
     state: present
   when:
     - ansible_os_family == 'Darwin'
 
+- name: detect Java home path
+  shell: $SHELL -lc "java -XshowSettings:properties -version 2>&1 > /dev/null | grep -e 'java.home' | sed -e 's/^[[:space:]]*java.home[[:space:]]*=[[:space:]]*//'"
+  register: java_home
+
+- debug:
+    var: java_home
+
 - name: Clean list of disabled algorithm
   become: true
   replace:
-    path: '/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/security/java.security'
+    path: "{{ java_home.stdout }}/conf/security/java.security"
     regexp: "^{{ item }}=(?:\\s*[^\\\\\\n]*?, \\\\$)*(?:\\s*[^\\\\\\\n]*?$)"
     replace: "{{ item }}="
   with_items:
@@ -21,7 +28,7 @@
 - name: Disable some policy
   become: true
   replace:
-    path: '/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/security/java.security'
+    path: "{{ java_home.stdout }}/conf/security/java.security"
     regexp: 'policy.ignoreIdentityScope=false'
     replace: 'policy.ignoreIdentityScope=true'
   when:
