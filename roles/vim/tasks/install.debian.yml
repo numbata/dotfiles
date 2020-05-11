@@ -1,3 +1,8 @@
+- name: Add PPA
+  apt_repository:
+    repo: ppa:jonathonf/vim
+    state: present
+
 - name: update apt cache
   apt:
     update_cache: yes
