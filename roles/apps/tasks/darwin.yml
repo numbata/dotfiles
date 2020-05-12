@@ -9,6 +9,7 @@
       - mercurial
       - fzf
       - ipcalc
+      - hadolint
       - git-flow-avh
       - gpg
       - mas
