@@ -1,2 +1,2 @@
 - name: Include OS specifix setup task
-  include: "install.{{ os_family }}.yml"
+  include_tasks: "install.{{ os_family }}.yml"

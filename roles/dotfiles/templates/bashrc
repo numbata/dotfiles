@@ -2,9 +2,28 @@ export PATH="~/bin:$PATH"
 export GOPATH="$HOME/.go"
 export GO15VENDOREXPERIMENT=1
 export SSH_ENV="$HOME/.ssh/environment"
+# Set vim as default text editor
+export EDITOR=vim
+export VISUAL=vim
+# Store 5000 commands in history buffer
+export HISTSIZE=-1
+# Store 5000 commands in history file
+export HISTFILESIZE=-1
+# Avoid duplicates in hisotry
+export HISTIGNORE='&:[ ]*'
+
+export GPG_TTY=$(tty)
 
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
+# Make sure display get updated when terminal window get resized
+shopt -s checkwinsize
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend
+
 
 function start_agent {
      echo "Initialising new SSH agent..."
@@ -16,7 +35,6 @@ function start_agent {
 }
 
 # Source SSH settings, if applicable
-
 if [ -f "${SSH_ENV}" ]; then
      . "${SSH_ENV}" > /dev/null
      #ps ${SSH_AGENT_PID} doesn't work under cywgin

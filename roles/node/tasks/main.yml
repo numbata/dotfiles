@@ -4,7 +4,7 @@
   become: no
 
 - name: Include OS specifix setup task
-  include: "setup.{{ os_family }}.yml"
+  include_tasks: "setup.{{ os_family }}.yml"
   when: os_task.stat.exists
 
 - name: Register brew apps list

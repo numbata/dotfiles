@@ -4,5 +4,5 @@
   become: no
 
 - name: Include OS specifix task
-  include: "{{ os_family }}.yml"
+  include_tasks: "{{ os_family }}.yml"
   when: os_task.stat.exists

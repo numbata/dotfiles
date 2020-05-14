@@ -134,14 +134,13 @@
       key: WebKitDeveloperExtras
       type: bool
       value: true
-
-- name: Check if iTunes helper exists
-  stat:
-    path: '/Applications/iTunes.app/Contents/MacOS/iTunesHelper.app'
-  register: itunes_helper_result
-
-- name: Disable iTunes helper
-  become: yes
-  become_method: sudo
-  command: mv /Applications/iTunes.app/Contents/MacOS/iTunesHelper.app /Applications/iTunes.app/Contents/MacOS/iTunesHelper.app-disabled
-  when: itunes_helper_result.stat.exists
+    # Prevent iTunes from opening automatically when devices are plugged in
+    - domain: com.apple.iTunesHelper
+      key: ignore-devices
+      type: int
+      value: 1
+    # Prevent Photos from opening automatically when devices are plugged in
+    - domain: com.apple.ImageCapture
+      key: disableHotPlug
+      type: bool
+      value: true

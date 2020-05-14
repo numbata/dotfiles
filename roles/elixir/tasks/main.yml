@@ -1,5 +1,5 @@
 - name: Include OS specifix install task
-  include: "install.{{ os_family }}.yml"
+  include_tasks: "install.{{ os_family }}.yml"
 
 - name: Install Hex and Rebar
   command: "mix {{ item.name }} --force"

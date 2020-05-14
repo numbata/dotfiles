@@ -19,7 +19,7 @@
       - universal-ctags
 
 - name: Install docker
-  include: debian.docker.yml
+  include_tasks: debian.docker.yml
 
 - name: Install brew packages
   homebrew:

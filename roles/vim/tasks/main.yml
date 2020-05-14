@@ -1,5 +1,5 @@
 - name: Include OS specifix task
-  include: "install.{{ os_family }}.yml"
+  include_tasks: "install.{{ os_family }}.yml"
 
 - name: Setup plug autoload dir
   file:

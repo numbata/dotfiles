@@ -1,6 +1,6 @@
 - name: Check OS specifix deps task exists
   local_action: stat path="{{ role_path }}/tasks/deps.{{ os_family }}.yml"
-  register: os_task
+  register: ruby_os_task
   become: no
 
 - name: set shell prefix for system-wide
@@ -15,12 +15,12 @@
   when:
     - (ansible_os_family != 'OpenBSD' and ansible_os_family != 'Darwin') and rbenv_user_profile
 
-- name: Include OS specifix task
-  include: "deps.{{ os_family }}.yml"
-  when: os_task.stat.exists
+- name: Include OS specifix ruby task
+  include_tasks: "{{ role_path }}/tasks/deps.{{ os_family }}.yml"
+  when: ruby_os_task.stat.exists == True
 
 - name: Install ruby
-  include: setup.yml
+  include_tasks: setup.yml
 
 - name: Install gems (linters, checkers, etc)
-  include: gems.yml
+  include_tasks: gems.yml

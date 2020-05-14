@@ -12,7 +12,3 @@
     name:
       - build-essential
       - linuxbrew-wrapper
-
-# - name: Update brew
-#   homebrew:
-#     update_homebrew: yes

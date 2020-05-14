@@ -47,7 +47,7 @@
     state: present
 
 - name: Setup iTerm
-  include: iterm.yml
+  include_tasks: iterm.yml
 
 - name: Cleanup Dock
   command: dockutil --remove '{{ item }}'
