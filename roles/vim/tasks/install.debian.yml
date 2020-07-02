@@ -1,7 +1,15 @@
+- name: Add key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 4AB0F789CBA31744CC7DA76A8CF63AD3F06FC659
+    state: present
+  become: true
+
 - name: Add PPA
   apt_repository:
     repo: ppa:jonathonf/vim
     state: present
+  become: true
 
 - name: update apt cache
   apt:

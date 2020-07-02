@@ -13,11 +13,6 @@
       - ipcalc
       - linuxbrew-wrapper
 
-- name: Install common snaps
-  snap:
-    name:
-      - universal-ctags
-
 - name: Install docker
   include_tasks: debian.docker.yml
 
