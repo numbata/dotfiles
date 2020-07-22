@@ -1,6 +1,5 @@
 - name: Install brew packages
   homebrew:
-    name: "{{ item }}"
+    name:
+      - node
     state: latest
-  with_items:
-    - node

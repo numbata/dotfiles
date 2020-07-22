@@ -11,10 +11,12 @@
       - ipcalc
       - hadolint
       - git-flow-avh
+      - svn
       - gpg
       - mas
       - tmux
       - dockutil
+      - lunchy
     state: present
 
 - name: Install apps from casks
@@ -33,7 +35,6 @@
       - firefox-beta
       - tunnelblick
       - sourcetree
-      - lunchy
       - insomnia
       - spotify
       - docker
