@@ -20,7 +20,6 @@ Plug 'editorconfig/editorconfig-vim'                              " EditorConfig
 Plug 'terryma/vim-multiple-cursors'                               " True Sublime Text style multiple selections for Vim
 " Plug 'shime/vim-livedown'
 Plug 'ekalinin/Dockerfile.vim'                                    " Vim syntax file & snippets for Docker's Dockerfile
-Plug 'ludovicchabant/vim-gutentags'                               " A Vim plugin that manages your tag files
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'pechorin/any-jump.vim'
