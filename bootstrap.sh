@@ -12,7 +12,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   # Install brew
   if ! [ -x "$(command -v brew)" ]; then
     echo "Install brew"
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     brew update
   fi
 
