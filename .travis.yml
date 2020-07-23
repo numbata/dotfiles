@@ -13,7 +13,7 @@ jobs:
       install:
         - pip install --upgrade pip
         - pip install ansible
-      script: ansible-playbook -i "localhost," -D -c local playbook.yml --syntax-check
+      script: ansible-playbook -i "localhost," -D -c local playbook.yml --syntax-check --connection=local --sudo
     - stage: playbook spec
       language: python
       dist: trusty
