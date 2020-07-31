@@ -6,9 +6,9 @@ export SSH_ENV="$HOME/.ssh/environment"
 export EDITOR=vim
 export VISUAL=vim
 # Store 5000 commands in history buffer
-export HISTSIZE=-1
+export HISTSIZE='INFINITY'
 # Store 5000 commands in history file
-export HISTFILESIZE=-1
+export HISTFILESIZE='ANDBEYOND'
 # Avoid duplicates in hisotry
 export HISTIGNORE='&:[ ]*'
 
