@@ -46,6 +46,7 @@
       - rectangle
       - visual-studio-code
       - grammarly
+      - pock
     state: present
 
 - name: Setup iTerm
