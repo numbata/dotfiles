@@ -103,14 +103,10 @@
       type: bool
       value: false
     # Remap CAPS to L_CONTROL
-    - domain: com.apple.keyboard
-      key: modifiermapping
-      type: string
-      value: |
-        ({
-          HIDKeyboardModifierMappingDst: 2;
-          HIDKeyboardModifierMappingSrc: 0;
-        })
+    # - domain: com.apple.keyboard
+    #   key: modifiermapping
+    #   type: string
+    #   value: '({HIDKeyboardModifierMappingDst: 2;HIDKeyboardModifierMappingSrc: 0;})'
     # Finder: disable window animations and Get Info animations
     - domain: com.apple.finder
       key: DisableAllAnimations
