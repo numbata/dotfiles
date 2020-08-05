@@ -45,6 +45,7 @@
       - virtualbox
       - rectangle
       - visual-studio-code
+      - grammarly
     state: present
 
 - name: Setup iTerm
