@@ -17,7 +17,7 @@ Plug 'tpope/vim-surround'                                         " Quoting/pare
 Plug 'jgdavey/tslime.vim'
 Plug 'tpope/vim-fugitive'                                         " A Git wrapper so awesome, it should be illegal
 Plug 'editorconfig/editorconfig-vim'                              " EditorConfig plugin for Vim
-Plug 'terryma/vim-multiple-cursors'                               " True Sublime Text style multiple selections for Vim
+Plug 'mg979/vim-visual-multi'
 " Plug 'shime/vim-livedown'
 Plug 'ekalinin/Dockerfile.vim'                                    " Vim syntax file & snippets for Docker's Dockerfile
 Plug 'prabirshrestha/async.vim'
