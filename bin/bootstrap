@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+shopt -s extglob
+set -o errtrace
+set -o errexit
+set -o pipefail
+
+dotfiles_usage()
+{
+  printf "%b" "
+
+Usage
+
+  bootstrap [options]
+
+Options
+
+  [-b|--branch] <branch>
+
+    The name of the branch from which dotfiles is installed. Default: master.
+
+  [-d|--dir] <path>
+
+    The directory for dotfiles repository. Default: temporary directory.
+"
+}
+
+dotfiles_defaults()
+{
+  export dotfiles_branch dotfiles_dir
+
+  dotfiles_branch="master"
+  dotfiles_dir="$(dirname $(mktemp -u))/dotfiles"
+}
+
+dotfiles_parse_params()
+{
+  while
+    (( $# > 0 ))
+  do
+    token="$1"
+    shift
+    case "$token" in
+      (--branch|-b)
+        if [[ -n "${1:-}" ]]
+        then
+          dotfiles_branch="$1"
+          shift
+        else
+          fail "--branch must be followed by a branch name."
+        fi
+        ;;
+      (-d|--dir)
+        if [[ -n "${1:-}" ]]
+        then
+          dotfiles_dir="$1"
+          shift
+        else
+          fail "--dir must be followed by a pathname."
+        fi
+        ;;
+      (--help|help)
+        dotfiles_usage
+        exit 0
+        ;;
+      (*)
+        dotfiles_usage
+        exit 1
+        ;;
+    esac
+  done
+}
+
+dotfiles_main()
+{
+  mkdir -p ${dotfiles_dir}
+  curl -L https://github.com/numbata/dotfiles/archive/refs/heads/${dotfiles_branch}.zip | bsdtar -xvf - --strip-components 1 -C ${dotfiles_dir}
+  echo "Repo cloned into ${dotfiles_dir}"
+  (cd "${dotfiles_dir}" && make all)
+}
+
+dotfiles()
+{
+  dotfiles_defaults
+  dotfiles_parse_params "$@"
+  dotfiles_main
+}
+
+dotfiles "$@"

@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+shopt -s extglob
+set -o errtrace
+set -o errexit
+set -o pipefail
+
+# Check if console tools installed
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  if ! xcode-select -p>/dev/null; then
+    echo "Install xcode"
+    xcode-select --install
+    osascript <<EOF
+      tell application "System Events"
+        tell process "Install Command Line Developer Tools"
+          keystroke return
+          repeat until exists window "Licence Agreement"
+          end repeat
+          click button "Agree" of window "License Agreement"
+        end tell
+      end tell
+EOF
+  fi
+fi
+
+# Install brew
+if ! [ -x "$(command -v brew)" ]; then
+  eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo 'eval "\$(${HOMEBREW_PREFIX}/bin/brew shellenv)"' >> ${shell_profile}
+  eval "\$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
+  brew update
+fi
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  if ! [ -x "$(command -v ansible-playbook)" ]; then
+    echo "Install latest ansible release"
+    brew install ansible
+  fi
+elif [[ "$OSTYPE" == "linux-gnu" ]]; then
+  PLAYBOOK_NAME=linux
+  if ! grep -q "ansible/ansible" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+    sudo apt-add-repository ppa:ansible/ansible -y
+  fi
+  if ! hash ansible >/dev/null 2>&1; then
+    sudo apt-get update
+    sudo apt-get install -y software-properties-common ansible git python-apt
+  fi
+fi
+
