@@ -11,7 +11,6 @@
       - gpg
       - tmux
       - ipcalc
-      - linuxbrew-wrapper
 
 - name: Install docker
   include_tasks: debian.docker.yml

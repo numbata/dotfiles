@@ -1,0 +1,31 @@
+- name: Install homebrew deps
+  become: yes
+  become_method: sudo
+  apt:
+    name:
+      - build-essential
+
+- name: Install homebrew
+  shell: env CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+# TODO: Find homebrew prefix
+- name: Build brew shellenv
+  shell: /home/linuxbrew/.linuxbrew/bin/brew shellenv
+  register: brew_shellenv
+
+- name: Add another bin dir to system-wide $PATH.
+  become: yes
+  become_method: sudo
+  copy:
+    dest: /etc/profile.d/brew-path.sh
+    content: "{{ brew_shellenv.stdout }}"
+
+- name: Make brew alias
+  become: yes
+  become_method: sudo
+  copy:
+    dest: /usr/bin/brew
+    mode: +x
+    content: |
+      #!/bin/bash
+      /home/linuxbrew/.linuxbrew/bin/brew $@

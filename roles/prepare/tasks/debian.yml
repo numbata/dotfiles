@@ -5,10 +5,5 @@
     upgrade: dist
     update_cache: yes
 
-- name: Install homebrew wrapper
-  become: yes
-  become_method: sudo
-  apt:
-    name:
-      - build-essential
-      - linuxbrew-wrapper
+- name: Install homebrew
+  include_tasks: "{{ os_family }}.brew.yml"
