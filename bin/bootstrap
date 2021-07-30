@@ -71,11 +71,33 @@ dotfiles_parse_params()
   done
 }
 
+dotfiles_install_xcode()
+{
+  if [[ "$OSTYPE" != "darwin"* ]] || xcode-select -p>/dev/null ; then
+    echo "xcode exists"
+    return 0
+  fi
+
+  echo "Install xcode"
+  xcode-select --install
+  osascript <<EOF
+    tell application "System Events"
+      tell process "Install Command Line Developer Tools"
+        keystroke return
+        repeat until exists window "Licence Agreement"
+        end repeat
+        click button "Agree" of window "License Agreement"
+      end tell
+    end tell
+EOF
+}
+
 dotfiles_main()
 {
   mkdir -p ${dotfiles_dir}
   curl -L https://github.com/numbata/dotfiles/archive/refs/heads/${dotfiles_branch}.zip | bsdtar -xvf - --strip-components 1 -C ${dotfiles_dir}
   echo "Repo cloned into ${dotfiles_dir}"
+  dotfiles_install_xcode
   (cd "${dotfiles_dir}" && make all)
 }
 
