@@ -51,36 +51,39 @@
 
 - name: Setup iTerm
   include_tasks: iterm.yml
+  ignore_errors: true
+  when: False
 
 - name: Cleanup Dock
   command: dockutil --remove '{{ item }}'
   ignore_errors: true
   with_items:
-    - Siri
-    - Launchpad
-    - Safari
-    - Contacts
-    - Notes
-    - Reminders
-    - Maps
-    - Photos
-    - Messages
-    - FaceTime
-    - Music
-    - Podcasts
-    - TV
-    - Books
     - App Store
+    - Books
+    - Calendar
+    - Contacts
+    - FaceTime
+    - Keynote
+    - Launchpad
+    - Maps
+    - Messages
+    - Music
+    - Notes
     - Numbers
     - Pages
-    - Keynote
-    - Карты
-    - Подкасты
+    - Photos
+    - Podcasts
+    - Reminders
+    - Safari
+    - Siri
+    - TV
     - Заметки
-    - Напоминания
+    - Календарь
+    - Карты
     - Контакты
     - Музыка
-    - Календарь
-    - Фото
-    - Сообщения
+    - Напоминания
+    - Подкасты
     - Системные настройки
+    - Сообщения
+    - Фото

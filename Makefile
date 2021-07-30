@@ -8,6 +8,6 @@ play:
 	./bin/play
 
 .deps_installed:
-	touch ./.deps_installed
 	./bin/install_deps
+	touch ./.deps_installed
 

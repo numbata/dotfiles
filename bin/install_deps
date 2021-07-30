@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env -S bash -i
 
 shopt -s extglob
 set -o errtrace
@@ -8,22 +8,15 @@ set -o pipefail
 install_deps_xcode()
 {
   if [[ "$OSTYPE" != "darwin"* ]] || xcode-select -p>/dev/null ; then
-    echo "xcode exists"
     return 0
   fi
 
-  echo "Install xcode"
   xcode-select --install
-  osascript <<EOF
-    tell application "System Events"
-      tell process "Install Command Line Developer Tools"
-        keystroke return
-        repeat until exists window "Licence Agreement"
-        end repeat
-        click button "Agree" of window "License Agreement"
-      end tell
-    end tell
-EOF
+  xcode_setup_pid=$(ps -Ac | grep 'Install Command Line Developer' | awk '{print $1}')
+  while [[ ! `xcode-select -p >/dev/null 2>&1` ]] || ps --pid ${xcode_setup_pid} &>/dev/null;
+  do
+    sleep 1
+  done
 }
 
 install_deps_brew()
@@ -33,8 +26,11 @@ install_deps_brew()
   fi
 
   eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  echo 'eval "\$(${HOMEBREW_PREFIX}/bin/brew shellenv)"' >> ${shell_profile}
-  eval "\$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
+
+  if ! grep -q -m 1 "brew shellenv" ${shell_profile} ; then 
+    echo "eval \"\$(${HOMEBREW_PREFIX}/bin/brew shellenv)\"" >> ${shell_profile}
+  fi
+  export PATH="${HOMEBREW_PREFIX}/bin:${PATH}"
   brew update
 }
 
@@ -42,7 +38,6 @@ install_deps_ansible()
 {
   if [[ "$OSTYPE" == "darwin"* ]]; then
     if ! [ -x "$(command -v ansible-playbook)" ]; then
-      echo "Install latest ansible release"
       brew install ansible
     fi
   elif [[ "$OSTYPE" == "linux-gnu" ]]; then
