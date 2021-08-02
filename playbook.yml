@@ -6,10 +6,9 @@
     rbenv:
       env: system
       version: v1.0.0
-      default_ruby: 2.7
+      default_ruby: 3.0.2
       rubies:
-        - version: 2.6.3
-        - version: 2.7.0
+        - version: 3.0.2
   roles:
     - name: Preapre
       role: prepare
