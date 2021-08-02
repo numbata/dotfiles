@@ -1,0 +1,129 @@
+#!/usr/bin/env -S bash -i
+
+shopt -s extglob
+set -o errtrace
+set -o errexit
+set -o pipefail
+
+log()
+{
+  if [[ -z $dotfiles_quiet ]]
+  then
+    echo "[$(date +"%d.%m.%Y %T")]: $*"
+  fi
+}
+
+dotfiles_usage()
+{
+  printf "%b" "
+
+Usage
+
+  bootstrap [options]
+
+Options
+
+  [-b|--branch] <branch>
+
+    The name of the branch from which dotfiles is installed. Default: master.
+
+  [-d|--dir] <path>
+
+    The directory for dotfiles repository. Default: temporary directory.
+
+  [-q|--quiet]
+
+    Less output
+"
+}
+
+dotfiles_defaults()
+{
+  export dotfiles_branch dotfiles_dir dotfiles_quiet
+
+  dotfiles_branch="master"
+  dotfiles_dir="$(dirname $(mktemp -u))/dotfiles"
+}
+
+dotfiles_parse_params()
+{
+  while
+    (( $# > 0 ))
+  do
+    token="$1"
+    shift
+    case "$token" in
+      (--branch|-b)
+        if [[ -n "${1:-}" ]]
+        then
+          dotfiles_branch="$1"
+          shift
+        else
+          fail "--branch must be followed by a branch name."
+        fi
+        ;;
+      (-d|--dir)
+        if [[ -n "${1:-}" ]]
+        then
+          dotfiles_dir="$1"
+          shift
+        else
+          fail "--dir must be followed by a pathname."
+        fi
+        ;;
+      (--help|help)
+        dotfiles_usage
+        exit 0
+        ;;
+      (-q|--quiet)
+        dotfiles_quiet=1
+        ;;
+      (*)
+        dotfiles_usage
+        exit 1
+        ;;
+    esac
+  done
+}
+
+dotfiles_install_xcode()
+{
+  if [[ "$OSTYPE" != "darwin"* ]] || xcode-select -p>/dev/null ; then
+    return 0
+  fi
+
+  log "Install Command Line Developer"
+  xcode-select --install
+  xcode_setup_pid=$(ps -Ac | grep 'Install Command Line Developer' | awk '{print $1}')
+
+  log "Waiting..."
+  while [[ ! `xcode-select -p >/dev/null 2>&1` ]] || ps --pid ${xcode_setup_pid} &>/dev/null;
+  do
+    sleep 1
+  done
+}
+
+dotfiles_prepare_repo()
+{
+  log "Prepare dotfiles repo"
+  mkdir -p ${dotfiles_dir}
+  curl -sL https://github.com/numbata/dotfiles/archive/refs/heads/${dotfiles_branch}.zip | bsdtar -xf - --strip-components 1 -C ${dotfiles_dir}
+  chmod +x ${dotfiles_dir}/bin/*
+}
+
+dotfiles_bootstrap()
+{
+  log "Run bootstrap"
+  (cd "${dotfiles_dir}" && make all)
+}
+
+dotfiles()
+{
+  dotfiles_defaults
+  dotfiles_parse_params "$@"
+  dotfiles_prepare_repo
+  dotfiles_install_xcode
+  dotfiles_bootstrap
+}
+
+dotfiles "$@"

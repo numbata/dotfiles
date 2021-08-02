@@ -1,3 +1,4 @@
 *.retry
 *.swp
 *.swo
+.deps_installed
