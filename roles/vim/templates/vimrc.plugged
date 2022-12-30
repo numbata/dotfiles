@@ -55,6 +55,8 @@ Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 " Plug 'flowtype/vim-flow'
 Plug 'mtscout6/vim-cjsx', { 'for': 'javascript' }
 Plug 'posva/vim-vue', { 'for': 'javascript' }
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 
 " Elixir
 Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
