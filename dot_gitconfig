@@ -54,9 +54,6 @@
 [help]
   autocorrect = 1
 
-[fetch]
-  parallel = true
-
 [pack]
   threads = 4
   windowMemory = 100m
