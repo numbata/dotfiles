@@ -13,7 +13,7 @@ brew "osx-defaults"                  # Write macOS defaults from the command lin
 brew "the_silver_searcher"           # A fast code-searching tool, similar to 'ack', but faster
 brew "tmux"                          # Terminal multiplexer enabling multiple terminal sessions to be accessed simultaneously
 brew "wget"                          # Internet file retriever
-brew "vim"                           $ The ubiquitous text editor
+brew "vim"                           # The ubiquitous text editor
 
 # Homebrew casks
 
