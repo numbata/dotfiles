@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# Remap Caps Lock to Left Control
+echo "Remapping Caps Lock to Left Control..."
+
+hidutil property --set '{
+  "UserKeyMapping": [
+    {
+      "HIDKeyboardModifierMappingSrc": 0x700000039, 
+      "HIDKeyboardModifierMappingDst": 0x7000000E0
+    }
+  ]
+}'
+
+if [ $? -eq 0 ]; then
+  echo "Caps Lock successfully remapped to Left Control."
+else
+  echo "Failed to remap Caps Lock. Please check your configuration."
+  exit 1
+fi
+
+# Make the remapping persistent using a Launch Agent
+echo "Setting up Launch Agent to make the remapping persistent..."
+
+PLIST_FILE=~/Library/LaunchAgents/com.remap_capslock.plist
+
+cat > "$PLIST_FILE" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.remap_capslock</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/hidutil</string>
+        <string>property</string>
+        <string>--set</string>
+        <string>{
+  "UserKeyMapping": [
+    {
+      "HIDKeyboardModifierMappingSrc": 0x700000039, 
+      "HIDKeyboardModifierMappingDst": 0x7000000E0
+    }
+  ]
+}</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
+EOF
+
+# Load the Launch Agent
+launchctl load "$PLIST_FILE"
+
+if [ $? -eq 0 ]; then
+  echo "Launch Agent successfully installed. The remapping will persist after reboot."
+else
+  echo "Failed to install Launch Agent. Please check your configuration."
+  exit 1
+fi
+

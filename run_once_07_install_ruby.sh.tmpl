@@ -1,0 +1,58 @@
+#!/bin/bash
+
+set -e
+
+# Determine OS-specific dependencies
+OS=$(uname -s)
+case "$OS" in
+  Darwin)
+    echo "Installing dependencies for macOS"
+    brew install rbenv ruby-build
+    ;;
+  Linux)
+    echo "Installing dependencies for Linux"
+    sudo apt-get update
+    sudo apt-get install -y rbenv ruby-build
+    ;;
+  *)
+    echo "Unsupported OS: $OS"
+    exit 1
+    ;;
+esac
+
+# Set up rbenv shell environment
+if [[ "$OS" == "Darwin" ]]; then
+  export RBENV_SHELL=". /etc/profile && "
+else
+  export RBENV_SHELL=". /etc/profile.d/rbenv.sh && "
+fi
+
+# Install rbenv
+if ! command -v rbenv >/dev/null; then
+  echo "Installing rbenv..."
+  curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-installer | bash
+fi
+
+# Install Ruby versions
+RUBY_VERSIONS=("3.1.2" "3.0.0") # Add your desired Ruby versions here
+for version in "${RUBY_VERSIONS[@]}"; do
+  if ! rbenv versions | grep -q "$version"; then
+    echo "Installing Ruby $version..."
+    rbenv install "$version"
+  fi
+done
+
+# Install gems
+GLOBAL_GEMS=("mdl" "haml-lint" "ruby-lint" "rubocop" "overcommit")
+for version in "${RUBY_VERSIONS[@]}"; do
+  for gem in "${GLOBAL_GEMS[@]}"; do
+    echo "Installing $gem for Ruby $version..."
+    RBENV_VERSION="$version" $RBENV_SHELL gem install --no-user-install --no-document "$gem"
+  done
+done
+
+# Rehash rbenv
+rbenv rehash
+
+echo "Ruby environment setup complete!"
+

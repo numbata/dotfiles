@@ -1,0 +1,171 @@
+set nocompatible              " be iMproved, required
+syntax enable
+
+filetype on
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+call plug#begin('~/.vim/plugged')
+  source ~/.vimrc.plugged
+	if filereadable(expand("~/.vimrc.plugged.local"))
+	  source ~/.vimrc.plugged.local
+	endif
+call plug#end()            " required
+
+filetype plugin indent on    " required
+
+set cursorline
+try
+  colorscheme onehalflight
+  let g:airline_theme='onehalfdark'
+catch /^Vim\%((\a\+)\)\=:E185/
+  " deal with it
+endtry
+
+set re=1                              " faster ruby parser
+set nocursorline
+set nofoldenable
+set expandtab                         " Insert spaces instead of actually tabs
+set tabstop=2                         " Number of spaces each tab counts for
+set softtabstop=2                     " Number of spaces for some tab operations
+set smartindent                       " Smart auto-indent when creating a new line
+set colorcolumn=85
+set synmaxcol=300                     " The max number of columns to try and highlight
+set ttyfast                           " Optimize for fast terminal connections
+set lazyredraw                        " Don't redraw vim in all situations
+set encoding=utf-8                    " Set the default encodings just in case $LANG isn't set
+set nowrap                            " Don't wrap lines
+set number                            " Enable line numbers
+set nowritebackup                     " Don't create a backup when overwriting a file
+set noswapfile                        " Don't write swap files
+set nobackup                          " Don't keep backup files
+set hidden
+set complete=.,w,b,u,t
+set completeopt=menu,preview
+set wildmode=list:longest,list:full
+set wildignore+=.hg,.git,.svn                           " Version control
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg          " Binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest,*.pyc  " Compiled object files
+set wildignore+=tags
+set wildignore+=log/**,node_modules/**,target/**,tmp/**
+set tags+=.git/tags
+set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_  " Show “invisible” characters
+set nojoinspaces                      " Don't add 2 spaces when using J
+set title                             " Change the terminal's title
+set backspace=indent,eol,start
+set splitbelow
+
+" keyboard shortcuts
+let mapleader = ','
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+nnoremap <leader>d :NERDTree<CR>
+
+" CtrlP
+noremap <C-p> :FZF<CR>
+
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" NERDTree
+let g:NERDSpaceDelims=1
+
+" Syntastic
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_haml_checkers = ['haml_lint']
+let g:syntastic_ruby_checkers = ['rubocop', 'mri']
+let g:syntastic_auto_loc_list = 0
+
+let g:ale_lint_on_text_changed ='never'
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_ruby_rubocop_executable = './vendor/bin/rubocop'
+let g:ale_sign_error = '💣'
+let g:ale_sign_warning = '🚩'
+let g:ale_statusline_format = ['💣 %d', '🚩 %d', '']
+
+let g:vim_tags_use_vim_dispatch = 1
+
+" JavaScript
+let g:vue_disable_pre_processors=1
+
+" Vim-Json
+let g:vim_json_syntax_conceal = 0
+
+" Golang
+let g:go_fmt_command = "goimports"
+
+" EasyMotion
+let g:EasyMotion_leader_key = ';'
+
+" Ag
+if executable('ag')
+  let g:ag_working_path_mode = "r"
+  let g:agprg = 'ag --nogroup --nocolor --column --smart-case'
+endif
+
+" Livedown
+nmap gm :LivedownToggle<CR>
+
+" php is php
+autocmd BufRead,BufNewFile *.php set filetype=php
+au BufWritePre *.php :set binary | set eol
+au BufWritePost *.php :set nobinary | set noeol
+" fdoc is yaml
+autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
+" md is markdown
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+autocmd BufRead,BufNewFile *.md set spell
+" cap is capistrano ruby
+autocmd BufRead,BufNewFile *.cap set filetype=ruby
+autocmd BufRead,BufNewFile Capfile set filetype=ruby
+" extra rails.vim help
+autocmd User Rails silent! Rnavcommand decorator      app/decorators            -glob=**/* -suffix=_decorator.rb
+autocmd User Rails silent! Rnavcommand observer       app/observers             -glob=**/* -suffix=_observer.rb
+autocmd User Rails silent! Rnavcommand feature        features                  -glob=**/* -suffix=.feature
+autocmd User Rails silent! Rnavcommand job            app/jobs                  -glob=**/* -suffix=_job.rb
+autocmd User Rails silent! Rnavcommand mediator       app/mediators             -glob=**/* -suffix=_mediator.rb
+autocmd User Rails silent! Rnavcommand stepdefinition features/step_definitions -glob=**/* -suffix=_steps.rb
+" automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
+" automatically removing all trailing whitespace
+autocmd BufWritePre * :%s/\s\+$//e
+
+au FileType ruby setl sw=2 sts=2 et
+au FileType javascript setl sw=2 sts=2 et
+au FileType yaml setl sw=2 sts=2 et
+au FileType php setl eol ts=4 sts=4 sw=4 et fixendofline
+autocmd FileType vue syntax sync fromstart
+
+" if argc() == 1 && argv(0) == '.'
+"  autocmd vimenter * NERDTree
+" endif
+" autocmd VimEnter * NERDTree
+" autocmd VimEnter * if argc() | wincmd p | endif
+autocmd VimEnter * if argc() == 0 | NERDTree | endif
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
+
+
+if has("clipboard")                   " If the feature is available
+  set clipboard=unnamed               " copy to the system clipboard
+
+  if has("unnamedplus")
+    set clipboard+=unnamedplus
+  endif
+endif
+
+" Go crazy!
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
+

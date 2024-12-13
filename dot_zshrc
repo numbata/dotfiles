@@ -1,0 +1,48 @@
+# Environment Variables
+export PATH="~/bin:$PATH"
+export GOPATH="$HOME/.go"
+export SSH_ENV="$HOME/.ssh/environment"
+export EDITOR=vim
+export VISUAL=vim
+export GPG_TTY=$(tty)
+
+# History Settings
+HISTSIZE=5000
+SAVEHIST=5000
+HISTFILE=~/.zsh_history
+setopt HIST_IGNORE_DUPS
+setopt APPEND_HISTORY
+
+# Source Additional Configurations
+[ -f ~/.aliases ] && source ~/.aliases
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Enable Useful zsh Options
+setopt CHECK_WINSIZE
+setopt CORRECT
+
+# Git Branch in Prompt
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+PROMPT='%F{green}%~ %F{red}$(parse_git_branch)%f$ '
+
+# SSH Agent Setup
+function start_agent {
+    echo "Initialising new SSH agent..."
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    echo succeeded
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+    /usr/bin/ssh-add;
+}
+
+if [ -f "${SSH_ENV}" ]; then
+    . "${SSH_ENV}" > /dev/null
+    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
+fi
+

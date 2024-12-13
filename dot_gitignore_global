@@ -1,0 +1,57 @@
+# Local installed gems #
+########################
+.bundled_gems
+.bundle
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.tmp
+*.bak
+*.pid
+*.seed
+*.sqlite
+*.sqlite3
+*.sql
+*.lock
+*.retry
+
+# OS and IDE generated files #
+######################
+*.swo
+*.swp
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+._*
+Icon?
+Session.vim
+Thumbs.db
+ehthumbs.db
+~$*
+.vscode/
+.idea/
+*.iml
+*.sublime-*
+*.kate-swp
+*.vagrant/
+coverage/
+dist/
+build/
+.env
+.env.*
+

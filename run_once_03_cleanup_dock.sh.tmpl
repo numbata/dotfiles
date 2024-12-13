@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# List of Dock items to remove
+dock_items=(
+  "App Store"
+  "Books"
+  "Calendar"
+  "Contacts"
+  "FaceTime"
+  "Freeform"
+  "Keynote"
+  "Launchpad"
+  "Mail"
+  "Maps"
+  "Messages"
+  "Music"
+  "Notes"
+  "Numbers"
+  "Pages"
+  "Photos"
+  "Podcasts"
+  "Reminders"
+  "Safari"
+  "Siri"
+  "TV"
+  "Заметки"
+  "Календарь"
+  "Карты"
+  "Контакты"
+  "Музыка"
+  "Напоминания"
+  "Подкасты"
+  "Системные настройки"
+  "Сообщения"
+  "Фото"
+)
+
+# Loop through each item and attempt to remove it
+for item in "${dock_items[@]}"; do
+  echo "Removing '$item' from Dock..."
+  dockutil --remove "$item" || echo "Failed to remove '$item', skipping..."
+done
+
+echo "Dock cleanup completed."
+

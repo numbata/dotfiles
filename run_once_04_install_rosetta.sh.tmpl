@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Check if the system is running on Apple Silicon
+if [[ "$(uname -p)" == "arm" ]]; then
+  echo "Detected Apple Silicon architecture."
+
+  # Check if Rosetta 2 is already installed
+  if /usr/bin/pgrep oahd >/dev/null 2>&1; then
+    echo "Rosetta 2 is already installed. Skipping installation."
+  else
+    echo "Rosetta 2 is not installed. Installing now..."
+    # Install Rosetta 2
+    /usr/sbin/softwareupdate --install-rosetta --agree-to-license
+
+    if [ $? -eq 0 ]; then
+      echo "Rosetta 2 installation completed successfully."
+    else
+      echo "Rosetta 2 installation failed. Please check your system logs for more details."
+      exit 1
+    fi
+  fi
+else
+  echo "This system is not running on Apple Silicon. Skipping Rosetta 2 installation."
+fi
+

@@ -1,0 +1,43 @@
+# Homebrew formulae
+
+brew "dockutil"                      # A command-line tool for managing macOS Dock items
+brew "fzf"                           # A command-line fuzzy finder
+brew "gpg"                           # GNU Privacy Guard, a tool for secure communication and data storage
+brew "hadolint"                      # A Dockerfile linter that helps you build best practice Docker images
+brew "hub"                           # A command-line wrapper for Git that makes working with GitHub easier
+brew "ipcalc"                        # Utility for calculating IP information
+brew "jsonpp"                        # A command-line JSON pretty printer
+brew "lunchy"                        # Friendly wrapper for launchctl
+brew "mas"                           # Mac App Store command-line interface
+brew "osx-defaults"                  # Write macOS defaults from the command line
+brew "the_silver_searcher"           # A fast code-searching tool, similar to 'ack', but faster
+brew "tmux"                          # Terminal multiplexer enabling multiple terminal sessions to be accessed simultaneously
+brew "wget"                          # Internet file retriever
+brew "vim"                           $ The ubiquitous text editor
+
+# Homebrew casks
+
+cask "1password"                     # Password manager and secure wallet
+cask "dash"                          # API Documentation Browser and Code Snippet Manager
+cask "firefox-beta"                  # Beta version of the Firefox web browser
+cask "font-fira-mono"                # Monospaced font designed for coding
+cask "font-fira-mono-for-powerline"  # Fira Mono font patched for Powerline
+cask "font-hack"                     # Typeface designed for source code and terminal applications
+cask "font-monoid"                   # Monospaced font optimized for coding
+cask "font-roboto-mono"              # Monospaced addition to the Roboto type family
+cask "font-source-code-pro"          # Monospaced sans serif typeface for user interface and coding environments
+cask "google-chrome"                 # Fast, secure, and free web browser built for the modern web
+cask "grammarly"                     # Writing assistant that helps you write clear and mistake-free
+cask "linear"                        # Issue tracking and project management tool
+cask "miro"                          # Online collaborative whiteboard platform
+cask "rectangle"                     # Move and resize windows using keyboard shortcuts or snap areas
+cask "slack"                         # Team communication and collaboration software
+cask "sourcetree"                    # A free Git GUI client for Mac
+cask "spotify"                       # Music streaming service
+cask "telegram-desktop"              # Messaging app with a focus on speed and security
+cask "visual-studio-code"            # Source code editor developed by Microsoft
+cask "wezterm"                       # GPU-accelerated terminal emulator and multiplexer
+cask "zoom"                          # Video conferencing and online meeting application
+# cask "telegram-desktop"            # Messaging app with a focus on speed and security
+# cask "tunnelblick"                 # Free, open-source graphic user interface for OpenVPN on macOS
+
