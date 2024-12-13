@@ -1,0 +1,51 @@
+i" File Management & Navigation
+Plug 'justinmk/vim-dirvish'                                    " Minimal file explorer
+Plug 'tpope/vim-eunuch'                                        " Helper for file operations
+Plug 'justinmk/vim-dirvish-arrows'                             " Arrow key support in Dirvish
+Plug 'Xuyuanp/nerdtree-git-plugin'                             " Git integration for file trees
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Fuzzy finder
+Plug 'junegunn/fzf.vim'                                        " Fuzzy finder integration for Vim
+
+" Development Tools
+Plug 'liuchengxu/vista.vim'                                    " Tag viewer with LSP/ctags support
+Plug 'tpope/vim-obsession'                                     " Session management
+Plug 'tpope/vim-repeat'                                        " Enable repeating supported plugin maps with '.'
+Plug 'tpope/vim-dispatch'                                      " Asynchronous build/test dispatcher
+Plug 'ekalinin/Dockerfile.vim'                                 " Dockerfile syntax support
+Plug 'mg979/vim-visual-multi'                                  " Multi-cursor support
+Plug 'prabirshrestha/vim-lsp'                                  " Lightweight LSP integration
+Plug 'tpope/vim-sleuth'                                        " Detect and adapt to indent settings automatically
+
+" Motion Enhancements
+Plug 'justinmk/vim-sneak'                                      " Motion using two-character search
+
+" UI Enhancements
+Plug 'itchyny/lightline.vim'                                   " Lightweight and configurable statusline/tabline plugin
+
+" Color Scheme
+Plug 'sonph/onehalf', {'rtp': 'vim/'}                          " OneHalf color scheme
+Plug 'altercation/vim-colors-solarized'                        " Solarized color scheme
+Plug 'flazz/vim-colorschemes'                                  " A collection of popular Vim color schemes
+
+" Ruby
+Plug 'tpope/vim-rails', { 'for': 'ruby' }                      " Ruby on Rails support
+Plug 'tpope/vim-endwise', { 'for': 'ruby' }                    " Add 'end' automatically in Ruby
+Plug 'slim-template/vim-slim', { 'for': 'ruby' }               " Slim template syntax highlighting
+
+" JavaScript/TypeScript/React
+Plug 'elzr/vim-json'                                           " A better JSON syntax plugin
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }        " Improved JavaScript syntax highlighting
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }                    " JSX syntax highlighting
+Plug 'mtscout6/vim-cjsx', { 'for': 'javascript' }              " CoffeeScript JSX syntax support
+Plug 'posva/vim-vue', { 'for': 'javascript' }                  " Vue.js syntax highlighting
+Plug 'leafgarland/typescript-vim'                              " TypeScript syntax highlighting
+Plug 'peitalin/vim-jsx-typescript'                             " JSX and TypeScript support
+
+" Elixir
+Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }          " Elixir language support
+Plug 'c-brenn/phoenix.vim', { 'for': 'elixir' }                " Phoenix framework support
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }            " Elixir development tool
+
+" Go
+Plug 'fatih/vim-go', { 'for': 'go' }                           " Go language support
+

@@ -1,7 +1,7 @@
 [user]
   name = Andrey Subbota
   email = subbota@gmail.com
-
+	signingkey = 4D726D09
 [core]
   editor = vim
   excludesfile = ~/.gitignore_global
@@ -58,3 +58,9 @@
   threads = 4
   windowMemory = 100m
 
+[commit]
+	template = ~/.stCommitMsg
+	gpgsign = true
+
+[gpg]
+	program = gpg
