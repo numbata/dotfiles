@@ -31,11 +31,6 @@ set lazyredraw                 " Optimize screen redraws
 set ttyfast                    " Optimize for fast terminal
 set synmaxcol=300              " Limit syntax highlighting column
 
-set noswapfile                 " Disable swap files
-
-set nobackup                   " Disable backup files
-set nowritebackup
-
 " Undo and Backup Management
 if exists('+undodir')
   let s:data_home = expand('~/.vim/cache/')
