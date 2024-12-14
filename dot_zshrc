@@ -15,7 +15,7 @@ setopt share_history     # Share history between Zsh sessions
 
 # Source Additional Configurations
 [ -f ~/.aliases ] && source ~/.aliases
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Enable Useful zsh Options
 setopt CORRECT

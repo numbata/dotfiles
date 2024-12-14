@@ -1,4 +1,4 @@
-i" File Management & Navigation
+" File Management & Navigation
 Plug 'justinmk/vim-dirvish'                                    " Minimal file explorer
 Plug 'tpope/vim-eunuch'                                        " Helper for file operations
 Plug 'justinmk/vim-dirvish-arrows'                             " Arrow key support in Dirvish

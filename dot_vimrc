@@ -49,9 +49,9 @@ set incsearch                  " Incremental search
 
 " Plugin Manager Initialization
 call plug#begin('~/.vim/plugged')
-if filereadable(expand("~/.vimrc.plugged"))
-  source ~/.vimrc.plugged
-endif
+  if filereadable(expand("~/.vimrc.plugged"))
+    source ~/.vimrc.plugged
+  endif
 call plug#end()
 
 " Plugin Configurations
