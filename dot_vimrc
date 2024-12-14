@@ -1,11 +1,11 @@
 " Vim Core Settings
 set nocompatible               " Improved Vim behavior
-syntax on                      " Enable syntax highlighting
-filetype plugin indent on      " Enable filetype detection and indentation
 set encoding=utf-8             " Ensure UTF-8 encoding
 set hidden                     " Allow buffer switching without saving
+syntax on                      " Enable syntax highlighting
+filetype plugin indent on      " Enable filetype detection and indentation
 set nowrap                     " Don't wrap lines
-set splitbelow splitright      " Better split defaults
+set splitright splitbelow      " Better split defaults
 set clipboard=unnamedplus      " Use system clipboard
 set title                      " Show file name in terminal title
 set wildmode=list:longest      " Improved completion behavior
@@ -30,6 +30,23 @@ endtry
 set lazyredraw                 " Optimize screen redraws
 set ttyfast                    " Optimize for fast terminal
 set synmaxcol=300              " Limit syntax highlighting column
+
+set noswapfile                 " Disable swap files
+
+set nobackup                   " Disable backup files
+set nowritebackup
+
+" Undo and Backup Management
+if exists('+undodir')
+  let s:data_home = expand('~/.vim/cache/')
+  let &undodir = s:data_home . 'undo//'     " Persistent undo history
+  let &directory = s:data_home . 'swap//'  " Temporary swap files
+  let &backupdir = s:data_home . 'backup//' " Backup files for write operations
+
+  if !isdirectory(&undodir) | call mkdir(&undodir, 'p') | endif
+  if !isdirectory(&directory) | call mkdir(&directory, 'p') | endif
+  if !isdirectory(&backupdir) | call mkdir(&backupdir, 'p') | endif
+endif
 
 " Editing Settings
 set expandtab                  " Use spaces instead of tabs
@@ -66,7 +83,35 @@ let g:vista_fzf_preview = ['right:50%']
 let g:sneak#label = 1
 
 " Dirvish
-let g:dirvish_mode = ':sort ,^.*[\/],'
+let g:dirvish_mode = 'sort ,^.*[\/],'
+function! ToggleDirvish()
+  " If the current buffer is a Dirvish buffer, close it
+  if &filetype == 'dirvish'
+    quit
+    return
+  endif
+
+  " Check if any Dirvish window exists
+  for win in range(1, winnr('$'))
+    let buf = winbufnr(win)
+    if getbufvar(buf, '&filetype') ==# 'dirvish'
+      " Close the Dirvish window
+      exec win . 'wincmd c'
+      return
+    endif
+  endfor
+
+  " No Dirvish windows exist, open Dirvish in a vertical split
+  leftabove vnew | Dirvish
+endfunction
+augroup dirvish_config
+  autocmd!
+
+  " Map `o` to open a file in a vertical split in Dirvish
+  autocmd FileType dirvish nnoremap <silent><buffer> o :call dirvish#open('vsplit', 0)<CR>
+    " Map `Ctrl+P` to open FZF in Dirvish
+  autocmd FileType dirvish nnoremap <silent><buffer> <C-p> :FZF<CR>
+augroup END
 
 " Lightline
 let g:lightline = {
@@ -93,6 +138,8 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
-nmap <leader>d :Dirvish<CR>  " Open Dirvish file manager
-noremap <C-p> :FZF<CR>       " Fuzzy file finder
+" Map `<leader>d` to toggle Dirvish (you can use any key combo)
+nnoremap <silent> <leader>d :call ToggleDirvish()<CR>
+" Fuzzy file finder
+noremap <C-p> :FZF<CR>
 
