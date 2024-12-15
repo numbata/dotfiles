@@ -64,11 +64,18 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true # P
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true    # Prevent .DS_Store on USB volumes
 
 # Hardware specific
-sudo tmutil disablelocal                                                    # Disable local Time Machine snapshots
 sudo pmset -a hibernatemode 0                                               # Disable hibernation (speeds up entering sleep mode)
-sudo rm /private/var/vm/sleepimage                                          # Remove the sleep image file to save disk space
-sudo touch /private/var/vm/sleepimage                                       # Create a zero-byte file instead
-sudo chflags uchg /private/var/vm/sleepimage                                # Ensure it can't be rewritten
+
+# Handle missing sleep image
+if [ -f /private/var/vm/sleepimage ]; then
+  echo "Removing sleep image..."
+  sudo rm /private/var/vm/sleepimage                                        # Remove the sleep image file to save disk space
+  sudo touch /private/var/vm/sleepimage                                     # Create a zero-byte file instead
+  sudo chflags uchg /private/var/vm/sleepimage                              # Ensure it can't be rewritten
+else
+  echo "No sleep image found. Skipping."
+fi
+
 sudo pmset -a sms 0                                                         # Disable the sudden motion sensor (not useful for SSDs)
 
 # Restart affected apps for changes to take effect

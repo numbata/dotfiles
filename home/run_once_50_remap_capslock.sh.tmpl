@@ -1,12 +1,11 @@
 #!/bin/bash
 
-# Remap Caps Lock to Left Control
 echo "Remapping Caps Lock to Left Control..."
 
 hidutil property --set '{
   "UserKeyMapping": [
     {
-      "HIDKeyboardModifierMappingSrc": 0x700000039, 
+      "HIDKeyboardModifierMappingSrc": 0x700000039,
       "HIDKeyboardModifierMappingDst": 0x7000000E0
     }
   ]
@@ -19,11 +18,14 @@ else
   exit 1
 fi
 
-# Make the remapping persistent using a Launch Agent
+# Set up the Launch Agent to make the remapping persistent
 echo "Setting up Launch Agent to make the remapping persistent..."
-
 PLIST_FILE=~/Library/LaunchAgents/com.remap_capslock.plist
 
+# Ensure the directory exists
+mkdir -p ~/Library/LaunchAgents
+
+# Create the .plist file
 cat > "$PLIST_FILE" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -39,7 +41,7 @@ cat > "$PLIST_FILE" <<EOF
         <string>{
   "UserKeyMapping": [
     {
-      "HIDKeyboardModifierMappingSrc": 0x700000039, 
+      "HIDKeyboardModifierMappingSrc": 0x700000039,
       "HIDKeyboardModifierMappingDst": 0x7000000E0
     }
   ]

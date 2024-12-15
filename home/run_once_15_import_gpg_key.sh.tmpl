@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Import GPG keys
+gpg --import ~/.gnupg/private.asc
+gpg --import ~/.gnupg/public.asc
+
+# Set trust level for GPG key
+KEY_ID=$(gpg --list-keys --with-colons | grep pub | cut -d: -f5)
+echo -e "5\ny\n" | gpg --command-fd 0 --expert --edit-key $KEY_ID trust

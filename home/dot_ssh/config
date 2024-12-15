@@ -1,8 +1,8 @@
 Host *
+  IdentityFile ~/.ssh/id_ed25519
   IdentitiesOnly yes
   ServerAliveInterval 30
   TCPKeepAlive yes
   StrictHostKeyChecking no
   UserKnownHostsFile /dev/null
   LogLevel ERROR
-
