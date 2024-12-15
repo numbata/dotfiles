@@ -1,7 +1,12 @@
 # Homebrew formulae
 
+brew "awscli"                        # AWS CLI tool
+brew "colima"                        # Container runtimes on macOS (and Linux) with minimal setup
+brew "docker"                        # Docker
+brew "docker-compose"                # Docker Compose
 brew "dockutil"                      # A command-line tool for managing macOS Dock items
 brew "fzf"                           # A command-line fuzzy finder
+brew "gh"                            # GitHub CLI
 brew "gpg"                           # GNU Privacy Guard, a tool for secure communication and data storage
 brew "hadolint"                      # A Dockerfile linter that helps you build best practice Docker images
 brew "hub"                           # A command-line wrapper for Git that makes working with GitHub easier
@@ -17,6 +22,7 @@ brew "vim"                           # The ubiquitous text editor
 # Homebrew casks
 
 cask "1password"                     # Password manager and secure wallet
+cask "1password-cli"                 # 1Password CLI tool
 cask "dash"                          # API Documentation Browser and Code Snippet Manager
 cask "firefox@beta"                  # Beta version of the Firefox web browser
 cask "font-fira-mono"                # Monospaced font designed for coding
@@ -30,6 +36,7 @@ cask "google-chrome"                 # Fast, secure, and free web browser built 
 # cask "linear"                        # Issue tracking and project management tool
 cask "miro"                          # Online collaborative whiteboard platform
 cask "rectangle"                     # Move and resize windows using keyboard shortcuts or snap areas
+cask "session-manager-plugin"        # AWS Session Manager plugin
 cask "slack"                         # Team communication and collaboration software
 cask "sourcetree"                    # A free Git GUI client for Mac
 cask "spotify"                       # Music streaming service
