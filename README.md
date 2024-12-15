@@ -8,7 +8,7 @@ They include configurations for macOS, terminal tools, SSH/GPG keys, and various
 Run this command to bootstrap everything:
 
 ```bash
-curl -sS https://raw.githubusercontent.com/numbata/dotfiles/main/bootstrap.sh | bash
+curl -sS https://raw.githubusercontent.com/numbata/dotfiles/main/bootstrap.sh | sh
 ```
 
 This will:
