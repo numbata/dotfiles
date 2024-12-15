@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Import GPG keys
-gpg --import ~/.gnupg/private.asc
-gpg --import ~/.gnupg/public.asc
+gpg --import ~/.gpg/private.asc
+gpg --import ~/.gpg/public.asc
 
 # Set trust level for GPG key
 KEY_ID=$(gpg --list-keys --with-colons | grep pub | cut -d: -f5)
