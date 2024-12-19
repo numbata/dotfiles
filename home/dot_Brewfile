@@ -44,6 +44,7 @@ cask "telegram-desktop"              # Messaging app with a focus on speed and s
 cask "visual-studio-code"            # Source code editor developed by Microsoft
 cask "wezterm"                       # GPU-accelerated terminal emulator and multiplexer
 cask "zoom"                          # Video conferencing and online meeting application
+cask "nodenv"                        # Manage Node environment
 # cask "telegram-desktop"            # Messaging app with a focus on speed and security
 # cask "tunnelblick"                 # Free, open-source graphic user interface for OpenVPN on macOS
 

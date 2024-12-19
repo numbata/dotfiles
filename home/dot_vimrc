@@ -24,11 +24,21 @@ set relativenumber             " Show relative line numbers
 set signcolumn=yes             " Always show sign column
 set colorcolumn=85             " Highlight 85th column
 set termguicolors              " Enable true colors for modern terminals
-try
-  colorscheme onehalflight     " Use OneHalf Light colorscheme
-catch
-  colorscheme default          " Fallback to default colorscheme
-endtry
+set background=light
+colorscheme absent-light
+
+" Returns true if the color hex value is light
+function! IsHexColorLight(color) abort
+  let l:raw_color = trim(a:color, '#')
+
+  let l:red = str2nr(substitute(l:raw_color, '.{0}(.{2})', '1', 'g'), 16)
+  let l:green = str2nr(substitute(l:raw_color, '.{2}(.{2}).{2}', '1', 'g'), 16)
+  let l:blue = str2nr(substitute(l:raw_color, '.{4}(.{2})', '1', 'g'), 16)
+
+  let l:brightness = ((l:red * 299) + (l:green * 587) + (l:blue * 114)) / 1000
+
+  return l:brightness > 155
+endfunction
 
 " Performance Settings
 set lazyredraw                 " Optimize screen redraws
@@ -131,6 +141,12 @@ autocmd BufRead,BufNewFile Dockerfile* set filetype=dockerfile
 " Automatically Remove Trailing Whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 
+" Adjust window size automatically when resizing the terminal
+augroup AutoAdjustResize
+  autocmd!
+  autocmd VimResized * execute "normal! \<C-w>="
+augroup end
+
 " Keyboard Shortcuts
 let mapleader = ','
 noremap <C-h> <C-w>h
@@ -138,7 +154,6 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 " Map `<leader>d` to toggle Dirvish (you can use any key combo)
-nnoremap <silent> <leader>d :call ToggleDirvish()<CR>
+nnoremap <leader>d :NERDTree<CR>
 " Fuzzy file finder
 noremap <C-p> :FZF<CR>
-
