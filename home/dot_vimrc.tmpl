@@ -6,11 +6,13 @@ syntax on                      " Enable syntax highlighting
 filetype plugin indent on      " Enable filetype detection and indentation
 set nowrap                     " Don't wrap lines
 set splitright splitbelow      " Better split defaults
-{% if os == "darwin" %}
+
+{{ if eq .chezmoi.os "darwin" -}}
 set clipboard=unnamed          " Use system clipboard on macOS
-{% elif os == "linux" %}
+{{ else if eq .chezmoi.os "linux" -}}
 set clipboard=unnamedplus      " Use system clipboard on Linux
-{% endif %}
+{{ end -}}
+
 set title                      " Show file name in terminal title
 set wildmode=list:longest      " Improved completion behavior
 set backspace=indent,eol,start " Enhanced backspace behavior
