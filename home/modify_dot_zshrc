@@ -1,0 +1,9 @@
+#!/bin/bash
+include_line="[ -f ~/.zshrc_profile ] && source ~/.zshrc_profile"
+content=$(cat)
+if ! echo "$content" | grep -qF "$include_line"; then
+  echo "$content"
+  echo "$include_line"
+else
+  echo "$content"
+fi

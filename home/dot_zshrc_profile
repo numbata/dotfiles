@@ -22,7 +22,7 @@ setopt share_history     # Share history between Zsh sessions
 # Enable Useful zsh Options
 setopt CORRECT
 
-PROMPT="%F{green}%~ %F{red}$ "
+PROMPT="%F{green}%~ %F{red}%f$ "
 
 # Set prompt substitution so we can use the vcs_info_message variable
 setopt prompt_subst
@@ -42,7 +42,7 @@ zstyle ':vcs_info:git*' stagedstr '+'
 zstyle ':vcs_info:*:*' check-for-changes true
 
 # Set the right prompt to the vcs_info message
-RPROMPT='⎇ ${vcs_info_msg_0_}'
+RPROMPT='${vcs_info_msg_0_:+"%F{green}⎇ $vcs_info_msg_0_%f"}'
 
 # SSH Agent Setup
 function start_agent {
