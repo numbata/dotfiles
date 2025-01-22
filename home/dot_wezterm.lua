@@ -59,6 +59,9 @@ local config = {
         { key = 'w', mods = 'CMD', action = wezterm.action{CloseCurrentTab={confirm=true}} },
         { key = 'LeftArrow', mods = 'CMD|SHIFT', action = wezterm.action.ActivateTabRelative(-1) },
         { key = 'RightArrow', mods = 'CMD|SHIFT', action = wezterm.action.ActivateTabRelative(1) },
+        { key = "LeftArrow", mods = "LEADER",       action=wezterm.action{ActivatePaneDirection="Left"}},
+        { key = "RightArrow", mods = "LEADER",       action=wezterm.action{ActivatePaneDirection="Right"}},
+
     },
 }
 
