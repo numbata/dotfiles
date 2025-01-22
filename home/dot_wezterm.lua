@@ -4,9 +4,37 @@ local config = {
     automatically_reload_config = true,
     font = wezterm.font 'Fira Mono',
     font_size = 10.0,
-    -- color_scheme = 'Windows 10 Light (base16)',
-    color_scheme = 'Londontube (light) (terminal.sexy)',
-    --color_scheme = 'Lunaria Light (Gogh)',
+    color_scheme = 'Github Light (Gogh)',
+
+    colors = {
+        foreground = "#24292e",
+        background = "#ffffff",
+        cursor_bg = "#24292e",
+        cursor_border = "#24292e",
+        cursor_fg = "#ffffff",
+        selection_bg = "#e1e4e8",
+        selection_fg = "#24292e",
+        ansi = {
+            "#24292e", -- black
+            "#d73a49", -- red
+            "#28a745", -- green
+            "#d79b00", -- yellow (adjusted from #ffcc00 to be more readable)
+            "#0366d6", -- blue
+            "#6f42c1", -- magenta
+            "#22863a", -- cyan
+            "#586069", -- white
+        },
+        brights = {
+            "#959da5", -- bright black
+            "#f97583", -- bright red
+            "#34d058", -- bright green
+            "#f1af5f", -- bright yellow (adjusted for readability)
+            "#2188ff", -- bright blue
+            "#8a63d2", -- bright magenta
+            "#85e89d", -- bright cyan
+            "#6a737d", -- bright white
+        },
+    },
     enable_tab_bar = false,
     window_decorations = "RESIZE",
     native_macos_fullscreen_mode = true,
