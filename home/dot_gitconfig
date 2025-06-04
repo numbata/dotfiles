@@ -32,7 +32,7 @@
   graph = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
   ltag = !bash -c 'git tag -l | sort -V | tail -1'
   lp = log -p
-  recent = "!git reflog show --pretty='%gs' | grep checkout | awk '{print $NF}' | uniq | head -n 10"
+  recent = "!f() { n=10; while [ $# -gt 0 ]; do [ \"$1\" = \"-n\" ] && shift && n=$1 || shift; done; git reflog show --pretty='%gs' | grep checkout | awk '{print $NF}' | grep -v '^HEAD~' | awk '!seen[$0]++' | head -n \"$n\"; }; f"
   short = status -sb
   amend = commit --amend --no-edit
   untracked = ls-files --others --exclude-standard
