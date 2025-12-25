@@ -25,12 +25,14 @@ brew "lazygit"                       # Terminal UI for git commands
 brew "htop"                          # Interactive process viewer
 brew "tldr"                          # Simplified man pages with examples
 brew "tree"                          # Directory tree visualization
+brew "git"                           # Latest git (newer than Apple's built-in)
+brew "curl"                          # Latest curl with more protocols and features
+brew "watch"                         # Run commands periodically and watch output
+brew "mise"                          # Universal version manager (node, python, ruby, go, etc.)
 
 # Homebrew casks
 
 cask "1password"                     # Password manager and secure wallet
-cask "1password-cli"                 # 1Password CLI tool
-cask "dash"                          # API Documentation Browser and Code Snippet Manager
 cask "firefox@beta"                  # Beta version of the Firefox web browser
 cask "font-fira-code-nerd-font"      # Fira Code with ligatures + Nerd Font icons (powerline, devicons)
 cask "google-chrome"                 # Fast, secure, and free web browser built for the modern web

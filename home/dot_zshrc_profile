@@ -30,6 +30,9 @@ eval "$(zoxide init zsh)"
 # Atuin (better shell history) - Ctrl+R for interactive search
 eval "$(atuin init zsh)"
 
+# Mise (version manager) - manages node, python, ruby, go, etc.
+eval "$(mise activate zsh)"
+
 # Enable Useful zsh Options
 setopt CORRECT
 

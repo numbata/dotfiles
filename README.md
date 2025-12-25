@@ -34,6 +34,29 @@ This will:
 | `zi` | Interactive directory picker |
 | `Ctrl+R` | Search shell history (atuin) |
 
+### Modern CLI Aliases
+
+| Alias | Tool | Description |
+|-------|------|-------------|
+| `ls`, `ll`, `la` | eza | Listing with colors, icons, git status |
+| `lt` | eza | Tree view (2 levels) |
+| `cat`, `less` | bat | Syntax highlighting |
+| `find` | fd | Fast find, respects .gitignore |
+| `top` | htop | Interactive process viewer |
+| `lg` | lazygit | Terminal UI for git |
+| `help` | tldr | Simplified man pages |
+
+Original commands available with `o` prefix: `ocat`, `ols`, `ofind`, `otop`
+
+### Version Management (mise)
+
+| Command | Description |
+|---------|-------------|
+| `mise use node@20` | Install and use Node.js 20 |
+| `mise use python@3.12` | Install and use Python 3.12 |
+| `mise list` | Show installed versions |
+| `mise current` | Show active versions |
+
 ### WezTerm (Leader: `Ctrl+a`)
 
 | Shortcut | Description |
