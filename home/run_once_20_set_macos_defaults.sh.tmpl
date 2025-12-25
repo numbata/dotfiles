@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 echo "Applying macOS customizations..."
 
 # Disable the sound effects on boot
@@ -28,7 +30,6 @@ defaults write com.apple.finder AppleShowAllFiles -bool true                # Sh
 defaults write com.apple.finder DisableAllAnimations -bool true             # Disable Finder animations
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"         # When performing a search, search the current folder by default
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false  # Disable file extension warning
-defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false  # Disable the warning when changing a file extension
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true          # Show full POSIX path in Finder title bar
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"         # Use list view in all Finder windows by default
 
@@ -56,10 +57,8 @@ defaults write com.apple.screencapture location -string "~/Screenshots"     # Sa
 defaults write com.apple.screensaver askForPassword -int 1                  # Require password after sleep/screensaver
 defaults write com.apple.screensaver askForPasswordDelay -int 5             # Set password delay to 5 seconds
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1            # Check for software updates daily
-defaults write com.apple.finder EmptyTrashSecurely -bool true               # Empty Trash securely by default
 
-# iTunes & .DS_Store
-defaults write com.apple.iTunesHelper ignore-devices -bool true             # Prevent iTunes from auto-opening
+# .DS_Store
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true # Prevent .DS_Store on network volumes
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true    # Prevent .DS_Store on USB volumes
 

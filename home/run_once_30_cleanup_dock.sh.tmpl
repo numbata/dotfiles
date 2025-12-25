@@ -1,6 +1,10 @@
 #!/bin/bash
 
-# List of Dock items to remove
+set -euo pipefail
+
+echo "Cleaning up Dock..."
+
+# List of Dock items to remove (English and Russian)
 dock_items=(
   "App Store"
   "Books"
@@ -37,9 +41,10 @@ dock_items=(
 
 # Loop through each item and attempt to remove it
 for item in "${dock_items[@]}"; do
-  echo "Removing '$item' from Dock..."
-  dockutil --remove "$item" || echo "Failed to remove '$item', skipping..."
+  dockutil --remove "$item" --no-restart 2>/dev/null || true
 done
 
-echo "Dock cleanup completed."
+# Restart Dock once at the end
+killall Dock
 
+echo "Dock cleanup completed."

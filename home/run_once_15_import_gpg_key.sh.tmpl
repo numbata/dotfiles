@@ -1,9 +1,30 @@
 #!/bin/bash
 
-# Import GPG keys
-gpg --import ~/.gpg/private.asc
-gpg --import ~/.gpg/public.asc
+set -euo pipefail
+
+echo "Importing GPG keys..."
+
+# Import GPG keys if they exist
+if [[ -f ~/.gpg/private.asc ]]; then
+  gpg --import ~/.gpg/private.asc
+  echo "Private key imported."
+else
+  echo "No private key found at ~/.gpg/private.asc, skipping."
+fi
+
+if [[ -f ~/.gpg/public.asc ]]; then
+  gpg --import ~/.gpg/public.asc
+  echo "Public key imported."
+else
+  echo "No public key found at ~/.gpg/public.asc, skipping."
+fi
 
 # Set trust level for GPG key
-KEY_ID=$(gpg --list-keys --with-colons | grep pub | cut -d: -f5)
-echo -e "5\ny\n" | gpg --command-fd 0 --expert --edit-key $KEY_ID trust
+KEY_ID=$(gpg --list-keys --with-colons 2>/dev/null | grep pub | cut -d: -f5 | head -1)
+if [[ -n "$KEY_ID" ]]; then
+  echo "Setting ultimate trust for key $KEY_ID..."
+  echo -e "5\ny\n" | gpg --command-fd 0 --expert --edit-key "$KEY_ID" trust
+  echo "GPG key trust level set."
+else
+  echo "No GPG key found to set trust level."
+fi
