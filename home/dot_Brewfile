@@ -17,6 +17,14 @@ brew "tmux"                          # Terminal multiplexer enabling multiple te
 brew "wget"                          # Internet file retriever
 brew "neovim"                        # Hyperextensible Vim-based text editor
 brew "ripgrep"                       # Fast regex search tool (for Telescope)
+brew "fd"                            # Modern find alternative, respects .gitignore
+brew "bat"                           # Cat with syntax highlighting and git integration
+brew "eza"                           # Modern ls with colors, icons, git status
+brew "git-delta"                     # Beautiful git diffs with syntax highlighting
+brew "lazygit"                       # Terminal UI for git commands
+brew "htop"                          # Interactive process viewer
+brew "tldr"                          # Simplified man pages with examples
+brew "tree"                          # Directory tree visualization
 
 # Homebrew casks
 

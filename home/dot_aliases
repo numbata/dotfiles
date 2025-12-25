@@ -1,0 +1,29 @@
+# Modern CLI tool aliases
+# Drop-in replacements that preserve familiar commands
+
+# eza replaces ls
+alias ls='eza'
+alias ll='eza -l --git'
+alias la='eza -la --git'
+alias lt='eza --tree --level=2'
+alias l='eza -l'
+
+# bat replaces cat
+alias cat='bat --paging=never'
+alias less='bat'
+
+# fd replaces find (note: different syntax, but common cases work)
+alias find='fd'
+
+# htop replaces top
+alias top='htop'
+
+# Quick access to new tools
+alias lg='lazygit'
+alias help='tldr'
+
+# Keep originals accessible with prefix
+alias ocat='/bin/cat'
+alias ols='/bin/ls'
+alias ofind='/usr/bin/find'
+alias otop='/usr/bin/top'
