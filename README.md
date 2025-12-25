@@ -14,15 +14,15 @@ curl -sS https://raw.githubusercontent.com/numbata/dotfiles/main/bootstrap.sh | 
 This will:
 - Install required tools (like Homebrew and 1Password CLI)
 - Configure macOS defaults
-- Set up terminal tools (e.g., tmux, Vim, WezTerm)
+- Set up terminal tools (e.g., tmux, Neovim, WezTerm)
 - Manage SSH and GPG keys securely
 
 ## Key Features
 
 - **Mac Setup:** Automatically applies macOS preferences.
 - **SSH/GPG Keys:** Securely managed via 1Password.
-- **Development Tools:** Includes configurations for Git, Vim, tmux, and more.
-- **Customizations:** Easily remaps keys and sets up tools like FZF, Dirvish, and Lightline.
+- **Development Tools:** Includes configurations for Git, Neovim (with LSP), tmux, and more.
+- **Customizations:** Easily remaps keys and sets up tools like Telescope, nvim-tree, and lualine.
 
 ## Notes
 

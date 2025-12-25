@@ -17,7 +17,8 @@ brew "mas"                           # Mac App Store command-line interface
 brew "the_silver_searcher"           # A fast code-searching tool, similar to 'ack', but faster
 brew "tmux"                          # Terminal multiplexer enabling multiple terminal sessions to be accessed simultaneously
 brew "wget"                          # Internet file retriever
-brew "vim"                           # The ubiquitous text editor
+brew "neovim"                        # Hyperextensible Vim-based text editor
+brew "ripgrep"                       # Fast regex search tool (for Telescope)
 
 # Homebrew casks
 
