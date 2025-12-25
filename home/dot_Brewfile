@@ -10,7 +10,6 @@ brew "atuin"                         # Magical shell history with sync and searc
 brew "zoxide"                        # Smarter cd command that learns your habits
 brew "gpg"                           # GNU Privacy Guard, a tool for secure communication and data storage
 brew "hadolint"                      # A Dockerfile linter that helps you build best practice Docker images
-brew "gh"                            # GitHub CLI - official GitHub command line tool
 brew "ipcalc"                        # Utility for calculating IP information
 brew "jq"                            # Lightweight and flexible command-line JSON processor
 brew "mas"                           # Mac App Store command-line interface
@@ -25,12 +24,7 @@ cask "1password"                     # Password manager and secure wallet
 cask "1password-cli"                 # 1Password CLI tool
 cask "dash"                          # API Documentation Browser and Code Snippet Manager
 cask "firefox@beta"                  # Beta version of the Firefox web browser
-cask "font-fira-mono"                # Monospaced font designed for coding
-cask "font-fira-mono-for-powerline"  # Fira Mono font patched for Powerline
-cask "font-hack"                     # Typeface designed for source code and terminal applications
-cask "font-monoid"                   # Monospaced font optimized for coding
-cask "font-roboto-mono"              # Monospaced addition to the Roboto type family
-cask "font-source-code-pro"          # Monospaced sans serif typeface for user interface and coding environments
+cask "font-fira-code-nerd-font"      # Fira Code with ligatures + Nerd Font icons (powerline, devicons)
 cask "google-chrome"                 # Fast, secure, and free web browser built for the modern web
 # cask "grammarly"                     # Writing assistant that helps you write clear and mistake-free
 # cask "linear"                        # Issue tracking and project management tool
@@ -44,7 +38,5 @@ cask "telegram-desktop"              # Messaging app with a focus on speed and s
 cask "visual-studio-code"            # Source code editor developed by Microsoft
 cask "wezterm"                       # GPU-accelerated terminal emulator and multiplexer
 cask "zoom"                          # Video conferencing and online meeting application
-cask "nodenv"                        # Manage Node environment
-# cask "telegram-desktop"            # Messaging app with a focus on speed and security
 # cask "tunnelblick"                 # Free, open-source graphic user interface for OpenVPN on macOS
 

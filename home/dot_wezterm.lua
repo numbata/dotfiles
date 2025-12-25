@@ -5,6 +5,7 @@ local config = {
     font = wezterm.font "FiraCode Nerd Font",
     font_size = 10.0,
     harfbuzz_features = { "calt=0", "clig=0", "liga=0" },  -- Disable ligatures
+    freetype_load_target = "HorizontalLcd",
     color_scheme = 'Github Light (Gogh)',
 
     colors = {
