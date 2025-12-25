@@ -19,12 +19,11 @@ map("n", "<leader>d", ":NvimTreeToggle<CR>", opts)
 -- Fuzzy finding (will be Telescope instead of FZF)
 map("n", "<C-p>", ":Telescope find_files<CR>", opts)
 
--- FZF mappings (Telescope equivalents)
+-- Telescope mappings
 map("n", "<leader><tab>", ":Telescope keymaps<CR>", opts)
 
--- EasyMotion leader (using ; as the trigger)
--- Note: We'll keep easymotion for now, can migrate to leap/flash later
-vim.g.EasyMotion_leader_key = ";"
+-- Motion: Use flash.nvim (s to jump, S for treesitter select)
+-- Configured in lua/plugins/init.lua
 
 -- Additional useful mappings
 -- Clear search highlighting

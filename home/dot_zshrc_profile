@@ -23,7 +23,12 @@ setopt share_history     # Share history between Zsh sessions
 
 # Source Additional Configurations
 [ -f ~/.aliases ] && source ~/.aliases
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Zoxide (smarter cd) - use 'z' to jump to directories
+eval "$(zoxide init zsh)"
+
+# Atuin (better shell history) - Ctrl+R for interactive search
+eval "$(atuin init zsh)"
 
 # Enable Useful zsh Options
 setopt CORRECT

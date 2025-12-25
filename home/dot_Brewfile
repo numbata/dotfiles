@@ -5,8 +5,9 @@ brew "colima"                        # Container runtimes on macOS (and Linux) w
 brew "docker"                        # Docker
 brew "docker-compose"                # Docker Compose
 brew "dockutil"                      # A command-line tool for managing macOS Dock items
-brew "fzf"                           # A command-line fuzzy finder
-brew "gh"                            # GitHub CLI
+brew "gh"                            # GitHub CLI - official GitHub command line tool
+brew "atuin"                         # Magical shell history with sync and search
+brew "zoxide"                        # Smarter cd command that learns your habits
 brew "gpg"                           # GNU Privacy Guard, a tool for secure communication and data storage
 brew "hadolint"                      # A Dockerfile linter that helps you build best practice Docker images
 brew "hub"                           # A command-line wrapper for Git that makes working with GitHub easier

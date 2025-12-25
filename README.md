@@ -24,8 +24,57 @@ This will:
 - **Development Tools:** Includes configurations for Git, Neovim (with LSP), tmux, and more.
 - **Customizations:** Easily remaps keys and sets up tools like Telescope, nvim-tree, and lualine.
 
+## Cheat Sheet
+
+### Shell
+
+| Command | Description |
+|---------|-------------|
+| `z foo` | Jump to directory matching "foo" (learns from history) |
+| `zi` | Interactive directory picker |
+| `Ctrl+R` | Search shell history (atuin) |
+
+### WezTerm (Leader: `Ctrl+a`)
+
+| Shortcut | Description |
+|----------|-------------|
+| `Leader -` | Split pane vertically |
+| `Leader \|` | Split pane horizontally |
+| `Leader h/j/k/l` | Navigate panes |
+| `Leader z` | Zoom/unzoom pane |
+| `Cmd+t` | New tab |
+| `Cmd+w` | Close tab |
+
+### Neovim (Leader: `,`)
+
+| Shortcut | Description |
+|----------|-------------|
+| `Ctrl+p` | Find files (Telescope) |
+| `,fg` | Live grep (search in files) |
+| `,d` | Toggle file explorer |
+| `s` | Flash jump (type 2 chars) |
+| `gd` | Go to definition |
+| `gr` | Find references |
+| `K` | Hover documentation |
+| `,ca` | Code actions |
+| `,f` | Format code |
+| `Ctrl+h/j/k/l` | Navigate windows |
+
+### Git Aliases
+
+| Alias | Command |
+|-------|---------|
+| `git co` | checkout |
+| `git ci` | commit -v |
+| `git st` | status |
+| `git up` | pull --rebase |
+| `git put` | push origin HEAD |
+| `git ls` | pretty log |
+| `git graph` | visual commit graph |
+| `git recent` | recently checked out branches |
+
 ## Notes
 
 - Tested on macOS. Use at your own risk on other systems.
 
-Enjoy your new system! 🚀
+Enjoy your new system!
