@@ -61,9 +61,9 @@
   windowMemory = 100m
 
 [commit]
-	template = ~/.stCommitMsg
-	gpgsign = true
-	verbose = true
+  template = ~/.stCommitMsg
+  gpgsign = true
+  verbose = true
 
 [gpg]
 	program = gpg
