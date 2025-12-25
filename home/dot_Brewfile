@@ -10,12 +10,10 @@ brew "atuin"                         # Magical shell history with sync and searc
 brew "zoxide"                        # Smarter cd command that learns your habits
 brew "gpg"                           # GNU Privacy Guard, a tool for secure communication and data storage
 brew "hadolint"                      # A Dockerfile linter that helps you build best practice Docker images
-brew "hub"                           # A command-line wrapper for Git that makes working with GitHub easier
+brew "gh"                            # GitHub CLI - official GitHub command line tool
 brew "ipcalc"                        # Utility for calculating IP information
-brew "jsonpp"                        # A command-line JSON pretty printer
-brew "lunchy"                        # Friendly wrapper for launchctl
+brew "jq"                            # Lightweight and flexible command-line JSON processor
 brew "mas"                           # Mac App Store command-line interface
-brew "the_silver_searcher"           # A fast code-searching tool, similar to 'ack', but faster
 brew "tmux"                          # Terminal multiplexer enabling multiple terminal sessions to be accessed simultaneously
 brew "wget"                          # Internet file retriever
 brew "neovim"                        # Hyperextensible Vim-based text editor
