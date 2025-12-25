@@ -30,8 +30,6 @@ opt.ignorecase = true                  -- Case insensitive search
 opt.smartcase = true                   -- Unless uppercase is used
 
 -- Performance
-opt.lazyredraw = true                  -- Don't redraw in all situations
-opt.ttyfast = true                     -- Optimize for fast terminal
 opt.synmaxcol = 300                    -- Max columns to highlight
 opt.updatetime = 250                   -- Faster completion
 
