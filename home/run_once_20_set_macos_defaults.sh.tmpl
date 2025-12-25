@@ -2,84 +2,133 @@
 
 set -euo pipefail
 
-echo "Applying macOS customizations..."
+echo "Applying macOS customizations (Sequoia/Tahoe)..."
 
-# Disable the sound effects on boot
-sudo nvram SystemAudioVolume=" "
+# ============================================================================
+# Disable Animations (performance & focus)
+# ============================================================================
 
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false # Disable window open/close animations
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001                # Instant window resize
+defaults write com.apple.finder DisableAllAnimations -bool true              # Disable all Finder animations
+defaults write com.apple.dock autohide-time-modifier -float 0                # Instant Dock hide/show
+defaults write com.apple.dock launchanim -bool false                         # Disable app launch bounce
+defaults write com.apple.dock expose-animation-duration -float 0.1           # Fast Mission Control
+defaults write com.apple.dock springboard-show-duration -float 0.1           # Fast Launchpad show
+defaults write com.apple.dock springboard-hide-duration -float 0.1           # Fast Launchpad hide
+defaults write com.apple.dock springboard-page-duration -float 0.1           # Fast Launchpad page switch
+defaults write com.apple.universalaccess reduceMotion -bool true             # Reduce motion system-wide
+defaults write com.apple.Accessibility ReduceMotionEnabled -bool true        # Accessibility reduce motion
+
+# ============================================================================
 # General UI/UX
+# ============================================================================
+
 defaults write NSGlobalDomain AppleICUForce12HourTime -bool false            # Use 24-hour time format
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"    # Set measurement units to Centimeters
 defaults write NSGlobalDomain AppleMetricUnits -bool true                    # Enable metric units
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false           # Disable press-and-hold for keys
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false           # Disable press-and-hold for keys (enable key repeat)
 defaults write NSGlobalDomain AppleShowScrollBars -string "Always"           # Always show scrollbars
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false # Disable auto-correct
-defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false # Disable opening/closing window animations
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true  # Expand save dialog by default
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true # Expand save dialog by default (secondary)
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true     # Expand print dialog by default
-defaults write NSGlobalDomain WebKitDeveloperExtras -bool true               # Enable WebKit Developer Extras globally
-defaults write com.apple.HIToolbox AppleDictationAutoEnable -bool false      # Disable Dictation entirely
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true    # Expand print dialog by default (secondary)
+defaults write com.apple.HIToolbox AppleDictationAutoEnable -bool false      # Disable Dictation auto-enable
 
-# Keyboard & Mouse
-defaults write com.apple.BezelServices kDimTime -int 300                    # Turn off keyboard backlight after 5 mins
+# ============================================================================
+# Keyboard (optimized for vim users)
+# ============================================================================
+
+defaults write NSGlobalDomain InitialKeyRepeat -int 15                       # Faster key repeat start (default: 25)
+defaults write NSGlobalDomain KeyRepeat -int 2                               # Faster key repeat rate (default: 6)
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false  # Disable smart quotes
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false   # Disable smart dashes
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false     # Disable auto-capitalization
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false # Disable period with double-space
+
+# ============================================================================
+# Trackpad
+# ============================================================================
+
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true # Enable tap-to-click
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false # Disable smart quotes when typing
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true         # Enable tap-to-click (trackpad)
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1 # Enable tap-to-click (login screen)
 
+# ============================================================================
 # Finder
-defaults write com.apple.finder AppleShowAllFiles -bool true                # Show hidden files
-defaults write com.apple.finder DisableAllAnimations -bool true             # Disable Finder animations
-defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"         # When performing a search, search the current folder by default
-defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false  # Disable file extension warning
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool true          # Show full POSIX path in Finder title bar
-defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"         # Use list view in all Finder windows by default
+# ============================================================================
 
+defaults write com.apple.finder AppleShowAllFiles -bool true                 # Show hidden files
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"          # Search current folder by default
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false   # Disable file extension warning
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true           # Show full POSIX path in title bar
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"          # Use list view by default
+defaults write com.apple.finder ShowStatusBar -bool true                     # Show status bar
+defaults write com.apple.finder ShowPathbar -bool true                       # Show path bar
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true              # Show all file extensions
+defaults write com.apple.finder FXRemoveOldTrashItems -bool true             # Remove Trash items after 30 days
+
+# ============================================================================
 # Dock
-defaults write com.apple.dock autohide-delay -float 0                       # Remove auto-hide Dock delay
-defaults write com.apple.dock expose-animation-duration -float 0.1          # Speed up Mission Control animations
-defaults write com.apple.dock launchanim -bool false                        # Disable animations for opening apps
-defaults write com.apple.dock wvous-bl-corner -int 5                        # Set bottom-left corner to screensaver
-defaults write com.apple.dock wvous-bl-modifier -int 0                      # No modifier key for screensaver
+# ============================================================================
+
+defaults write com.apple.dock autohide-delay -float 0                        # Remove auto-hide Dock delay
+defaults write com.apple.dock wvous-bl-corner -int 5                         # Bottom-left corner: screensaver
+defaults write com.apple.dock wvous-bl-modifier -int 0                       # No modifier key for screensaver
+defaults write com.apple.dock show-recents -bool false                       # Don't show recent apps in Dock
+
+# ============================================================================
+# Safari & WebKit Developer Tools
+# ============================================================================
 
 # Safari
-defaults write com.apple.Safari IncludeDevelopMenu -bool true               # Enable Develop menu
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true         # Enable internal debug menu
-defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true    # Show full URLs in the address bar
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true # Enable WebKit Developer Extras
+defaults write com.apple.Safari IncludeDevelopMenu -bool true                # Enable Develop menu
+defaults write com.apple.Safari IncludeInternalDebugMenu -bool true          # Enable internal debug menu
+defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true     # Show full URLs
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 
+# WebKit Developer Extras for other apps (right-click → Inspect Element)
+defaults write com.apple.mail WebKitDeveloperExtras -bool true               # Mail
+defaults write com.apple.appstore WebKitDeveloperExtras -bool true           # App Store
+defaults write com.apple.notes WebKitDeveloperExtras -bool true              # Notes
+
+# ============================================================================
+# Menu Bar & Control Center
+# ============================================================================
+
+defaults write com.apple.controlcenter "NSStatusItem Visible Battery" -bool true  # Show battery in menu bar
+defaults write com.apple.controlcenter BatteryShowPercentage -bool true           # Show battery percentage
+
+# ============================================================================
 # System
-defaults write com.apple.ImageCapture disableHotPlug -bool true             # Prevent Photos from auto-opening
-defaults write com.apple.LaunchServices LSQuarantine -bool false            # Disable "open this application?" dialog
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true      # Enable AirDrop over all interfaces
-defaults write com.apple.menuextra.battery ShowPercent -string "YES"        # Show battery percentage
-defaults write com.apple.screencapture location -string "~/Screenshots"     # Save screenshots to a custom location
+# ============================================================================
 
-# Security
-defaults write com.apple.screensaver askForPassword -int 1                  # Require password after sleep/screensaver
-defaults write com.apple.screensaver askForPasswordDelay -int 5             # Set password delay to 5 seconds
-defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1            # Check for software updates daily
-
-# .DS_Store
+defaults write com.apple.ImageCapture disableHotPlug -bool true              # Prevent Photos from auto-opening
+defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true       # Enable AirDrop over all interfaces
+defaults write com.apple.screencapture location -string "~/Screenshots"      # Save screenshots to custom location
+defaults write com.apple.screencapture disable-shadow -bool true             # Disable screenshot shadows
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true # Prevent .DS_Store on network volumes
-defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true    # Prevent .DS_Store on USB volumes
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true     # Prevent .DS_Store on USB volumes
 
-# Hardware specific
-sudo pmset -a hibernatemode 0                                               # Disable hibernation (speeds up entering sleep mode)
+# Create Screenshots directory
+mkdir -p ~/Screenshots
 
-# Handle missing sleep image
-if [ -f /private/var/vm/sleepimage ]; then
-  echo "Removing sleep image..."
-  sudo rm /private/var/vm/sleepimage                                        # Remove the sleep image file to save disk space
-  sudo touch /private/var/vm/sleepimage                                     # Create a zero-byte file instead
-  sudo chflags uchg /private/var/vm/sleepimage                              # Ensure it can't be rewritten
-else
-  echo "No sleep image found. Skipping."
-fi
+# ============================================================================
+# Security
+# ============================================================================
 
-sudo pmset -a sms 0                                                         # Disable the sudden motion sensor (not useful for SSDs)
+defaults write com.apple.screensaver askForPassword -int 1                   # Require password after sleep/screensaver
+defaults write com.apple.screensaver askForPasswordDelay -int 0              # Require password immediately
+defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1             # Check for software updates daily
 
-# Restart affected apps for changes to take effect
+# ============================================================================
+# Restart affected apps
+# ============================================================================
+
 echo "Restarting Dock and Finder to apply changes..."
 killall Dock
 killall Finder
 
-echo "Defaults have been set"
+echo "macOS defaults applied successfully!"
