@@ -2,8 +2,9 @@ local wezterm = require 'wezterm'
 
 local config = {
     automatically_reload_config = true,
-    font = wezterm.font 'Fira Mono',
+    font = wezterm.font "FiraCode Nerd Font",
     font_size = 10.0,
+    harfbuzz_features = { "calt=0", "clig=0", "liga=0" },  -- Disable ligatures
     color_scheme = 'Github Light (Gogh)',
 
     colors = {
@@ -41,11 +42,7 @@ local config = {
     hide_tab_bar_if_only_one_tab = true,
     front_end = "Software",
     audible_bell = "Disabled",
-    visual_bell = {
-        fade_in_duration_ms = 75,
-        fade_out_duration_ms = 75,
-        target = 'CursorColor',
-    },
+    visual_bell = "Disabled",
     leader = { key="a", mods="CTRL" },
     keys = {
         { key = "-", mods = "LEADER",       action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
