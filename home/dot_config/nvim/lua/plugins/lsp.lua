@@ -120,7 +120,9 @@ require("mason-lspconfig").setup({
     "elixirls",         -- Elixir
     "gopls",            -- Go
     "rust_analyzer",    -- Rust
-    "ruby_lsp",         -- Ruby (or use solargraph)
+    "ruby_lsp",         -- Ruby (Shopify's Ruby LSP)
+    "clangd",           -- C/C++
+    "nimls",            -- Nim
   },
   automatic_installation = true,
 

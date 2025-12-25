@@ -29,6 +29,11 @@ brew "git"                           # Latest git (newer than Apple's built-in)
 brew "curl"                          # Latest curl with more protocols and features
 brew "watch"                         # Run commands periodically and watch output
 brew "mise"                          # Universal version manager (node, python, ruby, go, etc.)
+brew "direnv"                        # Per-directory environment variables
+brew "universal-ctags"               # Code navigation tags (maintained fork)
+brew "yq"                            # YAML processor (like jq for YAML)
+brew "shellcheck"                    # Shell script linter
+brew "pipx"                          # Install Python CLI tools in isolated environments
 
 # Homebrew casks
 
@@ -48,5 +53,11 @@ cask "telegram-desktop"              # Messaging app with a focus on speed and s
 cask "visual-studio-code"            # Source code editor developed by Microsoft
 cask "wezterm"                       # GPU-accelerated terminal emulator and multiplexer
 cask "zoom"                          # Video conferencing and online meeting application
+cask "docker"                        # Container runtime (required for GitHub MCP server)
 # cask "tunnelblick"                 # Free, open-source graphic user interface for OpenVPN on macOS
+
+# AI CLI tools
+brew "gemini-cli"                    # Google Gemini CLI
+cask "claude-code"                   # Anthropic Claude Code CLI
+cask "codex"                         # OpenAI Codex CLI
 

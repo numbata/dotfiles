@@ -33,6 +33,14 @@ eval "$(atuin init zsh)"
 # Mise (version manager) - manages node, python, ruby, go, etc.
 eval "$(mise activate zsh)"
 
+# Direnv (per-directory environment variables)
+eval "$(direnv hook zsh)"
+
+# GitHub token for MCP servers (reuse gh CLI authentication)
+if command -v gh &>/dev/null && gh auth status &>/dev/null 2>&1; then
+  export GITHUB_TOKEN="$(gh auth token 2>/dev/null)"
+fi
+
 # Enable Useful zsh Options
 setopt CORRECT
 

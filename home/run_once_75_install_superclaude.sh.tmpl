@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -euo pipefail
+
+echo "Installing SuperClaude framework..."
+
+# Ensure pipx PATH is set
+export PATH="$HOME/.local/bin:$PATH"
+eval "$(pipx ensurepath 2>/dev/null || true)"
+
+# Install SuperClaude if not present
+if ! command -v superclaude &>/dev/null; then
+  echo "Installing superclaude via pipx..."
+  pipx install superclaude
+fi
+
+# Run SuperClaude installation (installs slash commands)
+echo "Running superclaude install..."
+superclaude install
+
+# Install recommended MCP servers
+echo "Installing MCP servers..."
+superclaude mcp --servers sequential --servers context7
+
+echo "SuperClaude installation complete!"
+echo "Restart Claude Code to access /sc:* commands."
