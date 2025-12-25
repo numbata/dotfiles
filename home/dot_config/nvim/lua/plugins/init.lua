@@ -139,30 +139,28 @@ require("lazy").setup({
   { "tpope/vim-obsession" },
   { "tpope/vim-dispatch" },
   { "editorconfig/editorconfig-vim" },
-  { "easymotion/vim-easymotion" },
   { "github/copilot.vim" },
-  { "ConradIrwin/vim-bracketed-paste" },
-  { "airblade/vim-gitgutter" },  -- Can keep alongside gitsigns or remove later
   { "bogado/file-line" },
   { "mg979/vim-visual-multi" },
   { "AndrewRadev/linediff.vim" },
 
-  -- Language-specific plugins (keep from vim)
+  -- Motion (modern replacement for easymotion)
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+    },
+  },
+
+  -- Language-specific plugins (only those not covered by Treesitter/LSP)
   { "tpope/vim-rails", ft = "ruby" },
   { "tpope/vim-endwise", ft = "ruby" },
-  { "slim-template/vim-slim", ft = "ruby" },
-  { "elixir-editors/vim-elixir", ft = "elixir" },
+  { "slim-template/vim-slim", ft = "slim" },
   { "c-brenn/phoenix.vim", ft = "elixir" },
-  { "slashmili/alchemist.vim", ft = "elixir" },
-  { "fatih/vim-go", ft = "go" },
-  { "elzr/vim-json" },
-  { "pangloss/vim-javascript", ft = "javascript" },
-  { "mxw/vim-jsx", ft = "javascript" },
-  { "mtscout6/vim-cjsx", ft = "javascript" },
-  { "posva/vim-vue", ft = "javascript" },
-  { "zah/nim.vim", ft = "nim" },
-  { "ekalinin/Dockerfile.vim" },
-  { "vim-scripts/confluencewiki.vim" },
+  { "fatih/vim-go", ft = "go", build = ":GoUpdateBinaries" },
 }, {
   -- Lazy.nvim configuration
   ui = {
