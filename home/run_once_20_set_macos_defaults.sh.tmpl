@@ -107,7 +107,7 @@ defaults write com.apple.controlcenter BatteryShowPercentage -bool true         
 
 defaults write com.apple.ImageCapture disableHotPlug -bool true              # Prevent Photos from auto-opening
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true       # Enable AirDrop over all interfaces
-defaults write com.apple.screencapture location -string "~/Screenshots"      # Save screenshots to custom location
+defaults write com.apple.screencapture location -string "$HOME/Screenshots"  # Save screenshots to custom location
 defaults write com.apple.screencapture disable-shadow -bool true             # Disable screenshot shadows
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true # Prevent .DS_Store on network volumes
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true     # Prevent .DS_Store on USB volumes
