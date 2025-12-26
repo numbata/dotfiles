@@ -1,4 +1,11 @@
 # Environment Variables
+if [[ -z "${PATH:-}" ]]; then
+  export PATH="/usr/bin:/bin:/usr/sbin:/sbin"
+fi
+case ":$PATH:" in
+  *":/usr/bin:"*) ;;
+  *) export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH" ;;
+esac
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 export GOPATH="$HOME/.go"
 export SSH_ENV="$HOME/.ssh/environment"
@@ -84,4 +91,3 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
-

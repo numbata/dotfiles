@@ -4,6 +4,11 @@ set -euo pipefail
 
 echo "Applying macOS customizations (Sequoia/Tahoe)..."
 
+# Safely write defaults (ignore errors from protected domains)
+safe_defaults() {
+  defaults write "$@" 2>/dev/null || true
+}
+
 # ============================================================================
 # Disable Animations (performance & focus)
 # ============================================================================
@@ -18,7 +23,7 @@ defaults write com.apple.dock springboard-show-duration -float 0.1           # F
 defaults write com.apple.dock springboard-hide-duration -float 0.1           # Fast Launchpad hide
 defaults write com.apple.dock springboard-page-duration -float 0.1           # Fast Launchpad page switch
 # Some accessibility domains are protected on newer macOS; ignore if not writable.
-defaults write com.apple.universalaccess reduceMotion -bool true 2>/dev/null || true
+safe_defaults com.apple.universalaccess reduceMotion -bool true
 defaults write com.apple.Accessibility ReduceMotionEnabled -bool true        # Accessibility reduce motion
 
 # ============================================================================
@@ -83,17 +88,17 @@ defaults write com.apple.dock show-recents -bool false                       # D
 # Safari & WebKit Developer Tools
 # ============================================================================
 
-# Safari
-defaults write com.apple.Safari IncludeDevelopMenu -bool true                # Enable Develop menu
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true          # Enable internal debug menu
-defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true     # Show full URLs
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+# Safari (may be protected by TCC on newer macOS; ignore if blocked)
+safe_defaults com.apple.Safari IncludeDevelopMenu -bool true
+safe_defaults com.apple.Safari IncludeInternalDebugMenu -bool true
+safe_defaults com.apple.Safari ShowFullURLInSmartSearchField -bool true
+safe_defaults com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+safe_defaults com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 
 # WebKit Developer Extras for other apps (right-click → Inspect Element)
-defaults write com.apple.mail WebKitDeveloperExtras -bool true               # Mail
-defaults write com.apple.appstore WebKitDeveloperExtras -bool true           # App Store
-defaults write com.apple.notes WebKitDeveloperExtras -bool true              # Notes
+safe_defaults com.apple.mail WebKitDeveloperExtras -bool true               # Mail
+safe_defaults com.apple.appstore WebKitDeveloperExtras -bool true           # App Store
+safe_defaults com.apple.notes WebKitDeveloperExtras -bool true              # Notes
 
 # ============================================================================
 # Menu Bar & Control Center
