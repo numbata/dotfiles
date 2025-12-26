@@ -6,7 +6,7 @@ echo "Installing SuperClaude framework..."
 
 # Ensure pipx PATH is set
 export PATH="$HOME/.local/bin:$PATH"
-eval "$(pipx ensurepath 2>/dev/null || true)"
+pipx ensurepath >/dev/null 2>&1 || true
 
 # Install SuperClaude if not present
 if ! command -v superclaude &>/dev/null; then
