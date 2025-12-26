@@ -6,6 +6,11 @@ export HOMEBREW_NO_INTERACTIVE=1
 export HOMEBREW_NO_ENV_HINTS=1
 export HOMEBREW_NO_ANALYTICS=1
 
+# Preheat sudo timestamp to avoid repeated prompts
+if command -v sudo &>/dev/null; then
+    sudo -v
+fi
+
 # Install Homebrew if not present
 if ! command -v brew &>/dev/null; then
     echo "Installing Homebrew..."
@@ -30,7 +35,38 @@ fi
 # Authenticate to 1Password if not already signed in
 if ! op whoami &>/dev/null; then
   echo "Signing in to 1Password CLI..."
-  eval $(op account add --signin --address my.1password.com)
+  if [[ -n "${OP_SERVICE_ACCOUNT_TOKEN:-}" || -n "${OP_CONNECT_HOST:-}" || -n "${OP_CONNECT_TOKEN:-}" ]]; then
+    echo "Using existing 1Password service account or Connect credentials."
+  else
+    prompt_var() {
+      local var_name="$1"
+      local prompt="$2"
+      local value="${!var_name:-}"
+      if [[ -n "$value" ]]; then
+        return 0
+      fi
+      if [[ -r /dev/tty ]]; then
+        printf "%s" "$prompt" >/dev/tty
+        read -r value </dev/tty
+        printf -v "$var_name" "%s" "$value"
+        export "$var_name"
+      else
+        echo "Error: $var_name is required. Set $var_name in the environment for non-interactive runs." >&2
+        exit 1
+      fi
+      if [[ -z "${!var_name}" ]]; then
+        echo "Error: $var_name cannot be empty." >&2
+        exit 1
+      fi
+    }
+    prompt_var OP_ADDRESS "Enter your 1Password sign-in address (example.1password.com): "
+    prompt_var OP_EMAIL "Enter the email for your 1Password account: "
+    op account add --signin --address "$OP_ADDRESS" --email "$OP_EMAIL"
+  fi
+  if ! op whoami &>/dev/null; then
+    echo "Error: 1Password CLI is not signed in. Enable app integration or set OP_SERVICE_ACCOUNT_TOKEN." >&2
+    exit 1
+  fi
 fi
 
 readonly DOTFILES_REPO_URL="https://github.com/numbata/dotfiles"
