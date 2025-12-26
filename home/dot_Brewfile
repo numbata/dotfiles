@@ -32,6 +32,8 @@ brew "universal-ctags"               # Code navigation tags (maintained fork)
 brew "yq"                            # YAML processor (like jq for YAML)
 brew "shellcheck"                    # Shell script linter
 brew "pipx"                          # Install Python CLI tools in isolated environments
+brew "uv"                            # Fast Python package installer and project manager
+brew "rv"                            # Ruby version manager
 
 # Homebrew casks
 
