@@ -27,3 +27,39 @@ alias ocat='/bin/cat'
 alias ols='/bin/ls'
 alias ofind='/usr/bin/find'
 alias otop='/usr/bin/top'
+
+# Clone GitHub repos into ~/repos/<org>/<repo> using gh
+ghclone() {
+  local input="$1"
+  if [[ -z "$input" ]]; then
+    echo "usage: ghclone <org/repo | github url>"
+    return 1
+  fi
+  if ! command -v gh &>/dev/null; then
+    echo "error: gh is not installed"
+    return 1
+  fi
+
+  local path="$input"
+  case "$path" in
+    git@github.com:*) path="${path#git@github.com:}" ;;
+    https://github.com/*) path="${path#https://github.com/}" ;;
+    http://github.com/*) path="${path#http://github.com/}" ;;
+    github.com/*) path="${path#github.com/}" ;;
+  esac
+  path="${path%.git}"
+  path="${path%/}"
+
+  local owner="${path%%/*}"
+  local repo="${path#*/}"
+  repo="${repo%%/*}"
+
+  if [[ -z "$owner" || -z "$repo" || "$owner" == "$repo" ]]; then
+    echo "error: expected <org/repo> or github url"
+    return 1
+  fi
+
+  local dest="$HOME/repos/$owner/$repo"
+  mkdir -p "$HOME/repos/$owner"
+  gh repo clone "$owner/$repo" "$dest"
+}
