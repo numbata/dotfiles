@@ -1,7 +1,12 @@
 -- Treesitter Configuration
 -- Better syntax highlighting and code understanding
 
-require("nvim-treesitter.configs").setup({
+local ok, configs = pcall(require, "nvim-treesitter.configs")
+if not ok then
+  return
+end
+
+configs.setup({
   -- Auto-install these language parsers
   ensure_installed = {
     "lua",

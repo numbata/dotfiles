@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if ! command -v nvim &>/dev/null; then
+  echo "Neovim not installed, skipping plugin sync."
+  exit 0
+fi
+
+echo "Installing Neovim plugins via lazy.nvim..."
+nvim --headless "+Lazy! sync" +qa

@@ -21,6 +21,8 @@ alias top='htop'
 # Quick access to new tools
 alias lg='lazygit'
 alias help='tldr'
+alias vim='nvim'
+alias vi='nvim'
 
 # Keep originals accessible with prefix
 alias ocat='/bin/cat'
