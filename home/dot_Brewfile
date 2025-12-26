@@ -2,8 +2,6 @@
 
 brew "awscli"                        # AWS CLI tool
 brew "colima"                        # Container runtimes on macOS (and Linux) with minimal setup
-brew "docker"                        # Docker
-brew "docker-compose"                # Docker Compose
 brew "dockutil"                      # A command-line tool for managing macOS Dock items
 brew "gh"                            # GitHub CLI - official GitHub command line tool
 brew "atuin"                         # Magical shell history with sync and search
@@ -60,4 +58,3 @@ cask "docker"                        # Container runtime (required for GitHub MC
 brew "gemini-cli"                    # Google Gemini CLI
 cask "claude-code"                   # Anthropic Claude Code CLI
 cask "codex"                         # OpenAI Codex CLI
-
