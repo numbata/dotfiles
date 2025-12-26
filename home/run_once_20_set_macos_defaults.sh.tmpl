@@ -17,7 +17,8 @@ defaults write com.apple.dock expose-animation-duration -float 0.1           # F
 defaults write com.apple.dock springboard-show-duration -float 0.1           # Fast Launchpad show
 defaults write com.apple.dock springboard-hide-duration -float 0.1           # Fast Launchpad hide
 defaults write com.apple.dock springboard-page-duration -float 0.1           # Fast Launchpad page switch
-defaults write com.apple.universalaccess reduceMotion -bool true             # Reduce motion system-wide
+# Some accessibility domains are protected on newer macOS; ignore if not writable.
+defaults write com.apple.universalaccess reduceMotion -bool true 2>/dev/null || true
 defaults write com.apple.Accessibility ReduceMotionEnabled -bool true        # Accessibility reduce motion
 
 # ============================================================================
