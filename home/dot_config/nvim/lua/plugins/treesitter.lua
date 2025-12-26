@@ -3,6 +3,9 @@
 
 local ok, configs = pcall(require, "nvim-treesitter.configs")
 if not ok then
+  ok, configs = pcall(require, "nvim-treesitter.config")
+end
+if not ok then
   return
 end
 
