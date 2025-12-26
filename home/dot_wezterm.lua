@@ -43,7 +43,12 @@ local config = {
     hide_tab_bar_if_only_one_tab = true,
     front_end = "Software",
     audible_bell = "Disabled",
-    visual_bell = "Disabled",
+    visual_bell = {
+        fade_in_function = "EaseIn",
+        fade_in_duration_ms = 0,
+        fade_out_function = "EaseOut",
+        fade_out_duration_ms = 0,
+    },
     leader = { key="a", mods="CTRL" },
     keys = {
         { key = "-", mods = "LEADER",       action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
@@ -64,4 +69,3 @@ local config = {
 }
 
 return config
-
