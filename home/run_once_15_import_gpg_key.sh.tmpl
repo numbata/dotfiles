@@ -4,17 +4,31 @@ set -euo pipefail
 
 echo "Importing GPG keys..."
 
+# Ensure gpg has a usable TTY (important when running via piped installers)
+if [[ -r /dev/tty ]]; then
+  export GPG_TTY
+  GPG_TTY="$(tty < /dev/tty)"
+  gpgconf --launch gpg-agent >/dev/null 2>&1 || true
+  gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1 || true
+fi
+
 # Import GPG keys if they exist
 if [[ -f ~/.gpg/private.asc ]]; then
-  gpg --import ~/.gpg/private.asc
-  echo "Private key imported."
+  if gpg --import ~/.gpg/private.asc; then
+    echo "Private key imported."
+  else
+    echo "Failed to import private key (likely no TTY or passphrase prompt). Run: gpg --import ~/.gpg/private.asc"
+  fi
 else
   echo "No private key found at ~/.gpg/private.asc, skipping."
 fi
 
 if [[ -f ~/.gpg/public.asc ]]; then
-  gpg --import ~/.gpg/public.asc
-  echo "Public key imported."
+  if gpg --import ~/.gpg/public.asc; then
+    echo "Public key imported."
+  else
+    echo "Failed to import public key. Run: gpg --import ~/.gpg/public.asc"
+  fi
 else
   echo "No public key found at ~/.gpg/public.asc, skipping."
 fi
