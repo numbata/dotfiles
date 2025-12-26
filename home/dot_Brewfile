@@ -28,6 +28,8 @@ brew "curl"                          # Latest curl with more protocols and featu
 brew "watch"                         # Run commands periodically and watch output
 brew "mise"                          # Universal version manager (node, python, ruby, go, etc.)
 brew "direnv"                        # Per-directory environment variables
+brew "go"                            # Go toolchain (needed for gopls)
+brew "nim"                           # Nim toolchain (needed for nimlsp via nimble)
 brew "universal-ctags"               # Code navigation tags (maintained fork)
 brew "yq"                            # YAML processor (like jq for YAML)
 brew "shellcheck"                    # Shell script linter

@@ -112,18 +112,47 @@ local server_settings = {
 }
 
 -- Auto-install and configure LSP servers using mason-lspconfig handlers
-require("mason-lspconfig").setup({
-  ensure_installed = {
-    "lua_ls",           -- Lua
-    "ts_ls",            -- TypeScript/JavaScript
-    "volar",            -- Vue
-    "elixirls",         -- Elixir
-    "gopls",            -- Go
-    "rust_analyzer",    -- Rust
-    "ruby_lsp",         -- Ruby (Shopify's Ruby LSP)
-    "clangd",           -- C/C++
-    "nimls",            -- Nim
-  },
+local mason_lspconfig = require("mason-lspconfig")
+local available = {}
+if mason_lspconfig.get_available_servers then
+  available = mason_lspconfig.get_available_servers()
+end
+local available_lookup = {}
+for _, name in ipairs(available) do
+  available_lookup[name] = true
+end
+
+local function pick_server(candidates)
+  for _, name in ipairs(candidates) do
+    if available_lookup[name] then
+      return name
+    end
+  end
+  return nil
+end
+
+local ensure_installed = {
+  "lua_ls",           -- Lua
+  "elixirls",         -- Elixir
+  "gopls",            -- Go
+  "rust_analyzer",    -- Rust
+  "ruby_lsp",         -- Ruby (Shopify's Ruby LSP)
+  "clangd",           -- C/C++
+  "nimls",            -- Nim
+}
+
+local ts_server = pick_server({ "ts_ls", "tsserver" })
+if ts_server then
+  table.insert(ensure_installed, ts_server)
+end
+
+local vue_server = pick_server({ "volar", "vuels" })
+if vue_server then
+  table.insert(ensure_installed, vue_server)
+end
+
+mason_lspconfig.setup({
+  ensure_installed = ensure_installed,
   automatic_installation = true,
 
   -- Modern handler approach (avoids lspconfig deprecation warning)
