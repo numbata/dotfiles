@@ -4,14 +4,24 @@ set -euo pipefail
 
 echo "Setting up Ruby environment via mise..."
 
+# Ensure mise is available
+if ! command -v mise &>/dev/null; then
+  echo "Error: mise is not installed. Please install it first." >&2
+  exit 1
+fi
+
 # Install Ruby via mise
+mise install ruby@3.3.6
 mise use --global ruby@3.3.6
+
+# Ensure mise shims are active for this script
+eval "$(mise activate bash)"
 
 # Install global gems
 GLOBAL_GEMS=("mdl" "haml-lint" "rubocop" "overcommit")
 for gem in "${GLOBAL_GEMS[@]}"; do
   echo "Installing $gem..."
-  gem install --no-document "$gem"
+  mise exec ruby@3.3.6 -- gem install --no-document "$gem"
 done
 
 echo "Ruby environment setup complete!"
