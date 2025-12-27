@@ -42,18 +42,18 @@ ghclone() {
     return 1
   fi
 
-  local path="$input"
-  case "$path" in
-    git@github.com:*) path="${path#git@github.com:}" ;;
-    https://github.com/*) path="${path#https://github.com/}" ;;
-    http://github.com/*) path="${path#http://github.com/}" ;;
-    github.com/*) path="${path#github.com/}" ;;
+  local repo_path="$input"
+  case "$repo_path" in
+    git@github.com:*) repo_path="${repo_path#git@github.com:}" ;;
+    https://github.com/*) repo_path="${repo_path#https://github.com/}" ;;
+    http://github.com/*) repo_path="${repo_path#http://github.com/}" ;;
+    github.com/*) repo_path="${repo_path#github.com/}" ;;
   esac
-  path="${path%.git}"
-  path="${path%/}"
+  repo_path="${repo_path%.git}"
+  repo_path="${repo_path%/}"
 
-  local owner="${path%%/*}"
-  local repo="${path#*/}"
+  local owner="${repo_path%%/*}"
+  local repo="${repo_path#*/}"
   repo="${repo%%/*}"
 
   if [[ -z "$owner" || -z "$repo" || "$owner" == "$repo" ]]; then
@@ -65,3 +65,7 @@ ghclone() {
   mkdir -p "$HOME/repos/$owner"
   gh repo clone "$owner/$repo" "$dest"
 }
+
+# WireGuard VPN shortcuts
+vpnup() { sudo wg-quick up ~/.config/wireguard/"$1".conf; }
+vpndown() { sudo wg-quick down ~/.config/wireguard/"$1".conf; }

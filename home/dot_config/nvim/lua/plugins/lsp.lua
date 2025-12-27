@@ -138,7 +138,7 @@ local ensure_installed = {
   "rust_analyzer",    -- Rust
   "ruby_lsp",         -- Ruby (Shopify's Ruby LSP)
   "clangd",           -- C/C++
-  "nimls",            -- Nim
+  "nim_langserver",   -- Nim (nimlangserver for Nim 2.x)
 }
 
 local ts_server = pick_server({ "ts_ls", "tsserver" })

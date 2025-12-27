@@ -11,6 +11,7 @@ brew "hadolint"                      # A Dockerfile linter that helps you build 
 brew "ipcalc"                        # Utility for calculating IP information
 brew "jq"                            # Lightweight and flexible command-line JSON processor
 brew "mas"                           # Mac App Store command-line interface
+brew "wireguard-tools"               # WireGuard VPN CLI tools (wg, wg-quick)
 brew "tmux"                          # Terminal multiplexer enabling multiple terminal sessions to be accessed simultaneously
 brew "wget"                          # Internet file retriever
 brew "neovim"                        # Hyperextensible Vim-based text editor
@@ -36,6 +37,8 @@ brew "shellcheck"                    # Shell script linter
 brew "pipx"                          # Install Python CLI tools in isolated environments
 brew "uv"                            # Fast Python package installer and project manager
 brew "rv"                            # Ruby version manager
+brew "tw93/tap/mole"                 # Mac cleaning and optimization tool (mo command)
+brew "mariadb-connector-c"           # MariaDB C client library for database connectivity
 
 # Homebrew casks
 
@@ -55,8 +58,8 @@ cask "telegram-desktop"              # Messaging app with a focus on speed and s
 cask "visual-studio-code"            # Source code editor developed by Microsoft
 cask "wezterm"                       # GPU-accelerated terminal emulator and multiplexer
 cask "zoom"                          # Video conferencing and online meeting application
+cask "dbngin"                        # Database version management tool (MySQL, PostgreSQL, etc.)
 cask "docker"                        # Container runtime (required for GitHub MCP server)
-# cask "tunnelblick"                 # Free, open-source graphic user interface for OpenVPN on macOS
 
 # AI CLI tools
 brew "gemini-cli"                    # Google Gemini CLI
